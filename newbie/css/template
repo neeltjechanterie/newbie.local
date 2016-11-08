@@ -1,0 +1,222 @@
+body,html{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+}
+#pane{
+    background: url(../img/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #00afa7;
+    width: 100%;
+    height: 100%;
+    overflow: hidden
+}
+.clr,.clearfix{
+    clear:both;
+}
+.element-invisible{
+    display: none;
+}
+a, a:visited{
+    text-decoration: none;
+    color: inherit
+}
+img{
+    border:0;
+    margin:0;
+    padding:0;
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+.left-align{
+    text-align: left;
+}
+.center-align{
+    text-align: center;
+}
+.right-align{
+    text-align: right;
+}
+/* #Images
+================================================== */
+
+img.scale-with-grid {
+    max-width: 100%;
+    height: auto; 
+}
+#zipform{
+    margin: 0 auto;
+    width: 430px;
+    padding: 30px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    border: 4px solid #04bab1;
+    background-image: url(../img/bgpix.png);
+    position: relative;    
+}
+#zipform #sendbox{
+    text-align: center;
+}
+#zipform #sendbox input{
+    background-color: #04bab1;
+    background-repeat: no-repeat;
+    border: medium none;
+    box-shadow: 0 -3px 0 0 rgba(0, 0, 0, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-weight: 600;
+    outline: medium none;
+    height: 40px;
+    line-height: 38px;
+    padding: 0 20px;
+    width: 50%;
+    transition: all 0.1s linear 0s;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+#zipform #sendbox input:hover{
+    background-color: #00afa7;    
+}
+#zipform #zipcodebox input{
+    width: 100%;
+    background: #fff none repeat scroll 0 0;
+    padding: 5px 16px;
+    text-transform: uppercase;
+    border-width: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 1.5rem;
+    height: 50px;
+    border-radius: 3px;
+    color: #000;
+    font-weight: 300;
+    outline: medium none;
+    transition: all 0.1s linear 0s;
+    vertical-align: baseline;
+    line-height: normal;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    text-align: center;
+}
+#zipform #zipcodebox input.error{
+    border: 1px solid red;
+}
+#zipform #msgbox{
+    color: #04bab1;
+    text-align: center;
+    padding: 4px 10px;
+}
+#zipform #msgbox span{
+    color: red;
+}
+#zipform #msgbox a{
+    color: black;
+    text-decoration: underline;
+}
+#zipform h1, #zipform h2{
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    /*text-transform: uppercase;*/
+    color: #04bab1;
+}
+#zipform h2{
+    margin: 0 0 10px 0;
+    font-weight: 300;
+}
+.portrait #logobox{
+    float: left;
+    width: 75px;
+    padding: 40px 0 20px;
+}
+.portrait #formbox{
+    float: left;
+    width: 250px;
+    padding: 0 10px;
+}
+.portrait #dlvrobox{
+    bottom: 5px;
+    position: absolute;
+    right: 15px;
+    width: 115px;
+}
+#zipform.landscape{
+    /*padding-top: 10px;*/
+}
+.landscape #logobox{
+    text-align: left;
+    margin-bottom: 0;
+    width: 340px;
+    padding: 0;
+}
+.landscape #formbox{
+    float: left;
+    width: 310px;
+    padding: 0 10px;
+}
+.landscape #dlvrobox{
+    bottom: 0;
+    position: absolute;
+    right: 6px;
+    width: 90px;
+}
+
+.left-top{
+    width: 206px;
+    margin-top: 50px;
+    margin-left: 50px;
+    float: left;
+}
+@media only screen and (max-width: 479px) {
+    #zipform{
+        width: 272px;
+        margin:0 auto;
+        padding: 10px;
+    }
+    .portrait #logobox{
+        float: none;
+        width: 100%;
+        padding: 0;
+    }
+    .portrait #logobox img{
+        max-height: 60px;
+    }
+    .portrait #formbox{
+        float: none;
+        width: 250px;
+        padding: 0 10px;
+    }
+    .portrait #dlvrobox{
+        bottom: 0;
+        position: static;
+        text-align: right;
+        width: 100%;
+    }
+    #dlvrobox img{
+        width: 60px;
+    }
+    .landscape #logobox{
+        width: 100%;
+    }
+    .landscape #formbox{
+        float: none;
+        width: 250px;
+        padding: 0 10px;
+    }
+    .landscape #dlvrobox{
+        bottom: 0;
+        position: static;
+        text-align: right;
+        width: 100%;
+    }
+}

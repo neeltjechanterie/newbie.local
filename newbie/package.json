@@ -1,0 +1,16 @@
+{
+  "name": "newbie",
+  "version": "1.0.0",
+  "description": "WebApp",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "sass"
+  },
+  "author": "Neeltje Chanterie",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-sass": "^2.3.2"
+  }
+}

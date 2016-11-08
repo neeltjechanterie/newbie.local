@@ -1,0 +1,190 @@
+// -----------------------------------------------------------------------------
+// HEADER
+// -----------------------------------------------------------------------------
+
+.header {
+  position: fixed;
+  height: 60px;
+  height: 6rem;
+  background: $dark-main-color;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900;
+}
+.header-inner {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+.header-inner:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.logo {
+  display: block;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  top: 1rem;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: $white;
+  text-transform: uppercase;
+  padding-top: .5em;
+  font-size: 1.6rem;
+}
+.logo-button{
+  display: block;
+  margin: 0;
+  position: absolute;
+  right: 25px;
+  right: 2.5rem;
+  top: 0;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: $white;
+  text-transform: uppercase;
+  padding-top: .5em;
+}
+.logo-button.add{
+  font-size: 2.5rem;
+  color: $white;
+}
+a.logo-button:hover {
+  text-decoration: none;
+  color: $secondary-color;
+}
+.sub-header{
+  position: fixed;
+  background: $secondary-color;
+  color: $white;
+  top: 6rem;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  text-align: center;
+}
+.sub-header a, .sub-header a:hover,
+.sub-header a:active, .sub-header a:focus,
+.sub-header a:visited {
+  color: $white;
+  padding: 14px 0;
+  text-decoration: none;
+}
+.sub-header i{
+  margin-top: 3px;
+}
+.sub-header + .wrapper{
+  padding-top: 3rem;
+}
+.profile-header + .wrapper{
+  padding-top: 25vh;
+}
+.navigation-toggle {
+  position: fixed;
+  top: 7px;
+  top: .7rem;
+  left: 5px;
+  left: .5rem;
+  width: 44px;
+  height: 44px;
+  z-index: 1000;
+  cursor: pointer;
+  fill: $white;
+}
+.navigation-active .navigation-toggle {
+  fill: $white !important;
+}
+.mobile-navigation {
+  background: $dark-main-color;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+  transition: all .3s;
+  padding: 0 20px;
+  padding: 0 2rem;
+  z-index: 800;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translatex(-100%);
+  transform: translateX(-100%);
+}
+.navigation-active .mobile-navigation {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+nav ul {
+  list-style: none;
+}
+.mobile-navigation ul li{
+  color: $main-color;
+  text-transform: uppercase;
+  font-size: 1em;
+  margin: 2em 0 .5em;
+}
+.mobile-navigation ul li a{
+  text-decoration: none;
+  color: $main-color;
+}
+.mobile-navigation li ul {
+  margin: 0;
+  padding: 0;
+}
+.mobile-navigation li ul li{
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: .2em 0;
+  text-transform: capitalize;
+  margin: 0;
+}
+.mobile-navigation li ul li a{
+  display: inline-block;
+  font-size: 1.3em;
+  padding: 0;
+  border-radius: 0.25em;
+  -webkit-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+  color: $white;
+  text-decoration: none;
+}
+.mobile-navigation ul.mobile-nav {
+  list-style: none;
+  margin: 0;
+  padding: 80px 0;
+  padding: 8rem 0;
+}
+.mobile-navigation li {
+  padding: 10px 0;
+  padding: 0.5rem 0;
+}
+.mobile-navigation a{
+
+}
+.mobile-navigation a,.mobile-navigation a:hover,.mobile-navigation a:active,.mobile-navigation a:focus,.mobile-navigation a:visited {
+
+}
+.mobile-navigation a:hover {
+  border-color: transparent;
+}
+.mobile-navigation .current-menu-item a {
+  border-bottom: none;
+}
+.navigation {
+  font-family: TradeGothicCondensed,sans-serif;
+}
+
+.navigation-toggle{
+  display: block;
+}

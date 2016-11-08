@@ -1,0 +1,23 @@
+// -----------------------------------------------------------------------------
+// BUTTONS
+// -----------------------------------------------------------------------------
+
+.button {
+  color: $white !important;
+  background: $main-color;
+  display: inline-block;
+  font-family: TradeGothicCondensed,sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: none !important;
+  font-size: 12px;
+  font-size: 1.2rem;
+  padding: 11px 20px 9px;
+  padding: 1.1rem 2rem .9rem;
+  transition: all .3s;
+  letter-spacing: 3px;
+  border: none;
+  &:hover{
+    background: $secondary-color;
+  }
+}
