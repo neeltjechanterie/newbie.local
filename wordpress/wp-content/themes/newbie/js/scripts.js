@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 app.run(function(amMoment) {
     amMoment.changeLocale('nl');
 });
@@ -31,6 +31,10 @@ app.config(['$routeProvider', '$locationProvider', 'moment', function($routeProv
             templateUrl: myLocalized.partials + 'checklists.html',
             controller: 'Checklists'
         })
+        .when('/checklist/:slug/', {
+            templateUrl: myLocalized.partials + 'detail-checklist.html',
+            controller: 'DetailChecklist'
+        })
         .when('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
@@ -49,7 +53,6 @@ app.controller('Main', function($scope, $http, moment, $routeParams) {
     });
     $http.get('/wp-json/wp/v2/categories').success(function(res){
         $scope.categories = res;
-
     });
     $http.get('/wp-json/wp/v2/users/1').success(function(res){
         $scope.users = res;
@@ -68,6 +71,34 @@ app.controller('Main', function($scope, $http, moment, $routeParams) {
     });
 
 });
+app.controller('Checklists', function($scope, $http, moment, $routeParams) {
+    $http.get('wp-json/wp/v2/checklists').success(function(res){
+        $scope.checklists = res;
+        document.querySelector('title').innerHTML = 'CHECKLISTS';
+
+
+    });
+
+});
+app.controller('DetailChecklist', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+    $http.get('wp-json/wp/v2/checklists/?filter[name]=' + $routeParams.slug).success(function(res){
+        $scope.checklist = res[0];
+        document.querySelector('title').innerHTML = 'DETAIL CHECKLIST';
+
+    });
+    //$http.get('/wp-json/wp/v2/tags?post=' + $routeParams.checklistId).success(function(res){
+    $http.get('/wp-json/wp/v2/tags?post=34').success(function(res){
+        //$scope.current_checklist_id = $routeParams.checklistId;
+        $scope.tags = res[0];
+
+        $http.get('/wp-json/wp/v2/checklists/?filter[tag_name]=' + res.name).success(function(res){
+            $scope.tags = res;
+        });
+    });
+
+}]);
+
+
 app.controller('Baby', function($scope, $http, $routeParams) {
     $http.get('/wp-json/wp/v2/posts/').success(function(res){
         $scope.posts = res;
@@ -92,20 +123,13 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
         });
     });
 }]);
-/*app.controller('Content', function($scope, $http, $routeParams) {
-    $http.get('/wp-json/wp/v2/posts/' + $routeParams.ID).success(function(res){
-        $scope.post = res;
-    });
-});*/
 app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
     $http.get('wp-json/wp/v2/posts/?filter[name]=' + $routeParams.slug).success(function(res){
         $scope.post = res[0];
         document.querySelector('title').innerHTML = 'DETAIL';
     });
 }]);
-app.controller('Checklists', function($scope, $http, $routeParams) {
 
-});
 app.controller("LoginController", function($scope) {
 
     $scope.login = function() {

@@ -1,0 +1,13 @@
+<header class="header" role="banner">
+	<div class="header-inner clearfix">
+		<p class="logo">
+			{{checklist.title.rendered}}
+		</p>
+	</div>
+</header>
+<h1>{{checklist.title.rendered}}</h1>
+<h2>{{checklist.slug}}</h2>
+<div ng-bind-html="checklist.content.rendered"></div>
+<a ng-repeat="tag in tags" href="checklist/{{tag.slug}}" class="list-group-item">
+	{{tag.name}}
+</a>

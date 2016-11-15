@@ -10,59 +10,38 @@
 		</header>
 
 		<div class="wrapper">
+<!--
+			<a class="btnTest btn">Next</a>
+-->
+
+
+<!--			<uib-tabset active="active">
+
+				<uib-tab index="0" heading="Static title">
+					<a class="btn btn-primary btnNext">Next</a>
+					<a class="btn btn-primary btnPrevious">Previous</a>
+					Static content
+
+				</uib-tab>
+				<uib-tab index="1" heading="Static title 2">Static content 2
+					<a class="btn btn-primary btnNext">Next</a>
+					<a class="btn btn-primary btnPrevious">Previous</a>
+				</uib-tab>
+			</uib-tabset>-->
+
 			<div class="content container">
 
 				<div class="clearfix row" role="main">
 					<div class="col-xs-12">
 						<div class="list-group checklists">
-							<a href="checklist-mama.html" class="list-group-item">
+
+							<a ng-repeat="checklist in checklists" href="checklist/{{checklist.slug}}" class="list-group-item">
 								<span class="check icons icon-check"></span>
-								<p class="uncheck">Kledij mama</p>
+								<p class="uncheck">{{checklist.title.rendered}}</p>
 								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">4</span>
+								<span class="badge">4 <!-- @TODO count terms/categories--></span>
 							</a>
-							<a href="#" class="list-group-item">
-								<span class="check icons icon-check"></span>
-								<p class="uncheck">Kledij baby</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">14</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Benodigdheden ziekenhuis</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">12</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Eerste aankopen</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">16</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Grote aankopen</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">9</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<span class="check icons icon-check"></span>
-								<p class="uncheck">Voor papa</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">9</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Aankopen na de bevalling</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">9</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Websites</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">9</span>
-							</a>
-							<a href="#" class="list-group-item">
-								<p class="uncheck">Finanicieël</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">9</span>
-							</a>
+
 						</div>
 
 
