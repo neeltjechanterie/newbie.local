@@ -1,0 +1,31 @@
+// -----------------------------------------------------------------------------
+// This file contains all @font-face declarations, if any.
+// -----------------------------------------------------------------------------
+@charset  "UTF-8";
+
+@import 'https://fonts.googleapis.com/css?family=Lato:300,400,400i,700';
+
+@font-face {
+  font-family: Populaire;
+  src: url(../fonts/2F644A_0_0.eot);
+  src: url(../fonts/2F644A_0_0.eot?#iefix) format("embedded-opentype"),url(../fonts/2F644A_0_0.woff2) format("woff2"),url(../fonts/2F644A_0_0.woff) format("woff"),url(../fonts/2F644A_0_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: PopulaireLight;
+  src: url(../fonts/2F644A_1_0.eot);
+  src: url(../fonts/2F644A_1_0.eot?#iefix) format("embedded-opentype"),url(../fonts/2F644A_1_0.woff2) format("woff2"),url(../fonts/2F644A_1_0.woff) format("woff"),url(../fonts/2F644A_1_0.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: TradeGothicCondensed;
+  src: url(../fonts/trade-gothic-bold-condensed-20.eot);
+  src: local(☺),url(../fonts/trade-gothic-bold-condensed-20.woff) format("woff"),url(../fonts/trade-gothic-bold-condensed-20.ttf) format("truetype"),url(../fonts/trade-gothic-bold-condensed-20.svg) format("svg");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: TradeGothicCondensed;
+  src: url(../fonts/trade-gothic-condensed-18.eot);
+  src: url(../fonts/trade-gothic-condensed-18.eot) format("embedded-opentype"),url(../fonts/trade-gothic-condensed-18.woff) format("woff"),url(../fonts/trade-gothic-condensed-18.ttf) format("truetype"),url(../fonts/trade-gothic-condensed-18.svg#TradeGothicLTCondEighteenRegular) format("svg");
+}

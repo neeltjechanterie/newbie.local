@@ -1,0 +1,184 @@
+// -----------------------------------------------------------------------------
+// HOME STYLE
+// -----------------------------------------------------------------------------
+
+
+.blue-banner{
+  background-color: $secondary-color;
+  height: 21vh;
+  display: block;
+  color: $white;
+}
+.blue-reverse-banner{
+  border: 1px solid $secondary-color;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  display: flex;
+  color: $secondary-color;
+}
+.orange-reverse-banner{
+  border: 1px solid $dark-main-color;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  display: flex;
+}
+.blue-banner,
+.blue-reverse-banner{
+  padding: 0 1%;
+}
+.user-profile{
+  bottom: -35%;
+  margin: 0 auto;
+}
+.profile-header{
+  position: fixed;
+  color: white;
+  top: 6rem;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  text-align: center;
+}
+.user-img {
+  display: inline-block;
+  width: 100%;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.user-info{
+  text-align: center;
+}
+.user-name,
+.user-extra{
+  margin: 0;
+}
+.user-name{
+  font-size: 1.5em;
+  padding: .25em 0;
+}
+.info-banner{
+  padding-top: 8%;
+}
+.info-banner p,
+.info-banner span{
+  font-size: 11px;
+  padding: 0;
+  margin: 0;
+}
+.info-baby{
+  text-align: center;
+  padding: 2% 0 5% 0;
+}
+.info-baby p,
+.info-baby span {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+.info-baby.center .stadia {
+  font-size: 1.6em;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-family: TradeGothicCondensed,sans-serif;
+}
+.info-banner p.result,
+.info-baby p.result {
+  font-size: 2.65em;
+  margin-top: 0;
+}
+.info-banner.left{
+  text-align: right;
+}
+.info-banner.right{
+  text-align: left;
+}
+.info-baby h2{
+
+}
+/* --------------------------------
+PERCENT BLUE LINE
+-------------------------------- */
+.cd-horizontal-timeline .timeline {
+  position: relative;
+  height: 25px;
+  margin: 0 auto;
+}
+.cd-horizontal-timeline .events-wrapper {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 1em;
+}
+.cd-horizontal-timeline .events {
+  /* this is the light blue line */
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 10px;
+  height: 3px;
+  width: 100%;
+  background: rgba(96, 192, 197, 0.4);
+}
+.cd-horizontal-timeline .filling-line {
+  /* this is needed to create the blue line filling the timeline */
+  height: 100%;
+  background-color: $secondary-color;
+  width: 85%;
+  border-radius: 3px;
+}
+.cd-horizontal-timeline .wrapper-filling-line {
+  /* this is used to create the blue line filling the timeline */
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0 17px;
+}
+.cd-horizontal-timeline .events li {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  font-size: 1.3rem;
+  padding-bottom: 15px;
+  color: $secondary-color;
+}
+.cd-horizontal-timeline .events li::after {
+  /* this is used to create the start spot */
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: auto;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: -7.5px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: 3px solid $secondary-color;
+  background-color: $secondary-color;
+  -webkit-transition: background-color 0.3s, border-color 0.3s;
+  -moz-transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.cd-horizontal-timeline .events li.older-event::after {
+  border-color: $secondary-color;
+}
+.events li.older-event{
+  left:9px;
+}
+.cd-horizontal-timeline .events li.selected::after {
+  background-color: #fff;
+  border-color: rgba(96, 192, 197, 0.4);
+}
+.events li.selected{
+  right: 9px;
+}

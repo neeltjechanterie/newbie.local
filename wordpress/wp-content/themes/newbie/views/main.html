@@ -1,0 +1,87 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            MAMA
+        </p>
+    </div>
+</header>
+
+<div say-hello class="clearfix profile-header no-gutter" role="main"></div>
+
+<div class="wrapper">
+    <div class="content container">
+
+        <div class="col-xs-12 col-md-5">
+
+
+            <div class="clearfix row" role="main">
+                <div class="col-xs-12 col-md-12">
+                    <div class="blue-reverse-banner">
+                        <div class="col col-xs-4 info-baby left">
+                            <p>Grootte baby</p>
+                            <p class="result">31<span> cm</span></p>
+                        </div>
+                        <div class="col col-xs-4 info-baby center">
+                            <p class="stadia">STADIA</p>
+                            <p class="user-extra">meer info ...</p>
+                        </div>
+                        <div class="col col-xs-4 info-baby right">
+                            <p>Gewicht baby</p>
+                            <p class="result">75<span> kg</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix row">
+                <div class="col-xs-12 col-md-12">
+                    <section class="cd-horizontal-timeline loaded">
+                        <div class="timeline">
+                            <div class="events-wrapper">
+                                <div class="events">
+                                    <ol style="list-style: none;">
+                                        <li class="older-event"></li>
+                                        <li class="selected"></li>
+                                    </ol>
+                                    <div class="wrapper-filling-line">
+                                        <div class="filling-line" aria-hidden="true" style="width: {{data.currentUser.percentDate}}%;" ></div>
+                                    </div>
+                                </div> <!-- .events -->
+                            </div> <!-- .events-wrapper -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div ng-repeat="category in categories" class="clearfix row" role="main">
+                <div class="col-xs-12 col-md-12">
+                    <div class="blue-reverse-banner">
+                        <div class="col col-xs-12 info-baby center">
+                            <a href="category/{{category.slug}}"><h2>{{category.name}}</h2></a>
+                            <p>{{category.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-7">
+
+            <div ng-repeat="post in posts" class="clearfix row" role="main">
+                <div class="col-xs-12 col-md-12">
+                    <div class="orange-reverse-banner">
+                        <div class="col col-xs-12 info-baby center">
+                            <a href="blog/{{post.slug}}"><h2>{{post.title.rendered}}</h2></a>
+                            <p>{{post.description}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

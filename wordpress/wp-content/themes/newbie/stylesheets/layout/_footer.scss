@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------------
+// FOOTER
+// -----------------------------------------------------------------------------
+.footer {
+  background: $dark-main-color;
+  color: $white;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-size: 1.4rem;
+  padding: 10px 0;
+  padding: 1rem 0;
+}
+.copyright {
+  display: inline-block;
+  padding: 0 20px;
+  padding: 0 2rem;
+}
+.footer-links {
+  display: inline-block;
+}
+.footer-links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footer-links li {
+  display: inline-block;
+}
+.footer-links a,.footer-links a:hover,.footer-links a:active,.footer-links a:focus,.footer-links a:visited {
+  color: $white;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0 20px;
+  padding: 0 2rem;
+}

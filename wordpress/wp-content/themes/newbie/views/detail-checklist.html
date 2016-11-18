@@ -1,0 +1,27 @@
+<header class="header" role="banner">
+	<div class="header-inner clearfix">
+		<p class="logo">
+			{{checklist.title.rendered}}
+		</p>
+	</div>
+</header>
+<h1>{{checklist.title.rendered}}</h1>
+<h2>{{checklist.slug}}</h2>
+<p>{{checklist.tags}}</p>
+<div class="list" ng-repeat="tag in checklist.tags">
+	{{ tag }}
+	{{ tag.name}}
+</div>
+<div class="list" ng-repeat="tag_detail in tags">
+	{{ tag_detail.name }}
+</div>
+<p>{{checklist.categories}}</p>
+
+<div ng-bind-html="checklist.content.rendered"></div>
+
+
+<ul>
+	<li ng-repeat="category in categories">
+		<a href="blog/{{category.id}}">{{category.name}}</a>
+	</li>
+</ul>

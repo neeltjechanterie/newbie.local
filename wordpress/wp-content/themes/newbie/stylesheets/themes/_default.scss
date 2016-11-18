@@ -1,0 +1,110 @@
+// -----------------------------------------------------------------------------
+// MAIN STYLE
+// -----------------------------------------------------------------------------
+
+.checklists .list-group-item{
+  border-left: none;
+  border-right: none;
+  padding: 18px 18px 18px 0;
+  height: 60px;
+}
+.checklist .list-group-item{
+  border-left: none;
+  border-right: none;
+  padding: 10px 10px 10px 0;
+  height: 45px;
+}
+.checklists .list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0;
+}
+
+.checklists .badge{
+  display: inline-block;
+  min-width: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: $white;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: $light-grey;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  top: 0;
+  float: left;
+}
+.checklists .badge.arrow{
+  display: inline-block;
+  min-width: 0;
+  padding: 0px 5% 0 6%;
+  font-size: 12px;
+  font-weight: bold;
+  color: #777777;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  top: 0;
+}
+.checklists .check,
+.checklist .check{
+  color: $secondary-color;
+  display: -webkit-box;
+  float: left;
+  font-size: 19px;
+  line-height: 22px;
+}
+.checklist .no-check{
+  color: $main-color;
+  display: -webkit-box;
+  float: left;
+  font-size: 19px;
+  line-height: 22px;
+}
+.checklist .plus-check{
+  color: $dark-main-color;
+  display: -webkit-box;
+  float: left;
+  font-size: 19px;
+  line-height: 22px;
+}
+.checklists a p,
+.checklist a p{
+  display: -webkit-box;
+  float: left;
+  margin: 0;
+  padding-left: 37px;
+}
+.checklists a  >  span.check,
+.checklist a > span.check,
+.checklist a > span.no-check,
+.checklist a > span.plus-check {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+.check + .uncheck,
+.no-check + .uncheck,
+.plus-check + .uncheck {
+  padding-left: 0 !important;
+}
+
+table{
+  border-color: $secondary-color;
+}
+.table-responsive{
+  border: none !important;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th,
+.table > tfoot > tr > th, .table > thead > tr > td,
+.table > tbody > tr > td, .table > tfoot > tr > td {
+  border-top: 1px solid $secondary-color !important;
+}
