@@ -72,19 +72,29 @@
             </div>
 
 
-            <div ng-repeat="category in categories" class="clearfix row" role="main">
+            <div ng-repeat="category in data.categories" class="clearfix row" role="main">
                 <div class="col-xs-12 col-md-12">
                     <div class="blue-reverse-banner">
                         <div class="col col-xs-12 info-baby center">
                             <h2>{{category.name}}</h2>
+                            <p>{{category.slug}}</p>
                             <p>{{category.description}}</p>
+
+                            <h3>Category posts</h3>
+                                <ul ng-repeat="catPost in posts">
+                                    <li>
+                                        <i>{{catPost.title.rendered}}</i>
+                                        <p>{{catPost.slug}}</p>
+                                        <p ng-bind-html="catPost.content.rendered"></p>
+                                    </li>
+                                </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="col-xs-12 col-md-7">
+        <!--<div class="col-xs-12 col-md-7">
 
             <div ng-repeat="post in posts" class="clearfix row" role="main">
                 <div class="col-xs-12 col-md-12">
@@ -103,6 +113,6 @@
                 </div>
             </div>
 
-        </div>
+        </div>-->
     </div>
 </div>

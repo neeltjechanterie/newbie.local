@@ -1,7 +1,7 @@
- <div ng-if="data.currentUser.id" class="col-xs-12 col-md-12">
+ <div ng-show="data.currentUser.id" class="col-xs-12 col-md-12">
     <div class="blue-banner">
         <div class="col col-xs-12 user-info">
-            <p class="user-name">{{data.currentUser.name}}</p>
+            <p class="user-name">{{data.currentUser.name}} {{data.filterWeeksPost}} {{data.currentUser.acf.due_date}}</p>
             <p class="user-extra">Week {{data.currentUser.CountWeeks}} dag {{data.currentUser.CountDays}}</p>
         </div>
         <div class="col col-xs-4 info-banner left">
@@ -16,5 +16,13 @@
             <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
         </div>
 
+    </div>
+</div>
+<div ng-hide="data.currentUser.id" class="col-xs-12 col-md-12">
+    <div class="blue-banner">
+        <div class="col col-xs-12 user-info">
+            <p>You must be logged in.</p>
+            <p>Go to the <a href="/login" onclick='location.reload(true);'>login</a> page</p>
+        </div>
     </div>
 </div>

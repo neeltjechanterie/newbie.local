@@ -32,6 +32,7 @@ function WPService($http) {
         });
     };
 
+
     return WPService;
 }
 

@@ -21,15 +21,18 @@
              templateUrl: myLocalized.views + 'content.html',
              controller: 'Content'
              })*/
-            .when('/categories', {
+            /*.when('/categories', {
                 templateUrl: myLocalized.views + 'categories.html',
                 controller: 'Categories'
             })
             .when('/categories/:id', {
                 templateUrl: myLocalized.views + 'category.html',
                 controller: 'Category'
+            })*/
+            .when('/category/:id/', {
+                templateUrl: myLocalized.views + 'content-category.html',
+                controller: 'Content'
             })
-
             .when('/blog/:slug/', {
                 templateUrl: myLocalized.views + 'content.html',
                 controller: 'Content'
@@ -49,12 +52,10 @@
             .when('/timer', {
                 templateUrl: myLocalized.views + 'timer.html'
             })
-/*            .when('login', {
-                url: '/login',
-                templateUrl: 'templates/login.html',
-                controller: 'LoginController'
-            })
-            .when('secure', {
+            /*.when('/login', {
+                url: '/wp-login.php'
+            })*/
+            /*.when('secure', {
                 url: '/secure',
                 templateUrl: 'templates/secure.html',
                 controller: 'SecureController'
