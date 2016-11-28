@@ -9,6 +9,8 @@
             <p class="result">{{data.currentUser.acf.due_date | amDifference : null : 'weeks' }}</p>
         </div>
         <div class="col col-xs-4 user-profile mom">
+            <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
+
             <div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>
         </div>
         <div class="col col-xs-4 info-banner right">

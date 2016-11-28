@@ -72,8 +72,8 @@
                 <div class="col-xs-12 col-md-12">
                     <div class="orange-reverse-banner">
                         <div class="col col-xs-12 info-baby center">
-                            <a href="blog/{{post.slug}}"><h2>{{post.title.rendered}}</h2></a>
-                            <p>{{post.description}}</p>
+                            <a href="blog/{{post.slug}}"><h2 ng-bind-html="post.title.rendered"></h2></a>
+                            <div ng-bind-html="post.content.rendered"></div>
 
                         </div>
                     </div>

@@ -5,23 +5,57 @@
 		</p>
 	</div>
 </header>
-<h1>{{checklist.title.rendered}}</h1>
-<h2>{{checklist.slug}}</h2>
-<p>{{checklist.tags}}</p>
-<div class="list" ng-repeat="tag in checklist.tags">
-	{{ tag }}
-	{{ tag.name}}
+<div class="sub-header clearfix ">
+	<div class="row">
+		<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>
+
+		<p class="col-xs-8 col-lg-10">
+			{{checklist.title.rendered}}
+		</p>
+		<a href="#" class="col-xs-2 col-lg-1"><i class="icons icon-arrow-right"> </i></a>
+
+	</div>
 </div>
-<div class="list" ng-repeat="tag_detail in tags">
-	{{ tag_detail.name }}
+
+<div class="wrapper">
+	<div class="content container">
+
+		<div class="clearfix row" role="main">
+			<div class="col-xs-12">
+				<div class="list-group checklist">
+					<div ng-repeat="item in checklist.acf.checklist_items | filterChecklist">
+						<a  id="{{item.item_user.ID}}" class="list-group-item">
+							<span ng-show="item.item_value == true" class="check icons icon-check"></span>
+							<span ng-show="item.item_value == false" class="no-check icons icon-minus"></span>
+							<p class="uncheck">{{item.item_description}}</p>
+
+							<a ng-click="editItem(item.id)"
+							   ng-show="user.capabilities.edit_posts">Edit</a>
+
+
+
+						</a>
+						<form name="editItemForm" id="editItem" style="display: none;" class="edit">
+							<label for="title">Description:</label>
+							<input type="text" id="title" ng-model="item.item_description">
+							<a ng-click="updateItem()">Save</a>
+						</form>
+
+						<p id="responseMessage"></p>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 </div>
-<p>{{checklist.categories}}</p>
 
-<div ng-bind-html="checklist.content.rendered"></div>
-
-
+<!--
 <ul>
 	<li ng-repeat="category in categories">
 		<a href="blog/{{category.id}}">{{category.name}}</a>
 	</li>
-</ul>
+</ul>-->

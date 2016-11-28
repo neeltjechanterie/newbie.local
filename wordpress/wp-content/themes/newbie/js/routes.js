@@ -37,18 +37,18 @@
                 templateUrl: myLocalized.views + 'content.html',
                 controller: 'Content'
             })
+            .when('/checklist/:id', {
+                templateUrl: myLocalized.views + 'detail-checklist.html',
+                controller: 'Checklists'
+            })
             .when('/checklists', {
                 templateUrl: myLocalized.views + 'checklists.html',
                 controller: 'Checklists'
             })
-            .when('/checklist/:id', {
+            /*.when('/checklist/:slug/', {
                 templateUrl: myLocalized.views + 'detail-checklist.html',
                 controller: 'DetailChecklist'
-            })
-            .when('/checklist/:slug/', {
-                templateUrl: myLocalized.views + 'detail-checklist.html',
-                controller: 'DetailChecklist'
-            })
+            })*/
             .when('/timer', {
                 templateUrl: myLocalized.views + 'timer.html'
             })
