@@ -7,12 +7,14 @@
 </header>
 <div class="sub-header clearfix ">
 	<div class="row">
-		<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>
+		<!--<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>-->
 
-		<p class="col-xs-8 col-lg-10">
+		<p class="col-xs-12 col-lg-10">
 			{{checklist.title.rendered}}
 		</p>
-		<a href="#" class="col-xs-2 col-lg-1"><i class="icons icon-arrow-right"> </i></a>
+		<!--<pre>You are currently on page {{currentPage}}</pre>
+		<ul uib-pager total-items="totalItems" ng-model="currentPage"></ul>-->
+		<!--<a href="#" class="col-xs-2 col-lg-1"><i class="icons icon-arrow-right"> </i></a>-->
 
 	</div>
 </div>
@@ -29,15 +31,16 @@
 							<span ng-show="item.item_value == false" class="no-check icons icon-minus"></span>
 							<p class="uncheck">{{item.item_description}}</p>
 
-							<a ng-click="editItem(item.id)"
-							   ng-show="user.capabilities.edit_posts">Edit</a>
+							<a ng-click="editItem(checklist.id, item.id)"
+							   ng-show="user.capabilities.edit_posts">Edit {{item.id}}</a>
 
 
 
 						</a>
 						<form name="editItemForm" id="editItem" style="display: none;" class="edit">
-							<label for="title">Description:</label>
-							<input type="text" id="title" ng-model="item.item_description">
+							<label for="description">Description:</label>
+							<input type="text" id="id" ng-model="item.id" hidden>
+							<input type="text" id="description" ng-model="item.item_description">
 							<a ng-click="updateItem()">Save</a>
 						</form>
 

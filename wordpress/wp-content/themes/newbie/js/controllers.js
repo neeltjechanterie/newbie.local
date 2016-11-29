@@ -60,7 +60,9 @@
                             });
                             $http.get('/wp-json/wp/v2/categories/?search=' + catWeekSlug).success(function(res){
                                 $scope.categories = res;
-
+                            });
+                            $http.get('/wp-json/wp/v2/posts-baby/?filter[category_name]=' + catWeekName).success(function(res){
+                                $scope.posts_baby = res;
 
                             });
 
@@ -93,7 +95,8 @@
 
     }]);
     //app.controller('Checklists', function($scope, $http, moment, $routeParams) {
-    app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, moment, $httpParamSerializerJQLike) {
+    app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
+    //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
         //get current user
         $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
@@ -112,10 +115,26 @@
                 console.log("Current user: " + $scope.user.id + ", Current username: " + $scope.user.slug);
                 $http.get('wp-json/wp/v2/checklists/?author=' + $scope.user.id).success(function(res){
                     $scope.checklists = res;
+
+                    $scope.totalItems = res.length;
+                    console.log("TOTAL: " + $scope.totalItems);
+
+
+
+
                 });
 
                 $http.get('/wp-json/wp/v2/checklists/' + $routeParams.id).success(function(res){
                     $scope.checklist = res;
+                    var items = res.acf.checklist_items;
+                    console.log(items);
+                    console.log(res);
+                    //$scope.checklist.acf.checklist_items = res.data;
+                    //console.log(res.data);
+                    //$scope.item = res.data;
+                    //console.log(res.data);
+
+                    //$scope.totalItems = res.length();
 
                 });
 
@@ -124,39 +143,54 @@
             });
 
         // Edit item button
-        $scope.editItem = function() {
+        $scope.editItem = function(id, itemId) {
             document.getElementById('editItem').style.display = 'block';
-            $scope.item.id = $scope.checklist.id;
-            $scope.item.item_description = $scope.checklist.acf.checklist_items.item_description;
+            $scope.checklists.id = id;
+            //$scope.checklist.id = id[0];
+            $scope.checklist.id = itemId;
+            console.log("ID: " + id);
+            console.log("ID2: " + itemId);
+            //console.log("ID2: " + id[0]);
+            //console.log("ID3: " + id[1]);
+            console.log("ID3: " + $scope.checklists.id);
+            console.log("ID4: " + $scope.checklist.id);
+            //console.log("ID4: " + $scope.item.id);
+            //$scope.checklist.item.id = itemId;
+            //$scope.checklist.acf.checklist_items.id = itemId;
+            //console.log("ItemID: " + itemId);
 
+            //$scope.item.checklistId = $scope.checklist.acf.checklist_items.id;
+            $scope.checklist.description = $scope.checklist.item_description;
         };
 
         // Update item
         $scope.updateItem = function() {
+            console.log("ID: " + $scope.checklists.id);
+            console.log("ID2: " + $scope.checklist.id);
+
             $http({
-                url: 'wp-json/wp/v2/checklists/' + $scope.item.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                url: 'wp-json/wp/v2/checklists/' + $scope.checklists.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
                 method: "POST",
                 headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'id': $scope.checklist.id
                 },
                 data: $httpParamSerializerJQLike({
-                    item_description: $scope.item.item_description
+                    description: $scope.checklist.description
                 })
             }).then(function successCallback(response) {
                 console.log(response);
 
-                $scope.checklists = response.data;
+                $scope.checklist = response.data;
 
 
                 document.getElementById('editItem').style.display = 'none';
-                document.getElementById('responseMessage').innerHTML = 'Succesfuly updated item.' + $scope.item.id;
+                document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
 
             }, function errorCallback(response) {
                 console.log(response);
             });
         };
-
-
 
     }]);
 
@@ -168,10 +202,28 @@
                 console.log("Logged in User: " + WPService.currentUser.slug);
                 console.log("Checklist user: " + item.item_user.nickname);
                 if(item.item_user.nickname === WPService.currentUser.slug){
-                    out.push(item)
+                    out.push(item);
+
+
+                    //console.log(item);
                 }
             });
             return out;
+
+        }
+    });
+
+    app.filter('filterItemsChecklist', function(){
+        return function(input){
+            var out = [];
+            angular.forEach(input, function(item){
+                if(item.item_value == true){
+                    out.push(item.length);
+                    //console.log(item);
+                }
+            });
+            return out;
+
         }
     });
 

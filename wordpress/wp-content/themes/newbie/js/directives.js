@@ -14,5 +14,13 @@
             }]
         };
     });
+    app.directive('checklist-header', function () {
+        return {
+            restrict: 'AEC',
+            templateUrl: myLocalized.views + 'checklist-header.html',
+            controller: 'Checklists'
+        };
+
+    });
 
 })();

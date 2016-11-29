@@ -16,18 +16,18 @@
 
             <div class="clearfix row" role="main">
                 <div class="col-xs-12 col-md-12">
-                    <div class="blue-reverse-banner">
+                    <div ng-repeat="baby in posts_baby" class="blue-reverse-banner">
                         <div class="col col-xs-4 info-baby left">
                             <p>Grootte baby</p>
-                            <p class="result">31<span> cm</span></p>
+                            <p class="result">{{baby.acf.lenght}}<span> mm</span></p>
                         </div>
                         <div class="col col-xs-4 info-baby center">
-                            <p class="stadia">STADIA</p>
-                            <p class="user-extra">meer info ...</p>
+                            <p class="stadia" id="{{baby.id}}">STADIA</p>
+                            <p class="user-extra" ng-bind-html="baby.excerpt.rendered"></p>
                         </div>
                         <div class="col col-xs-4 info-baby right">
                             <p>Gewicht baby</p>
-                            <p class="result">75<span> kg</span></p>
+                            <p class="result">{{baby.acf.weight}}<span> gr</span></p>
                         </div>
                     </div>
                 </div>
@@ -52,6 +52,8 @@
                     </section>
                 </div>
             </div>
+
+
 
             <div ng-repeat="category in categories" class="clearfix row" role="main">
                 <div class="col-xs-12 col-md-12">

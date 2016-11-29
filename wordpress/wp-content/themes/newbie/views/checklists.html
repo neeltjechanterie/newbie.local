@@ -35,11 +35,11 @@
 					<div class="col-xs-12">
 						<div class="list-group checklists">
 
-							<a ng-repeat="checklist in checklists" href="checklist/{{checklist.id}}" class="list-group-item">
+							<a ng-repeat="checklist in checklists" href="checklist/{{checklist.id}}" id="{{$index + 1}}" class="list-group-item">
 								<span class="check icons icon-check"></span>
 								<p class="uncheck">{{checklist.title.rendered}}</p>
 								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">4 <!-- @TODO count terms/categories--></span>
+								<span class="badge">{{checklist.acf.checklist_items.length }}</span>
 							</a>
 
 						</div>
