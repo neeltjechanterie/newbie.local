@@ -39,7 +39,9 @@
 								<span class="check icons icon-check"></span>
 								<p class="uncheck">{{checklist.title.rendered}}</p>
 								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">{{checklist.acf.checklist_items.length }}</span>
+								<span class="badge">{{checklist.acf.checklist_items.lengths }}</span>
+								<!--filtered.length or try (data|filter:query).length-->
+								<!--OR ng-repeat="person in data | filter:query as results" AND {{results.length}} -->
 							</a>
 
 						</div>

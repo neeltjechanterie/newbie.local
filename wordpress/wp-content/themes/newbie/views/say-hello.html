@@ -1,25 +1,3 @@
- <div ng-show="data.currentUser.id" class="col-xs-12 col-md-12">
-    <div class="blue-banner">
-        <div class="col col-xs-12 user-info">
-            <p class="user-name">{{data.currentUser.name}} {{data.filterWeeksPost}} {{data.currentUser.acf.due_date}}</p>
-            <p class="user-extra">Week {{data.currentUser.CountWeeks}} dag {{data.currentUser.CountDays}}</p>
-        </div>
-        <div class="col col-xs-4 info-banner left">
-            <p>Nog ... weken</p>
-            <p class="result">{{data.currentUser.acf.due_date | amDifference : null : 'weeks' }}</p>
-        </div>
-        <div class="col col-xs-4 user-profile mom">
-            <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
-
-            <div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>
-        </div>
-        <div class="col col-xs-4 info-banner right">
-            <p>Jouw gewicht</p>
-            <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
-        </div>
-
-    </div>
-</div>
 <div ng-hide="data.currentUser.id" class="col-xs-12 col-md-12">
     <div class="blue-banner">
         <div class="col col-xs-12 user-info">
@@ -27,4 +5,35 @@
             <p>Go to the <a href="/login" onclick='location.reload(true);'>login</a> page</p>
         </div>
     </div>
+</div>
+<div ng-show="data.currentUser.id" class="col-xs-12 col-md-12">
+    <div ng-if="data.currentUser.acf.due_date">
+        <div class="blue-banner">
+            <div class="col col-xs-12 user-info">
+                <p class="user-name">{{data.currentUser.name}} {{data.filterWeeksPost}} {{data.currentUser.acf.due_date}}</p>
+                <p class="user-extra">Week {{data.currentUser.CountWeeks}} dag {{data.currentUser.CountDays}}</p>
+            </div>
+            <div class="col col-xs-4 info-banner left">
+                <p>Nog ... weken</p>
+                <p class="result">{{data.currentUser.acf.due_date | amDifference : null : 'weeks' }}</p>
+            </div>
+            <div class="col col-xs-4 user-profile mom">
+                <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
+
+                <div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>
+            </div>
+            <div class="col col-xs-4 info-banner right">
+                <p>Jouw gewicht</p>
+                <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="data.currentUser.acf.due_date">
+        <div class="blue-banner">
+            <div class="col col-xs-12 user-info">
+                <p>update your profile</p>
+            </div>
+        </div>
+    </div>
+
 </div>

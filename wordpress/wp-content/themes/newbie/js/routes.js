@@ -17,6 +17,10 @@
                 templateUrl: myLocalized.views + 'baby.html',
                 controller: 'Baby'
             })
+            .when('/test',{
+                templateUrl: myLocalized.views + 'test.php',
+                controller: 'Test'
+            })
             /*.when('/:ID', {
              templateUrl: myLocalized.views + 'content.html',
              controller: 'Content'

@@ -61,7 +61,7 @@ app.run(function(amMoment) {
 
                             console.log(catWeekName);
                             console.log(catWeekSlug);
-                            $http.get('/wp-json/wp/v2/posts/?filter[category_name]=' + catWeekName).success(function(res){
+                            $http.get('/wp-json/wp/v2/posts/?filter[category_name]=' + catWeekSlug).success(function(res){
                                 $scope.posts = res;
 
                             });
@@ -101,6 +101,58 @@ app.run(function(amMoment) {
 
 
     }]);
+    app.controller('Test', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
+        //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
+
+        //get current user
+        $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+            .then(function successCallback(response) {
+
+                // second API call to get more details about the current user, e.g. capabilities
+                $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                    .then(function successCallback(response) {
+                        console.log(response.data);
+                        $scope.user = response.data;
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+
+                $scope.user = response.data;
+                console.log("Current user: " + $scope.user.id + ", Current username: " + $scope.user.slug);
+                $http.get('wp-json/wp/v2/checklists/?author=' + $scope.user.id).success(function(res){
+                    $scope.checklists = res;
+
+                    $scope.totalItems = res.length;
+                    console.log("TOTAL: " + $scope.totalItems);
+
+
+
+
+                });
+
+                $http.get('/wp-json/wp/v2/checklists/' + '337').success(function(res){
+                    $scope.checklist = res;
+                    var items = res.acf.checklist_items;
+                    var ag_items = res.acf.ag_repeater_checklist;
+                    console.log(items);
+                    console.log(res);
+                    console.log(ag_items);
+                    //$scope.checklist.acf.checklist_items = res.data;
+                    //console.log(res.data);
+                    //$scope.item = res.data;
+                    //console.log(res.data);
+
+                    //$scope.totalItems = res.length();
+
+                });
+
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+
+
+    }]);
+
     //app.controller('Checklists', function($scope, $http, moment, $routeParams) {
     app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
     //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
@@ -168,23 +220,32 @@ app.run(function(amMoment) {
 
             //$scope.item.checklistId = $scope.checklist.acf.checklist_items.id;
             $scope.checklist.description = $scope.checklist.item_description;
+            console.log($scope.checklist.description);
         };
 
         // Update item
         $scope.updateItem = function() {
             console.log("ID: " + $scope.checklists.id);
             console.log("ID2: " + $scope.checklist.id);
+            console.log($scope.checklist);
+            console.log($scope.checklists);
+            $scope.checklists[3].acf.checklist_items = $scope.checklist;
+            console.log($scope.checklists);
+            var p = $httpParamSerializerJQLike({
+
+                acf: $scope.checklists.acf
+            });
+            console.log(p);
 
             $http({
                 url: 'wp-json/wp/v2/checklists/' + $scope.checklists.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
                 method: "POST",
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded',
-                    'id': $scope.checklist.id
+                    'id': $scope.checklists.id
                 },
-                data: $httpParamSerializerJQLike({
-                    description: $scope.checklist.description
-                })
+                data: $httpParamSerializerJQLike({"acf": $scope.checklists.acf})
+
             }).then(function successCallback(response) {
                 console.log(response);
 
@@ -553,6 +614,10 @@ app.factory('WPService', ['$http', WPService]);
             .when('/baby', {
                 templateUrl: myLocalized.views + 'baby.html',
                 controller: 'Baby'
+            })
+            .when('/test',{
+                templateUrl: myLocalized.views + 'test.php',
+                controller: 'Test'
             })
             /*.when('/:ID', {
              templateUrl: myLocalized.views + 'content.html',

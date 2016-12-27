@@ -38,8 +38,9 @@
 
 						</a>
 						<form name="editItemForm" id="editItem" style="display: none;" class="edit">
-							<label for="description">Description:</label>
 							<input type="text" id="id" ng-model="item.id" hidden>
+
+                            <label for="description">Content</label>
 							<input type="text" id="description" ng-model="item.item_description">
 							<a ng-click="updateItem()">Save</a>
 						</form>
