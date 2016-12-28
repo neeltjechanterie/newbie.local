@@ -94,7 +94,7 @@
 
 
     }]);
-    app.controller('Test', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
+    app.controller('Test', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', '$location', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike, $location) {
         //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
         //get current user
@@ -112,18 +112,19 @@
 
                 $scope.user = response.data;
                 console.log("Current user: " + $scope.user.id + ", Current username: " + $scope.user.slug);
-                $http.get('wp-json/wp/v2/checklists/?author=' + $scope.user.id).success(function(res){
-                    $scope.checklists = res;
+                $scope.loadData = function () {
+                 $http.get('wp-json/wp/v2/checklists/?author=' + $scope.user.id).success(function(res){
+                        $scope.checklists = res;
 
-                    $scope.totalItems = res.length;
-                    console.log("TOTAL: " + $scope.totalItems);
+                        $scope.totalItems = res.length;
+                        console.log("TOTAL: " + $scope.totalItems);
 
+                    });
+                };
+                $scope.loadData();
 
-
-
-                });
-
-                $http.get('/wp-json/wp/v2/checklists/' + '337').success(function(res){
+                $http.get('/wp-json/wp/v2/checklists/' + $routeParams.id).success(function(res){
+                    $scope.url = "http://newbie.local/wp-json/acf/v2/checklists/" + $routeParams.id;
                     $scope.checklist = res;
                     var items = res.acf.checklist_items;
                     var ag_items = res.acf.ag_repeater_checklist;
@@ -142,6 +143,113 @@
             }, function errorCallback(response) {
                 console.log(response);
             });
+
+        // Edit checklist button
+        $scope.editPost = function(id) {
+            document.getElementById('editPost').style.display = 'block';
+            $scope.checklist.id = id;
+            $scope.checklist.title = $scope.checklist.title.rendered;
+
+        };
+
+        // Update checklist
+        $scope.updatePost = function() {
+            $http({
+                url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                method: "POST",
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializerJQLike({
+                    title: $scope.checklist.title
+                })
+            }).then(function successCallback(response) {
+                console.log(response);
+
+                $scope.checklists = response.data;
+
+
+                document.getElementById('editPost').style.display = 'none';
+                document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
+
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        };
+
+        // Edit checklist button
+        $scope.addPostShow = function() {
+            document.getElementById('addPost').style.display = 'block';
+        };
+
+        // ADD checklist
+        $scope.addPost = function() {
+            $http({
+                url: 'wp-json/wp/v2/checklists/?context=add&access_token=' + $cookies.get('wordpress_access_token'),
+                method: "POST",
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                data: $httpParamSerializerJQLike({
+                    title: $scope.checklist.title,
+                    status: 'publish'
+                })
+            }).then(function successCallback(res) {
+                console.log(res);
+
+                $scope.checklist = res.data;
+                $scope.loadData();
+                //$location.path('/test/' + res.data.id);
+
+
+                document.getElementById('addPost').style.display = 'none';
+
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        };
+
+        // delete checklist in detail
+        $scope.deletePost = function(id) {
+            $scope.checklist.id = id;
+            $http({
+                url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
+                method: "DELETE",
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    id: $scope.checklist.id
+                }
+            }).then(function successCallback(res) {
+                console.log(res);
+                $location.path('/test');
+
+            }, function errorCallback(res) {
+                console.log(res);
+            });
+        };
+
+        // delete checklist in repeater
+        $scope.deletePostRepeater = function(checklist) {
+            $scope.checklist = checklist;
+            $http({
+                url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
+                method: "DELETE",
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    id: $scope.checklist.id
+                }
+            }).then(function successCallback(res) {
+                console.log(res);
+                //location.reload();
+                $scope.loadData();
+            }, function errorCallback(res) {
+                console.log(res);
+            });
+        };
 
 
     }]);

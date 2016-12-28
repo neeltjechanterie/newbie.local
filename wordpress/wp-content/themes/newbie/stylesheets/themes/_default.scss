@@ -11,7 +11,7 @@
 .checklist .list-group-item{
   border-left: none;
   border-right: none;
-  padding: 10px 10px 10px 0;
+  padding: 5px 10px 5px 0;
   height: 45px;
 }
 .checklists .list-group-item:first-child,
@@ -107,4 +107,61 @@ table{
 .table > tfoot > tr > th, .table > thead > tr > td,
 .table > tbody > tr > td, .table > tfoot > tr > td {
   border-top: 1px solid $secondary-color !important;
+}
+
+.list-group-item label {
+  display: inline-block;
+  width: 90%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  float: left;
+}
+.list-group-item .form-control{
+  width: 80%;
+  float: left;
+  box-shadow: none;
+  border: none;
+  font-weight: 300;
+  font-size: 17px;
+  padding: 0;
+}
+input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input[type=checkbox] + label:before {
+  font-family: 'simple-line-icons';
+  display: inline-block;
+  float: left;
+  width: 15%;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 19px;
+  line-height: 30px;
+  padding: 0 15px;
+}
+
+input[type=checkbox] + label:before { /* unchecked icon */
+  content: "\e615";
+  color: #ef7729;
+}
+input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=checkbox]:checked + label:before { /* checked icon */
+  content: "\e080";
+  color: #60c0c5;
+}
+input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+
+.add-row{
+  padding: 10px 10px 10px 0 !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+}
+.add-row span{
+  width: 14%;
+  padding-left: 15px!important;
+  padding-right: 0!important;
 }

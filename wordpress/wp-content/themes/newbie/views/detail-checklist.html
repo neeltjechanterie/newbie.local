@@ -25,11 +25,13 @@
 		<div class="clearfix row" role="main">
 			<div class="col-xs-12">
 				<div class="list-group checklist">
-					<div ng-repeat="item in checklist.acf.checklist_items | filterChecklist">
+                    <!--<div ng-repeat="item in checklist.acf.ag_repeater_checklist | filterChecklist">-->
+
+                    <div ng-repeat="item in checklist.acf.ag_repeater_checklist">
 						<a  id="{{item.item_user.ID}}" class="list-group-item">
-							<span ng-show="item.item_value == true" class="check icons icon-check"></span>
-							<span ng-show="item.item_value == false" class="no-check icons icon-minus"></span>
-							<p class="uncheck">{{item.item_description}}</p>
+							<span ng-show="item.ag_true_false == true" class="check icons icon-check"></span>
+							<span ng-show="item.ag_true_false == false" class="no-check icons icon-minus"></span>
+							<p class="uncheck">{{item.ag_checklist_item}}</p>
 
 							<a ng-click="editItem(checklist.id, item.id)"
 							   ng-show="user.capabilities.edit_posts">Edit {{item.id}}</a>

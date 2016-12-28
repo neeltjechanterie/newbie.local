@@ -18,10 +18,22 @@ jQuery( function( $ ) {
 				value: tinyMCE.get( 'ag_wysiwyg_editor' ).getContent() 
 			} );
 		}
+		/*if ( $('#checkbox') ){
+            var name = $( this ).attr( 'name' );
+            console.log(name);
+            var value = $( this ).attr( 'value' );
+            console.log(value);
+		    data.push({
+		        name: name,
+                value: value
+            });
+        }*/
 
 		btn.prop( { 'disabled' : true } );
+        console.log(data);
 
-		$.ajax( {
+
+            $.ajax( {
 		    url: url,
 		    method: method,
 		    beforeSend: function ( xhr ) {
@@ -29,11 +41,12 @@ jQuery( function( $ ) {
 		    },
 		    data: data,
 		    dataType: 'json',
-		} ).always( function ( data ) {
-			btn.removeProp( 'disabled' );
-			modal.find( '.modal-body' ).html( '<pre>' + JSON.stringify( data, null, "\t" ) + '</pre>' );
-			modal.modal( 'show' );
 		} );
+		/*.always( function ( data ) {
+			btn.removeProp( 'disabled' );
+			modal.find( '.modal-body' ).html( '<pre>' + url + method + JSON.stringify( data, null, "\t" ) + '</pre>' );
+			modal.modal( 'show' );
+		} );*/
 
 		return false;
 	} );
@@ -128,6 +141,7 @@ jQuery( function( $ ) {
 	// TYPE: Checkbox, Relationship, Taxonomy
 	//----------------------------------------
 
+    //$( document ).on( 'each', '.check', function() {
 	$( '.check' ).each( function() {
 		var name = $( this ).attr( 'name' );
 
@@ -280,12 +294,20 @@ jQuery( function( $ ) {
 	$( document ).on( 'click', '.add-row', function() {
 		var clone = $( '.item:last' ).clone();
 		clone.find( 'input' ).val( '' );
+        clone.find('[type=checkbox]').attr('checked', false).removeAttr('class');
+
 		$( clone ).insertBefore( $( this ) );
 		var newIndex = $( '.item' ).length - 1;
 
 		$( '.item:last [name]' ).attr( 'name', function( index, name ) {
 			return name.replace( /\d+/g, newIndex );
 		} );
+        $( '.item:last [id]' ).attr( 'id', function( index, id ) {
+            return id.replace( /\d+/g, newIndex );
+        } );
+        $( '.item:last [for]' ).attr( 'for', function( index, e ) {
+            return e.replace( /\d+/g, newIndex );
+        } );
 		console.log("new row");
 		verifyItemsRepeater();
 		return false;

@@ -5,8 +5,7 @@ $edit = true;
 if ( $edit ) {
 	global $post;
 
-	$post_id = 337;
-	$url     = 'http://newbie.local/wp-json/acf/v2/checklists/' . $post_id;
+	$url     = 'http://newbie.local/wp-json/acf/v2/checklists/';
 	//$post    = get_post( $post_id );
 
 	//setup_postdata( $post );
@@ -17,21 +16,36 @@ if ( $edit ) {
 ?>
 
 
-<div class="container">
 
 
-	<div class="row">
+<form action="{{url}}" method="<?php echo $edit ? 'PUT' : 'POST'; ?>">
+	<header class="header" role="banner">
+		<div class="header-inner clearfix">
+			<p class="logo">
+				{{checklist.title.rendered}}
+			</p>
 
-		<div class="col-lg-12">
-			<div class="input-group">
-				<span class="input-group-addon">Endpoint</span>
-				<input type="text" class="form-control" value="<?php echo $url; ?>" readonly>
-			</div>
+
 		</div>
+	</header>
+	<div class="sub-header clearfix ">
+		<div class="row">
+			<!--<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>-->
+			<div class="pull-left col-xs-2 col-lg-1"><button class="btn" ng-click="deletePost(checklist.id)">DELETE</button>
+			</div>
+			<p class="col-xs-8 col-lg-10">
+				{{checklist.title.rendered}}
+			</p>
+			<div class="pull-right col-xs-2 col-lg-1"> <button type="submit" class="btn"><i class="icon icon-pencil"></i></button> </div>
 
-		<div class="col-lg-12">
+			<!--<pre>You are currently on page {{currentPage}}</pre>
+			<ul uib-pager total-items="totalItems" ng-model="currentPage"></ul>-->
+			<!--<a href="#" class="col-xs-2 col-lg-1"><i class="icons icon-arrow-right"> </i></a>-->
 
-			<form action="<?php echo $url; ?>" method="<?php echo $edit ? 'PUT' : 'POST'; ?>">
+		</div>
+	</div>
+
+
 
 				<?php if( ! $edit ) : ?>
 					<div class="form-group">
@@ -47,81 +61,80 @@ if ( $edit ) {
 
 
 
-				<div role="tabpanel" class="tab-pane" id="cnt-repeater">
-					<p class="bg-warning">You need to have the plugin <a href="http://www.advancedcustomfields.com/add-ons/repeater-field/" target="_blank">ACF Repeater Field</a>.</p>
-					<!-- repeater -->
-					<?php
-/*					$repeater = get_field( 'ag_repeater_checklist' );
-					if ( ! $repeater ) {
-						$repeater = array(
-							array(
-								'ag_true_false' => '',
-								'ag_checklist_item' => '',
-								'ag_user'  => '',
-							)
-						);
-					}
-					*/?>
-					<div class="repeater" >
-						<div ng-repeat="item in checklist.acf.ag_repeater_checklist">
-						<?php //foreach ( $repeater as $k => $v ) : ?>
-							<div class="item">
-								<!-- true / false -->
-								<?php //$checked = get_field( 'ag_true_false' );
-								//$true = '';
-								//if ($v['ag_true_false'] != null) { $true = 'checked'; }?>
-								<label>True / False</label>
-								<div class="form-group">
-									<label class="radio-inline">
-										<input type="checkbox" name="fields[ag_repeater_checklist][{{$index}}][ag_true_false]" <?php //echo $true; ?> > Check
-									</label>
-									<?php if (isset($_POST['fields[ag_repeater_checklist][<?php echo absint( $k ); ?>][ag_true_false]'])) {
-										echo "checked!";
-									}
-									?>
+
+			<div class="wrapper">
+				<div class="content container">
+
+					<div class="clearfix row" role="main">
+						<div class="col-xs-12">
+							<div class="list-group checklist repeater">
+								<div ng-repeat="item in checklist.acf.ag_repeater_checklist">
+									<div class="item">
+										<!-- true / false checkbox changed -->
+										<?php if (isset($_POST['fields[ag_repeater_checklist][<?php echo absint( $k ); ?>][ag_true_false]'])) {
+											echo "checked!";
+										}
+										?>
+										<div class="form-group list-group-item">
+												<!-- true / false -->
+											<input type="checkbox" id="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]" name="fields[ag_repeater_checklist][{{$index}}][ag_true_false]" checked="{{item.ag_true_false}}" value="{{item.ag_true_false}}" ng-model="item.ag_true_false">
+												<!-- name item -->
+											<label for="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]">
+												<input type="text" name="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]" class="form-control" value="{{item.ag_checklist_item}}">
+											</label>
+											<button type="button" class="remove-row"><i class="icon icon-trash"></i></button>
+
+										</div>
+
+										<div class="form-group hidden hide">
+											<label for="acf-user">User</label>
+											<select class="form-control input-sm" id="acf-user" name="fields[ag_repeater_checklist][{{$index}}][ag_user]">
+												<option value="{{user.id}}" selected>{{user.nickname}}</option>
+											</select>
+										</div>
+									</div>
+
 								</div>
-								<div class="form-group">
-									<label>Tekst</label>
-									<input type="text" name="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]" class="form-control" value="{{item.ag_checklist_item}}">
+								<div ng-if="!checklist.acf.ag_repeater_checklist.length">
+									<div class="item">
+										<!-- true / false checkbox changed -->
+										<div class="form-group list-group-item">
+											<!-- true / false -->
+											<input type="checkbox" id="fields[ag_repeater_checklist][0][ag_checklist_item]" name="fields[ag_repeater_checklist][0][ag_true_false]" checked="{{item.ag_true_false}}" value="false" ng-model="item.ag_true_false" class="ng-pristine ng-untouched ng-valid ng-empty">
+											<!-- name item -->
+											<label for="fields[ag_repeater_checklist][0][ag_checklist_item]">
+												<input type="text" name="fields[ag_repeater_checklist][0][ag_checklist_item]" class="form-control" value="">
+											</label>
+											<button type="button" class="remove-row"><i class="icon icon-trash"></i></button>
+
+										</div>
+
+										<div class="form-group hidden hide">
+											<label for="acf-user">User</label>
+											<select class="form-control input-sm" id="acf-user" name="fields[ag_repeater_checklist][0][ag_user]">
+												<option value="1" selected="" class="ng-binding">newbie_gebruiker</option>
+											</select>
+										</div>
+									</div>
 								</div>
 
-								<div class="form-group">
-									<label for="acf-user">User</label>
-									<select class="form-control input-sm" id="acf-user" name="fields[ag_repeater_checklist][{{$index}}][ag_user]">
-										<option value="">-- select --</option>
-										<?php
-/*
-										foreach ( (array) get_users() as $u ) :
-											if ( isset( $user_ID ) ) {
-												$selected = selected( $user_ID, $u->ID, false );
-											} else {
-												$selected = '';
-											}
-											*/?><!--
-											<option value="<?php /*echo $u->ID; */?>" <?php /*echo esc_attr( $selected ); */?> ><?php /*echo $u->display_name; */?></option>
-										--><?php /*endforeach; */?>
-										<option value="{{item.ag_user.ID}}">{{item.ag_user.display_name}}</option>
-
-									</select>
-								</div>
-								<button type="button" class="btn btn-danger remove-row">remove</button>
-								<hr>
-							</div>
-						<?php //endforeach; ?>
+								<a href="#" class="list-group-item add-row">
+									<span class="plus-check icons icon-plus"></span>
+									<p class="uncheck">Voeg nieuw item toe ...</p>
+								</a>
 						</div>
-						<button type="button" class="btn btn-primary add-row">add row</button>
 					</div>
-
-				</div><!-- tab-pane -->
-
-
-				<button type="submit" class="btn btn-success">Save</button>
-			</form>
-		</div><!-- /col-lg-12 -->
-	</div>
+				</div>
+			</div>
+		</div>
+</form>
 
 
-</div> <!-- /container -->
+
+
+
+
+
 
 <div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
 	<div class="modal-dialog" role="document">
