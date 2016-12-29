@@ -1,7 +1,7 @@
 /**
  * Created by neeltjechanterie on 17/11/16.
  */
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngCookies', 'ngImageCache']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngCookies', 'ngImageCache', 'ngFileUpload']);
 app.run(function(amMoment) {
     amMoment.changeLocale('nl');
 });

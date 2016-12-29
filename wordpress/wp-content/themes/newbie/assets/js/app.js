@@ -1,7 +1,7 @@
 /**
  * Created by neeltjechanterie on 17/11/16.
  */
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngCookies', 'ngImageCache']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'angularMoment', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngCookies', 'ngImageCache', 'ngFileUpload']);
 app.run(function(amMoment) {
     amMoment.changeLocale('nl');
 });
@@ -11,7 +11,7 @@ app.run(function(amMoment) {
 ;(function () {
     'use strict';
 
-    app.controller('Main', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies) {
+    app.controller('Main', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -43,6 +43,40 @@ app.run(function(amMoment) {
                             console.log(response.data);
                             $scope.user = response.data;
 
+
+
+                            $scope.uploadFiles = function(file, errFiles) {
+                                $scope.f = file;
+                                $scope.errFile = errFiles && errFiles[0];
+                                if (file) {
+                                    file.upload = Upload.upload({
+                                        url: 'http://newbie.local/wp-content/uploads/users',
+                                        data: {file: file}
+                                    });
+
+                                    file.upload.then(function (response) {
+                                        $timeout(function () {
+                                            file.result = response.data;
+                                        });
+                                    }, function (response) {
+                                        if (response.status > 0)
+                                            $scope.errorMsg = response.status + ': ' + response.data;
+                                    }, function (evt) {
+                                        file.progress = Math.min(100, parseInt(100.0 *
+                                            evt.loaded / evt.total));
+                                    });
+                                }
+                            };
+
+
+
+                            $scope.url = "http://newbie.local/wp-json/acf/v2/user/" + $routeParams.id;
+                            //$scope.user = res;
+                            var items = response.data.acf.weight;
+                            //var ag_items = res.acf.ag_repeater_checklist;
+                            console.log(items);
+                            console.log(response.data);
+                            //console.log(ag_items);
 
                             //WPService.currentUser.currentWeek = weeks;
 
@@ -82,6 +116,7 @@ app.run(function(amMoment) {
                 }, function errorCallback(response) {
                     console.log(response);
                 });
+
         });
         //get current user
 
@@ -152,10 +187,11 @@ app.run(function(amMoment) {
             });
 
         // Edit checklist button
-        $scope.editPost = function(id) {
+        $scope.editPost = function(checklist) {
             document.getElementById('editPost').style.display = 'block';
-            $scope.checklist.id = id;
+            $scope.checklist = checklist;
             $scope.checklist.title = $scope.checklist.title.rendered;
+            $scope.loadData();
 
         };
 
@@ -173,11 +209,12 @@ app.run(function(amMoment) {
             }).then(function successCallback(response) {
                 console.log(response);
 
-                $scope.checklists = response.data;
-
+                //$scope.checklists = response.data;
+                $scope.loadData();
 
                 document.getElementById('editPost').style.display = 'none';
                 document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
+
 
             }, function errorCallback(response) {
                 console.log(response);
@@ -187,6 +224,8 @@ app.run(function(amMoment) {
         // Edit checklist button
         $scope.addPostShow = function() {
             document.getElementById('addPost').style.display = 'block';
+            var item = $( '#addPost' );
+            item.find( 'input' ).val( '' );
         };
 
         // ADD checklist
@@ -730,6 +769,10 @@ app.factory('WPService', ['$http', WPService]);
             .when('/test/:id',{
                 templateUrl: myLocalized.views + 'test.php',
                 controller: 'Test'
+            })
+            .when('/mom-edit/:id',{
+                templateUrl: myLocalized.views + 'user.php',
+                controller: 'Main'
             })
 
             /*.when('/:ID', {

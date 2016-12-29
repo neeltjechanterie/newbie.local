@@ -25,6 +25,10 @@
                 templateUrl: myLocalized.views + 'test.php',
                 controller: 'Test'
             })
+            .when('/mom-edit/:id',{
+                templateUrl: myLocalized.views + 'user.php',
+                controller: 'Main'
+            })
 
             /*.when('/:ID', {
              templateUrl: myLocalized.views + 'content.html',

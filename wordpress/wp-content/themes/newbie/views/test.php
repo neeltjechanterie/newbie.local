@@ -18,7 +18,7 @@ if ( $edit ) {
 
 
 
-<form action="{{url}}" method="<?php echo $edit ? 'PUT' : 'POST'; ?>">
+<form action="{{url}}" method="<?php echo $edit ? 'PUT' : 'POST'; ?>" class="editForm">
 	<header class="header" role="banner">
 		<div class="header-inner clearfix">
 			<p class="logo">

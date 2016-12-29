@@ -4,7 +4,7 @@ jQuery( function( $ ) {
 	// The magic
 	//----------------------------------------
 
-	$( document ).on( 'submit', 'form', function() {
+	$( document ).on( 'submit', '.editForm', function() {
 		var _this  = $( this );
 		var url    = _this.attr( 'action' );
 		var method = _this.attr( 'method' );
@@ -41,12 +41,12 @@ jQuery( function( $ ) {
 		    },
 		    data: data,
 		    dataType: 'json',
-		} );
-		/*.always( function ( data ) {
+		} )
+		.always( function ( data ) {
 			btn.removeProp( 'disabled' );
 			modal.find( '.modal-body' ).html( '<pre>' + url + method + JSON.stringify( data, null, "\t" ) + '</pre>' );
 			modal.modal( 'show' );
-		} );*/
+		} );
 
 		return false;
 	} );
@@ -96,8 +96,9 @@ jQuery( function( $ ) {
 	//----------------------------------------
 	
 	var mediaFileUrl;
+		//$( '#acf-file-url-btn' ).click( function() {
 
-	$( '#acf-file-url-btn' ).click( function() {
+		$( document ).on( 'click', '#acf-file-url-btn', function() {
 		var removeBtn = $( '#acf-file-url-remove-btn' );
 		
 		if ( ! $.isFunction( wp.media ) ) {

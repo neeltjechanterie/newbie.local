@@ -3,13 +3,16 @@
         <p class="logo">
             MAMA
         </p>
+        <a href="/mom-edit/{{data.currentUser.id}}">edit profile</a>
+
     </div>
 </header>
 
 <div say-hello class="clearfix profile-header no-gutter" role="main"></div>
 
 <div class="wrapper" ng-if="data.currentUser.acf.due_date">
-    <div class="content container">
+
+    <div class="content container" id="user">
 
         <div class="col-xs-12 col-md-5">
 

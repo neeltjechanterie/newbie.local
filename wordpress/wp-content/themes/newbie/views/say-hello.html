@@ -6,7 +6,18 @@
         </div>
     </div>
 </div>
-<div ng-show="data.currentUser.id" class="col-xs-12 col-md-12">
+<button ng-click="editUser(data)" class="btn pull-right right"
+        ng-show="user.capabilities.edit_posts">Edit</button>
+<form name="editUserForm" id="editUser" style="display: none;" class="edit">
+    <br><br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" ng-model="data.currentUser.name">
+    <label for="weight">Weight:</label>
+    <input type="text" id="weight" ng-model="data.currentUser.acf.weight">
+
+    <a ng-click="updateUser()">Save</a>
+</form>
+<div ng-show="data.currentUser.id" class="col-xs-12 col-md-12" id="user">
     <div ng-if="data.currentUser.acf.due_date">
         <div class="blue-banner">
             <div class="col col-xs-12 user-info">
@@ -37,3 +48,4 @@
     </div>
 
 </div>
+
