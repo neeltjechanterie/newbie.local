@@ -3,7 +3,36 @@
         <p class="logo">
             MAMA
         </p>
-        <a href="/mom-edit/{{data.currentUser.id}}">edit profile</a>
+
+
+            <div class="navigation-edit-toggle pull-right ">
+                <i class="icons icon-settings"></i>
+            </div>
+        <article>
+
+            <nav role="navigation" class="settings-navigation clearfix">
+                <ul id="menu-mobile-navigation" class="mobile-nav">
+                    <li><a href="#">Jouw Profiel</a>
+                        <ul>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/mom-edit-picture/{{data.currentUser.id}}">Profielfoto wijzigen</a></li>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/mom-settings/{{data.currentUser.id}}">Bewerk jouw profiel</a></li>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/mom-edit/{{data.currentUser.id}}">Bewerk jouw gegevens</a></li>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/mom-weight/{{data.currentUser.id}}">Lichaamsmetingen</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Baby</a>
+                        <ul>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/baby-edit-picture/{{data.currentUser.id}}">Foto {{data.currentUser.acf.name_child}} wijzigen</a></li>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/baby-settings/{{data.currentUser.id}}">Wijzig profiel van {{data.currentUser.acf.name_child}}</a></li>
+                            <li ng-show="user.capabilities.edit_posts"><a href="/baby-body/{{data.currentUser.id}}">Lichaamsmetingen</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </article>
+
+        <a  ng-show="user.capabilities.edit_posts" class="btn pull-right right"
+            href="/mom-edit/{{data.currentUser.id}}"></a>
 
     </div>
 </header>

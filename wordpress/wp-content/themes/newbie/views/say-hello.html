@@ -6,8 +6,8 @@
         </div>
     </div>
 </div>
-<button ng-click="editUser(data)" class="btn pull-right right"
-        ng-show="user.capabilities.edit_posts">Edit</button>
+<!--<button ng-click="editUser(data)" class="btn pull-right right"
+        ng-show="user.capabilities.edit_posts">Edit</button>-->
 <form name="editUserForm" id="editUser" style="display: none;" class="edit">
     <br><br>
     <label for="name">Name:</label>
@@ -24,18 +24,20 @@
                 <p class="user-name">{{data.currentUser.name}} {{data.filterWeeksPost}} {{data.currentUser.acf.due_date}}</p>
                 <p class="user-extra">Week {{data.currentUser.CountWeeks}} dag {{data.currentUser.CountDays}}</p>
             </div>
-            <div class="col col-xs-4 info-banner left">
-                <p>Nog ... weken</p>
-                <p class="result">{{data.currentUser.acf.due_date | amDifference : null : 'weeks' }}</p>
-            </div>
-            <div class="col col-xs-4 user-profile mom">
-                <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
+            <div class="col col-xs 12 col-md-8 offset-md-2 no-padding">
+                    <div class="col col-xs-4 col-md-5 info-banner left">
+                        <p>Nog ... weken</p>
+                        <p class="result">{{data.currentUser.acf.due_date | amDifference : today : 'weeks' }}</p>
+                    </div>
+                    <div class="col col-xs-4 col-md-2 user-profile mom">
+                        <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
 
-                <div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>
-            </div>
-            <div class="col col-xs-4 info-banner right">
-                <p>Jouw gewicht</p>
-                <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
+                        <!--<div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>-->
+                    </div>
+                    <div class="col col-xs-4 col-md-5 info-banner right">
+                        <p>Jouw gewicht</p>
+                        <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
+                    </div>
             </div>
         </div>
     </div>

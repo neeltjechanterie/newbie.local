@@ -26,6 +26,7 @@
 
             $scope.data.filterWeeksPost = 'week-' + (weeks).toFixed(0);
 
+            $scope.today = new Date();
 
             $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
                 .then(function successCallback(response) {
@@ -35,8 +36,8 @@
                         .then(function successCallback(response) {
                             console.log(response.data);
                             $scope.user = response.data;
-
-
+                            //$scope.user.email = response.data.email;
+                            console.log(response.data.email);
 
                             $scope.uploadFiles = function(file, errFiles) {
                                 $scope.f = file;

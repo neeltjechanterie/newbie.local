@@ -17,16 +17,40 @@
                 templateUrl: myLocalized.views + 'baby.html',
                 controller: 'Baby'
             })
-            .when('/test',{
+            .when('/checklists',{
                 templateUrl: myLocalized.views + 'test-all.html',
                 controller: 'Test'
             })
-            .when('/test/:id',{
+            .when('/checklist/:id',{
                 templateUrl: myLocalized.views + 'test.php',
                 controller: 'Test'
             })
+            .when('/mom-edit-picture/:id',{
+                templateUrl: myLocalized.views + 'profile/user-picture.php',
+                controller: 'Main'
+            })
+            .when('/mom-settings/:id',{
+                templateUrl: myLocalized.views + 'profile/user.php',
+                controller: 'Main'
+            })
             .when('/mom-edit/:id',{
-                templateUrl: myLocalized.views + 'user.php',
+                templateUrl: myLocalized.views + 'profile/user.html',
+                controller: 'Main'
+            })
+            .when('/mom-weight/:id',{
+                templateUrl: myLocalized.views + 'profile/weight.html',
+                controller: 'Main'
+            })
+            .when('/baby-edit-picture/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-picture.php',
+                controller: 'Main'
+            })
+            .when('/baby-settings/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-settings.php',
+                controller: 'Main'
+            })
+            .when('/baby-body/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-body.php',
                 controller: 'Main'
             })
 
@@ -50,11 +74,11 @@
                 templateUrl: myLocalized.views + 'content.html',
                 controller: 'Content'
             })
-            .when('/checklist/:id', {
+            .when('/test/:id', {
                 templateUrl: myLocalized.views + 'detail-checklist.html',
                 controller: 'Checklists'
             })
-            .when('/checklists', {
+            .when('/tests', {
                 templateUrl: myLocalized.views + 'checklists.html',
                 controller: 'Checklists'
             })

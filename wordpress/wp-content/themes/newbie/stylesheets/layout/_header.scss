@@ -98,6 +98,22 @@ a.logo-button:hover {
   cursor: pointer;
   fill: $white;
 }
+.navigation-edit-toggle{
+  display: block;
+  margin-top: 8px;
+  color: white;
+  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #d84f19;
+  /* border-radius: 50%; */
+  line-height: 44px;
+  text-align: center;
+  z-index: 1000;
+  cursor: pointer;
+  right: 5px;
+  right: .5rem;
+}
 .navigation-active .navigation-toggle {
   fill: $white !important;
 }
@@ -118,29 +134,58 @@ a.logo-button:hover {
   -ms-transform: translatex(-100%);
   transform: translateX(-100%);
 }
+.settings-navigation {
+  background: $dark-main-color;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+  transition: all .3s;
+  padding: 0 20px;
+  padding: 0 2rem;
+  z-index: 800;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  margin-top: 60px;
+  margin-top: 6rem;
+}
 .navigation-active .mobile-navigation {
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);
   transform: translateX(0);
 }
+.settings-navigation-active .settings-navigation {
+  -webkit-transform: translateX(0);
+  -ms-transform: translatex(0);
+  transform: translateX(0);
+}
 nav ul {
   list-style: none;
 }
-.mobile-navigation ul li{
+.mobile-navigation ul li,
+.settings-navigation ul li
+{
   color: $main-color;
   text-transform: uppercase;
   font-size: 1em;
   margin: 2em 0 .5em;
 }
-.mobile-navigation ul li a{
+.mobile-navigation ul li a,
+.settings-navigation ul li a{
   text-decoration: none;
   color: $main-color;
 }
-.mobile-navigation li ul {
+.mobile-navigation li ul,
+.settings-navigation li ul {
   margin: 0;
   padding: 0;
 }
-.mobile-navigation li ul li{
+.mobile-navigation li ul li,
+.settings-navigation li ul li{
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -148,7 +193,8 @@ nav ul {
   text-transform: capitalize;
   margin: 0;
 }
-.mobile-navigation li ul li a{
+.mobile-navigation li ul li a,
+.settings-navigation li ul li a{
   display: inline-block;
   font-size: 1.3em;
   padding: 0;
@@ -159,13 +205,15 @@ nav ul {
   color: $white;
   text-decoration: none;
 }
-.mobile-navigation ul.mobile-nav {
+.mobile-navigation ul.mobile-nav,
+.settings-navigation ul.mobile-nav {
   list-style: none;
   margin: 0;
   padding: 80px 0;
   padding: 8rem 0;
 }
-.mobile-navigation li {
+.mobile-navigation li,
+.settings-navigation li {
   padding: 10px 0;
   padding: 0.5rem 0;
 }
@@ -175,10 +223,12 @@ nav ul {
 .mobile-navigation a,.mobile-navigation a:hover,.mobile-navigation a:active,.mobile-navigation a:focus,.mobile-navigation a:visited {
 
 }
-.mobile-navigation a:hover {
+.mobile-navigation a:hover,
+.settings-navigation a:hover {
   border-color: transparent;
 }
-.mobile-navigation .current-menu-item a {
+.mobile-navigation .current-menu-item a,
+.settings-navigation .current-menu-item a {
   border-bottom: none;
 }
 .navigation {

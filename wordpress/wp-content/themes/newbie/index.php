@@ -13,8 +13,26 @@ $edit = true;
     <ul id="menu-mobile-navigation" class="mobile-nav">
         <li><a href="#">Profiel</a>
             <ul>
-                <li><a href="<?php echo site_url(); ?>">Jouw profiel</a></li>
-                <li><a href="/baby">Naam kind</a></li>
+                <li><a href="<?php echo site_url(); ?>">Jouw profiel <?php $current_user = wp_get_current_user();
+                        echo $current_user->display_name; ?>
+                    </a>
+                </li>
+                <?php
+                $current_user = wp_get_current_user();
+                $current_id = $current_user->ID;
+                $current_id_var = "user_" . $current_id;
+
+               if ( get_field('is_de_baby_geboren', $current_id_var) != '0') :
+               if( get_field('name_child', $current_id_var) ): ?>
+                   <li>
+                       <a href="/baby">
+                           <?php the_field('name_child', $current_id_var); ?>
+                       </a>
+                   </li>
+                <?php endif; ?>
+                <?php endif; ?>
+
+
             </ul>
         </li>
         <li><a href="#">Tools</a>
@@ -35,7 +53,6 @@ $edit = true;
 
     </ul>
 </nav>
-
 <div id="page" ng-app="app">
     <div ng-view></div>
 
@@ -43,5 +60,6 @@ $edit = true;
         &copy; <?php /*echo date( 'Y' ); */?>
     </footer>-->
 </div>
+<div class="hidden"><?php wp_editor( '', ''); ?></div>
 
 <?php get_footer(); ?>

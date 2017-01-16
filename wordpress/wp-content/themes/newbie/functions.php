@@ -99,6 +99,7 @@ function my_scripts() {
     );
 }
 
+
 add_filter( 'acf/rest_api/item_permissions/update', function( $permission, $request, $type ) {
     if ( 'user' == $type && method_exists( $request, 'get_param' ) && get_current_user_id() == $request->get_param( 'id' ) ) {
         return true;
@@ -118,3 +119,14 @@ function _checked( $haystack, $current, $echo = true ) {
 
     return checked( $haystack, $current, $echo );
 }
+
+/*
+function user_include_email( $data ) {
+    $email = $data->data['email']; // get featured image id
+    if( $email ) {
+        $data->data['email'] = $email[0];
+    }
+
+    return $data;
+}
+add_filter( 'rest_prepare_user', 'user_include_email', 10, 3 );*/

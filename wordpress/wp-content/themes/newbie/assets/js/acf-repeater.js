@@ -18,16 +18,6 @@ jQuery( function( $ ) {
 				value: tinyMCE.get( 'ag_wysiwyg_editor' ).getContent() 
 			} );
 		}
-		/*if ( $('#checkbox') ){
-            var name = $( this ).attr( 'name' );
-            console.log(name);
-            var value = $( this ).attr( 'value' );
-            console.log(value);
-		    data.push({
-		        name: name,
-                value: value
-            });
-        }*/
 
 		btn.prop( { 'disabled' : true } );
         console.log(data);
@@ -50,6 +40,7 @@ jQuery( function( $ ) {
 
 		return false;
 	} );
+
 
 	//----------------------------------------
 	// TAB: Content
@@ -175,6 +166,11 @@ jQuery( function( $ ) {
 
 	// TYPE: Date Picker
 	//----------------------------------------
+	$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+	$('.datepicker').datepicker({
+		format: 'yyyy-mm-dd',
+		autoclose: true
+	});
 
 	if ( $.isFunction( $( '.datepicker' ).datepicker ) ) {
 		$( '.datepicker' ).datepicker( {
@@ -327,3 +323,4 @@ jQuery( function( $ ) {
 
 
 } );
+

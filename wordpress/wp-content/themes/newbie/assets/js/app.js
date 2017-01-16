@@ -33,6 +33,7 @@ app.run(function(amMoment) {
 
             $scope.data.filterWeeksPost = 'week-' + (weeks).toFixed(0);
 
+            $scope.today = new Date();
 
             $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
                 .then(function successCallback(response) {
@@ -42,8 +43,8 @@ app.run(function(amMoment) {
                         .then(function successCallback(response) {
                             console.log(response.data);
                             $scope.user = response.data;
-
-
+                            //$scope.user.email = response.data.email;
+                            console.log(response.data.email);
 
                             $scope.uploadFiles = function(file, errFiles) {
                                 $scope.f = file;
@@ -683,7 +684,7 @@ app.run(function(amMoment) {
     //sayHello Directive for User information
     app.directive('sayHello', function(){
         return {
-            restrict: 'EA',
+            restrict: 'AEC',
             templateUrl: myLocalized.views + 'say-hello.html',
             controller: ['WPService', function(WPService) {
                 WPService.getCurrentUser();
@@ -762,16 +763,40 @@ app.factory('WPService', ['$http', WPService]);
                 templateUrl: myLocalized.views + 'baby.html',
                 controller: 'Baby'
             })
-            .when('/test',{
+            .when('/checklists',{
                 templateUrl: myLocalized.views + 'test-all.html',
                 controller: 'Test'
             })
-            .when('/test/:id',{
+            .when('/checklist/:id',{
                 templateUrl: myLocalized.views + 'test.php',
                 controller: 'Test'
             })
+            .when('/mom-edit-picture/:id',{
+                templateUrl: myLocalized.views + 'profile/user-picture.php',
+                controller: 'Main'
+            })
+            .when('/mom-settings/:id',{
+                templateUrl: myLocalized.views + 'profile/user.php',
+                controller: 'Main'
+            })
             .when('/mom-edit/:id',{
-                templateUrl: myLocalized.views + 'user.php',
+                templateUrl: myLocalized.views + 'profile/user.html',
+                controller: 'Main'
+            })
+            .when('/mom-weight/:id',{
+                templateUrl: myLocalized.views + 'profile/weight.html',
+                controller: 'Main'
+            })
+            .when('/baby-edit-picture/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-picture.php',
+                controller: 'Main'
+            })
+            .when('/baby-settings/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-settings.php',
+                controller: 'Main'
+            })
+            .when('/baby-body/:id',{
+                templateUrl: myLocalized.views + 'profile/baby-body.php',
                 controller: 'Main'
             })
 
@@ -795,11 +820,11 @@ app.factory('WPService', ['$http', WPService]);
                 templateUrl: myLocalized.views + 'content.html',
                 controller: 'Content'
             })
-            .when('/checklist/:id', {
+            .when('/test/:id', {
                 templateUrl: myLocalized.views + 'detail-checklist.html',
                 controller: 'Checklists'
             })
-            .when('/checklists', {
+            .when('/tests', {
                 templateUrl: myLocalized.views + 'checklists.html',
                 controller: 'Checklists'
             })

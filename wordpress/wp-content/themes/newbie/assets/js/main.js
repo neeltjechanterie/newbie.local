@@ -2,13 +2,25 @@ jQuery(document).ready(function(e) {
 
     e(".btnTest").on("click",
         function() {
-            console.log('Hello')
+            console.log('Hello');
+            alert( "Alert" );
         });
+
 
     e(".navigation-toggle").on("click",
         function() {
             e("body").toggleClass("navigation-active")
         });
+   /* e(".navigation-edit-toggle").on("click",
+        function() {
+            e("article").toggleClass("settings-navigation-active");
+            console.log('Hello')
+        });*/
+    $(document).on('click', '.navigation-edit-toggle', function() {
+        e("article").toggleClass("settings-navigation-active");
+        //e("body").toggleClass("navigation-active");
+
+    });
 
     // JS CIRCLES
     function serviceCircleHeights() {
@@ -36,10 +48,10 @@ jQuery(document).ready(function(e) {
     $(window).scroll(function () {
         var iCurScrollPos = $(this).scrollTop();
         if (iCurScrollPos > iScrollPos) {
-            $( ".user-profile" ).css( {"bottom": "-2%", "transition": ".5s" });
+            $( ".user-profile img" ).css( {"bottom": "-2%", "transition": ".5s" });
         } else {
-            $( ".user-profile.baby" ).css( "bottom", "-35%" );
-            $( ".user-profile.mom" ).css( "bottom", "-25%" );
+            $( ".user-profile.baby img" ).css( "bottom", "-35%" );
+            $( ".user-profile.mom img" ).css( "bottom", "-25%" );
 
         }
         iScrollPos = iCurScrollPos;

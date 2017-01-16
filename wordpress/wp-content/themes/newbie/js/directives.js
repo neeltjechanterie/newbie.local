@@ -7,7 +7,7 @@
     //sayHello Directive for User information
     app.directive('sayHello', function(){
         return {
-            restrict: 'EA',
+            restrict: 'AEC',
             templateUrl: myLocalized.views + 'say-hello.html',
             controller: ['WPService', function(WPService) {
                 WPService.getCurrentUser();
