@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 
 	<script type='text/javascript' src='<?php echo get_stylesheet_directory_uri();?>/assets/js/main.js'></script>
+
 	<?php wp_head(); ?>
 
 </head>

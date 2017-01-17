@@ -22,9 +22,57 @@
 
 			<div class="form-group">
 				<label for="acf-weight">Gewicht mama</label>
-				<input type="text" name="fields[weight]" value="{{data.currentUser.acf.weight}}" class="form-control" id="acf-weight">
+				<input type="text" id="weight" name="fields[weight]" value="{{data.currentUser.acf.weight}}" class="form-control" id="acf-weight">
 			</div>
-			<div ng-repeat="item in data.currentUser.acf.weight_statistics">
+			<div class="col-xs-12 col-sm-6">
+				<canvas id="canvas" height="400px"></canvas>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+
+				<div class="table-responsive">
+
+					<table class="table table-striped" >
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>Datum</th>
+							<th>Gewicht in kg</th>
+						</tr>
+						</thead>
+<!--						<tfoot>-->
+<!--						<tr>-->
+<!--							<td colspan='3'><a href="#" class="add-table-row btn">-->
+<!--									Voeg nieuw item toe ...-->
+<!--								</a></td>-->
+<!---->
+<!--						</tr>-->
+<!--						</tfoot>-->
+						<tbody>
+							<tr>
+								<th colspan='3'><a href="#" class="add-table-row btn">
+										Voeg nieuw item toe ...
+									</a>
+								</th>
+							</tr>
+							<tr ng-repeat="item in data.currentUser.acf.weight_statistics | orderBy:'-weight_date'" id="{{data.currentUser.acf.weight_statistics.length - $index}}" class="table_item">
+								<th>{{data.currentUser.acf.weight_statistics.length - $index}}</th>
+								<td>
+									<input type="text" id="today {{today}} edit" data-ng-disabled="item.weight_date != today" class="form-control datepicker" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_date]" value="{{item.weight_date}}" data-date-format="yyyy-mm-dd">
+								</td>
+								<td>
+									<input type="text" class="form-control" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_number]" value="{{item.weight_number}}" >
+								</td>
+							</tr>
+
+
+
+						</tbody>
+
+
+					</table>
+				</div>
+			</div>
+			<!--<div ng-repeat="item in data.currentUser.acf.weight_statistics">
 				<div class="item">
 
 					<label for="fields[weight_statistics][{{$index}}][weight_date]">Current date</label>
@@ -43,9 +91,9 @@
 				</div>
 
 			</div>
-			<a href="#" class="btn">
-				<span class="plus-check icons icon-plus"> </span> Voeg nieuw item toe ...
-			</a>
+			<a href="#" class="add-row btn">
+				Voeg nieuw item toe ...
+			</a>-->
 			<div class="form-group">
 				<!-- true / false -->
 				<input type="hidden" name="fields[is_de_baby_geboren]" value="0" />

@@ -288,6 +288,7 @@ jQuery( function( $ ) {
 
 	verifyItemsRepeater();
 
+	//ADD INPUT ROW
 	$( document ).on( 'click', '.add-row', function() {
 		var clone = $( '.item:last' ).clone();
 		clone.find( 'input' ).val( '' );
@@ -320,6 +321,32 @@ jQuery( function( $ ) {
 		verifyItemsRepeater();
 		return false;
 	} );
+
+	//ADD TABLE INPUT ROW
+	$( document ).on( 'click', '.add-table-row', function() {
+		var clone = $( '.table_item:first' ).clone();
+		clone.find( 'input' ).val( '' );
+		clone.find( 'th' ).text( '' );
+
+		$( clone ).insertBefore( $( '.table_item:first' ) );
+		var newIndex = $( '.table_item' ).length;
+
+		$( '.table_item:first [name]' ).attr( 'name', function( index, name ) {
+			return name.replace( /\d+/g, newIndex );
+		} );
+		$( '.table_item:first [id]' ).attr( 'id', function( index, id ) {
+			return id.replace( /\d+/g, newIndex );
+		} );
+		$( '.table_item:first [for]' ).attr( 'for', function( index, e ) {
+			return e.replace( /\d+/g, newIndex );
+		} );
+		$( '.table_item:first th' ).append( newIndex );
+		console.log("new row");
+		verifyItemsRepeater();
+		return false;
+	} );
+
+
 
 
 } );

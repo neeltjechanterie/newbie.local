@@ -31,9 +31,9 @@ app.run(function(amMoment) {
             var currentDay = (268 - days).toFixed(0);
             WPService.currentUser.CountDays = currentDay;
 
-            $scope.data.filterWeeksPost = 'week-' + (weeks).toFixed(0);
+            $scope.data.filterWeeksPost = 'week-' + (currentWeek);
 
-            $scope.today = new Date();
+            $scope.today = moment(new Date()).format("YYYY-MM-DD");
 
             $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
                 .then(function successCallback(response) {
@@ -46,38 +46,10 @@ app.run(function(amMoment) {
                             //$scope.user.email = response.data.email;
                             console.log(response.data.email);
 
-                            $scope.uploadFiles = function(file, errFiles) {
-                                $scope.f = file;
-                                $scope.errFile = errFiles && errFiles[0];
-                                if (file) {
-                                    file.upload = Upload.upload({
-                                        url: 'http://newbie.local/wp-content/uploads/users',
-                                        data: {file: file}
-                                    });
-
-                                    file.upload.then(function (response) {
-                                        $timeout(function () {
-                                            file.result = response.data;
-                                        });
-                                    }, function (response) {
-                                        if (response.status > 0)
-                                            $scope.errorMsg = response.status + ': ' + response.data;
-                                    }, function (evt) {
-                                        file.progress = Math.min(100, parseInt(100.0 *
-                                            evt.loaded / evt.total));
-                                    });
-                                }
-                            };
-
-
-
                             $scope.url = "http://newbie.local/wp-json/acf/v2/user/" + $routeParams.id;
-                            //$scope.user = res;
-                            var items = response.data.acf.weight;
-                            //var ag_items = res.acf.ag_repeater_checklist;
-                            console.log(items);
                             console.log(response.data);
-                            //console.log(ag_items);
+
+
 
                             //WPService.currentUser.currentWeek = weeks;
 
@@ -107,6 +79,86 @@ app.run(function(amMoment) {
                                 $scope.posts_baby = res;
 
                             });
+
+
+                            var weight_statistics = response.data.acf.weight_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
+                            var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+                            console.log($weight_date);
+                            console.log($weight_value);
+
+                            var config = {
+                                type: 'line',
+                                data: {
+                                    labels: $weight_date,
+                                    datasets: [
+                                        {
+                                            label: "Mijn gewicht",
+                                            fill: false,
+                                            lineTension: 0.1,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            data: $weight_value,
+                                            spanGaps: false,
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title:{
+                                        display:true,
+                                        text:'Gewicht mama'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    },
+                                    scales: {
+                                        xAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Maand'
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Gewicht in kg'
+                                            }
+                                        }]
+                                    }
+                                }
+                            };
+
+                            var ctx = document.getElementById("canvas").getContext("2d");
+                            window.myLine = new Chart(ctx, config);
+
 
                         }, function errorCallback(response) {
                             console.log(response);
