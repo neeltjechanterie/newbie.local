@@ -4,135 +4,68 @@
 			<p class="logo">
 				{{data.currentUser.name}}
 			</p>
-			<div class="pull-right col-xs-2 col-lg-1"> <button type="submit" class="btn"><i class="icon icon-pencil"></i></button> </div>
-
+			<div class="navigation-edit-toggle pull-right">
+				<button type="submit"><i class="icons icon-note"></i></button>
+			</div>
 		</div>
 	</header>
 
 	<div class="wrapper">
-		<div class="content container">
-
+		<div class="content container  col-xs 12 col-md-6 offset-md-3">
+			<h1>Profiel bewerken</h1>
 			<label for="acf-weight">Uitgerekende datum</label>
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control datepicker" name="fields[due_date]" value="{{data.currentUser.acf.due_date}}" data-date-format="yyyy-mm-dd">
+				<input type="text" class="form-control datepicker group-addon" name="fields[due_date]" value="{{data.currentUser.acf.due_date}}" data-date-format="yyyy-mm-dd">
 				<div class="input-group-addon">
-					<span class="glyphicon glyphicon-th"></span>
+					<span class="icon icon-grid"></span>
 				</div>
 			</div>
 
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label for="acf-weight">Gewicht mama</label>
 				<input type="text" id="weight" name="fields[weight]" value="{{data.currentUser.acf.weight}}" class="form-control" id="acf-weight">
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<canvas id="canvas" height="400px"></canvas>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-
-				<div class="table-responsive">
-
-					<table class="table table-striped" >
-						<thead>
-						<tr>
-							<th>#</th>
-							<th>Datum</th>
-							<th>Gewicht in kg</th>
-						</tr>
-						</thead>
-<!--						<tfoot>-->
-<!--						<tr>-->
-<!--							<td colspan='3'><a href="#" class="add-table-row btn">-->
-<!--									Voeg nieuw item toe ...-->
-<!--								</a></td>-->
-<!---->
-<!--						</tr>-->
-<!--						</tfoot>-->
-						<tbody>
-							<tr>
-								<th colspan='3'><a href="#" class="add-table-row btn">
-										Voeg nieuw item toe ...
-									</a>
-								</th>
-							</tr>
-							<tr ng-repeat="item in data.currentUser.acf.weight_statistics | orderBy:'-weight_date'" id="{{data.currentUser.acf.weight_statistics.length - $index}}" class="table_item">
-								<th>{{data.currentUser.acf.weight_statistics.length - $index}}</th>
-								<td>
-									<input type="text" id="today {{today}} edit" data-ng-disabled="item.weight_date != today" class="form-control datepicker" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_date]" value="{{item.weight_date}}" data-date-format="yyyy-mm-dd">
-								</td>
-								<td>
-									<input type="text" class="form-control" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_number]" value="{{item.weight_number}}" >
-								</td>
-							</tr>
-
-
-
-						</tbody>
-
-
-					</table>
-				</div>
-			</div>
-			<!--<div ng-repeat="item in data.currentUser.acf.weight_statistics">
-				<div class="item">
-
-					<label for="fields[weight_statistics][{{$index}}][weight_date]">Current date</label>
-					<div class="input-group date" data-provide="datepicker">
-						<input type="text" class="form-control datepicker" name="fields[weight_statistics][{{$index}}][weight_date]" value="{{item.weight_date}}" data-date-format="yyyy-mm-dd">
-						<div class="input-group-addon">
-							<span class="glyphicon glyphicon-th"></span>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="fields[weight_statistics][{{$index}}][weight_number]">Current weight</label>
-						<input type="text" name="fields[weight_statistics][{{$index}}][weight_number]" value="{{item.weight_number}}" class="form-control">
-					</div>
-
-				</div>
-
-			</div>
-			<a href="#" class="add-row btn">
-				Voeg nieuw item toe ...
-			</a>-->
+			</div>-->
+			<br>
 			<div class="form-group">
 				<!-- true / false -->
 				<input type="hidden" name="fields[is_de_baby_geboren]" value="0" />
 				<input id="baby" ng-model="data.currentUser.acf.is_de_baby_geboren" type="checkbox" name="fields[is_de_baby_geboren]">
 				<!-- name item -->
-				<label for="baby">
+				<label for="baby" class="baby">
 					Is de baby al geboren?
 				</label>
 
 
 				<div class="check-element animate-show-hide" ng-show="data.currentUser.acf.is_de_baby_geboren" >
+					<h3>Gefeliciteerd met jouw baby!</h3>
+					<p>Vul onderstaande gegevens in om een profiel voor jouw baby aan te maken.</p>
+					<label for="acf-weight">Naam baby</label>
 					<div class="form-group">
-						<label for="acf-weight">Naam kind</label>
 						<input type="text" name="fields[name_child]" value="{{data.currentUser.acf.name_child}}" class="form-control" id="acf-weight">
 					</div>
 
 
 					<label for="acf-weight">Geboortedatum kind</label>
-					<div class="input-group date" data-provide="datepicker">
-						<input type="text" class="form-control datepicker" name="fields[birthday_child]" value="{{data.currentUser.acf.birthday_child}}" data-date-format="yyyy/mm/dd">
+					<div class="form-group input-group date" data-provide="datepicker">
+						<input type="text" class="form-control datepicker group-addon" name="fields[birthday_child]" value="{{data.currentUser.acf.birthday_child}}" data-date-format="yyyy/mm/dd">
 						<div class="input-group-addon">
-							<span class="glyphicon glyphicon-th"></span>
+							<span class="icon icon-grid"></span>
 						</div>
 					</div>
 
+					<label for="acf-weight">Lengte kind (in cm)</label>
 					<div class="form-group">
-						<label for="acf-weight">Lengte kind</label>
 						<input type="text" name="fields[length_child]" value="{{data.currentUser.acf.length_child}}" class="form-control" id="acf-weight">
 					</div>
 
+					<label for="acf-weight">Gewicht kind (in gram)</label>
 					<div class="form-group">
-						<label for="acf-weight">Gewicht kind</label>
 						<input type="text" name="fields[weight_child]" value="{{data.currentUser.acf.weight_child}}" class="form-control" id="acf-weight">
 					</div>
 				</div>
-
-
 			</div>
 
+			<button type="submit" class="btn secondary pull-right">Opslaan</button>
 
 		</div>
 	</div>

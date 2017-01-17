@@ -4,10 +4,9 @@
             MAMA
         </p>
 
-
-            <div class="navigation-edit-toggle pull-right ">
-                <i class="icons icon-settings"></i>
-            </div>
+        <div class="navigation-edit-toggle pull-right">
+            <i class="icons icon-settings"></i>
+        </div>
         <article>
 
             <nav role="navigation" class="settings-navigation clearfix">
@@ -31,8 +30,8 @@
             </nav>
         </article>
 
-        <a  ng-show="user.capabilities.edit_posts" class="btn pull-right right"
-            href="/mom-edit/{{data.currentUser.id}}"></a>
+        <!--<a  ng-show="user.capabilities.edit_posts" class="btn pull-right right"-->
+            <!--href="/mom-edit/{{data.currentUser.id}}"></a>-->
 
     </div>
 </header>
@@ -76,7 +75,7 @@
                                         <li class="selected"></li>
                                     </ol>
                                     <div class="wrapper-filling-line">
-                                        <div class="filling-line" aria-hidden="true" style="width: {{data.currentUser.percentDate}}%;" ></div>
+                                        <div class="filling-line" aria-hidden="true" style="width: {{percentDate}}%;" ></div>
                                     </div>
                                 </div> <!-- .events -->
                             </div> <!-- .events-wrapper -->

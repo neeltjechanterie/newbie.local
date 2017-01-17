@@ -17,7 +17,7 @@
             var weeks = moment.duration(d1.diff(d2)).asWeeks();
             var days = moment.duration(d1.diff(d2)).asDays();
 
-            WPService.currentUser.percentDate = (weeks / 40) * 100;
+            $scope.percentDate = 100 - ((weeks / 40) * 100);
             WPService.currentUser.CountDownWeek = weeks;
             var currentWeek = (40 - weeks).toFixed(0);
             WPService.currentUser.CountWeeks = currentWeek;
@@ -84,6 +84,14 @@
                             var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
                             var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+
+                            var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            $scope.last_item_weight_date = $last_weight_date.pop();
+
                             console.log($weight_date);
                             console.log($weight_value);
 
@@ -135,7 +143,7 @@
                                             display: true,
                                             scaleLabel: {
                                                 display: true,
-                                                labelString: 'Maand'
+                                                labelString: 'Datum'
                                             }
                                         }],
                                         yAxes: [{

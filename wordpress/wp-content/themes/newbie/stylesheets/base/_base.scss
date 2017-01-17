@@ -223,7 +223,7 @@ img {
 input[type=text],button,select,textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
-  border-radius: 0;
+  border-radius: 22px;
   outline: none;
 }
 input[type=text]#stopwatch {
@@ -243,6 +243,10 @@ input[type=text]#stopwatch {
 .wrapper {
   min-height: 80vh;
 }
+
+.weight tbody th{
+  line-height: 2.5 !important;
+}
 button#startandstopbutton{
   width: 65px;
   height: 65px;
@@ -255,6 +259,7 @@ button#startandstopbutton{
     background-color: $main-color !important;
   }
 }
+
 body.admin-bar .navigation-toggle
 {  top: 35px;  }
 body.admin-bar .header, body.admin-bar .settings-navigation { top: 28px;}

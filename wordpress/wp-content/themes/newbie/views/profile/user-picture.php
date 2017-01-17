@@ -4,8 +4,9 @@
 			<p class="logo">
 				Wijzig profielfoto {{data.currentUser.name}}
 			</p>
-			<div class="pull-right col-xs-2 col-lg-1"> <button type="submit" class="btn"><i class="icon icon-pencil"></i></button> </div>
-
+			<div class="navigation-edit-toggle pull-right">
+				<button type="submit"><i class="icons icon-note"></i></button>
+			</div>
 		</div>
 	</header>
 
@@ -18,10 +19,12 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="acf-file-url" value="{{data.currentUser.acf.profile_picture}}" readonly>
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger<?php //if( ! $file_id ): ?> hide<?php// endif; ?>" id="acf-file-url-remove-btn">&times;</button>
+						<button type="button" class="btn btn-danger" id="acf-file-url-remove-btn">&times;</button>
 						<button type="button" class="btn btn-primary" id="acf-file-url-btn">Select file</button>
 					</span>
 				</div>
+				<img src="{{data.currentUser.acf.profile_picture}}" alt="profile-picture">
+
 			</div>
 		</div>
 	</div>

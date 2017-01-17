@@ -2,7 +2,7 @@
 // BUTTONS
 // -----------------------------------------------------------------------------
 
-.button {
+[type=reset], [type=submit], button, html [type=button], .button, .btn {
   color: $white !important;
   background: $main-color;
   display: inline-block;
@@ -17,7 +17,21 @@
   transition: all .3s;
   letter-spacing: 3px;
   border: none;
+  border-radius: 22px !important;
   &:hover{
     background: $secondary-color;
   }
+}
+.btn.secondary{
+  background-color: $secondary-color;
+  &:hover{
+    background: $main-color;
+  }
+}
+
+.navigation-edit-toggle [type=submit], .navigation-edit-toggle button, .navigation-edit-toggle [type=button]{
+  background: none;
+  font-size: 22px;
+  padding: 0;
+  margin: 0;
 }

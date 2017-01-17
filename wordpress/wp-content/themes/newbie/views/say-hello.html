@@ -27,7 +27,8 @@
             <div class="col col-xs 12 col-md-8 offset-md-2 no-padding">
                     <div class="col col-xs-4 col-md-5 info-banner left">
                         <p>Nog ... weken</p>
-                        <p class="result">{{data.currentUser.acf.due_date | amDifference : today : 'weeks' }} - {{data.currentUser.acf.due_date | amDifference : today : 'days' }}</p>
+                        <!--<p class="result">{{data.currentUser.acf.due_date | amDifference : today : 'weeks' }} - {{data.currentUser.acf.due_date | amDifference : today : 'days' }}</p>-->
+                        <p class="result">{{data.currentUser.acf.due_date | amDifference : today : 'weeks' }}</p>
                     </div>
                     <div class="col col-xs-4 col-md-2 user-profile mom">
                         <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
@@ -36,7 +37,7 @@
                     </div>
                     <div class="col col-xs-4 col-md-5 info-banner right">
                         <p>Jouw gewicht</p>
-                        <p class="result">{{data.currentUser.acf.weight}}<span> kg</span></p>
+                        <p class="result">{{last_item_weight}}<span> kg</span></p>
                     </div>
             </div>
         </div>

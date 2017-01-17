@@ -171,6 +171,7 @@ jQuery( function( $ ) {
 		format: 'yyyy-mm-dd',
 		autoclose: true
 	});
+	$(".date-pick").datepicker('setDate', new Date());
 
 	if ( $.isFunction( $( '.datepicker' ).datepicker ) ) {
 		$( '.datepicker' ).datepicker( {
@@ -324,8 +325,12 @@ jQuery( function( $ ) {
 
 	//ADD TABLE INPUT ROW
 	$( document ).on( 'click', '.add-table-row', function() {
+		var today = moment(new Date()).format("YYYY-MM-DD");
 		var clone = $( '.table_item:first' ).clone();
-		clone.find( 'input' ).val( '' );
+		clone.find( 'input#today' ).val( today );
+		clone.find( 'input#today' ).removeAttr('readonly');
+		//clone.find( 'input#weight' ).prop("disabled", false);
+		clone.find( 'input#weight' ).val( '' );
 		clone.find( 'th' ).text( '' );
 
 		$( clone ).insertBefore( $( '.table_item:first' ) );
@@ -341,7 +346,9 @@ jQuery( function( $ ) {
 			return e.replace( /\d+/g, newIndex );
 		} );
 		$( '.table_item:first th' ).append( newIndex );
+		$( '.row-table-add-btn' ).hide();
 		console.log("new row");
+		console.log(today);
 		verifyItemsRepeater();
 		return false;
 	} );

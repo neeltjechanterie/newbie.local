@@ -155,6 +155,12 @@ input[type=checkbox]:checked + label:before { /* checked icon */
 }
 input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
 
+label.baby{
+  line-height: 2;
+}
+label.baby:before{
+  padding-left: 0 !important;
+}
 .add-row{
   padding: 10px 10px 10px 0 !important;
   font-weight: 300 !important;
