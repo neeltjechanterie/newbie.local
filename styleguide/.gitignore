@@ -1,0 +1,6 @@
+.sass-cache
+.DS_Store
+.tmp
+.idea
+/server/config/local.env.js
+/dist
