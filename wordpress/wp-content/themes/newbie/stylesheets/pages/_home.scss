@@ -89,6 +89,22 @@
   font-size: 2.65em;
   margin-top: 0;
 }
+.mom a.result{
+  padding-top: 30px;
+  display: block;
+  font-size:2.65em;
+  text-decoration: none;
+}
+a.result{
+  color: #fff;
+  text-decoration: none;
+  &:hover {
+    color:$main-color;
+  }
+}
+a.result p{
+  padding-left: 20px;
+}
 .info-banner.left{
   text-align: right;
 }

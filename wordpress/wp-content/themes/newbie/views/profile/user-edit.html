@@ -1,0 +1,45 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            {{user.name}}
+        </p>
+    </div>
+</header>
+
+<div class="wrapper">
+    <div class="content container  col-xs 12 col-md-6 offset-md-3">
+        <h1>Profiel bewerken</h1>
+
+
+        <form name="editUserForm" id="editUser" class="edit">
+            <label for="email">Email:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" id="email" ng-model="user.email">
+            </div>
+
+            <label for="first_name">Naam:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" id="first_name" ng-model="user.first_name">
+            </div>
+
+            <label for="last_name">Familienaam:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" id="last_name" ng-model="user.last_name">
+            </div>
+
+            <label for="nickname">Nickname:</label>
+            <div class="form-group">
+                <input type="text" class="form-control" id="nickname" ng-model="user.nickname">
+            </div>
+
+            <label for="description">Beschrijving:</label>
+            <div class="form-group">
+                <textarea rows="3" class="form-control" id="description" ng-model="user.description"></textarea>
+            </div>
+
+            <a class="btn secondary pull-right" ng-click="updateUser()">Save</a>
+        </form>
+
+        <p id="responseMessage"></p>
+    </div>
+</div>

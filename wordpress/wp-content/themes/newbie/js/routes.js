@@ -34,8 +34,8 @@
                 controller: 'Main'
             })
             .when('/mom-edit/:id',{
-                templateUrl: myLocalized.views + 'profile/user.html',
-                controller: 'Main'
+                templateUrl: myLocalized.views + 'profile/user-edit.html',
+                controller: 'EditUser'
             })
             .when('/mom-weight/:id',{
                 templateUrl: myLocalized.views + 'profile/weight.html',

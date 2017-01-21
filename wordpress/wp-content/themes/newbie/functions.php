@@ -130,3 +130,29 @@ function user_include_email( $data ) {
     return $data;
 }
 add_filter( 'rest_prepare_user', 'user_include_email', 10, 3 );*/
+
+
+//add_action( 'template_redirect', 'redirect_to_specific_page' );
+
+function redirect_to_specific_page() {
+
+    if ( ! is_user_logged_in() ) {
+
+        auth_redirect();
+    }
+}
+//add_action( 'template_redirect', 'redirect_user' );
+
+function redirect_user() {
+    if ( ! is_user_logged_in() && ! is_page( 'login' )  && ! is_page( 'wp-login' ) ) {
+        $return_url = esc_url( home_url( '/wp-login' ) );
+        wp_redirect( $return_url );
+        exit;
+    }
+}
+function my_login_stylesheet() {
+    wp_enqueue_style( 'custom-login', get_stylesheet_directory_uri() . '/assets/css/style-login.css' );
+    wp_enqueue_script( 'custom-login', get_stylesheet_directory_uri() . '/assets/js/style-login.js' );
+
+}
+add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );

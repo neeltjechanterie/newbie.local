@@ -20,11 +20,6 @@
 	<link rel='stylesheet' id='style-css-grid-bootstrap'  href='<?php echo get_stylesheet_directory_uri();?>/assets/css/bootstrap-grid.css' type='text/css' media='all' />
 	<link rel='stylesheet' id='style-css-datepicker-bootstrap'  href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css' type='text/css' media='all' />
 
-	<script type="text/javascript">
-		$(function () {
-
-		});
-	</script>
 	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
 	<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js'></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">

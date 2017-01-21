@@ -7,3 +7,4 @@ node_modules/
 /.proxy
 /Artestead.yaml
 !bin
+/wordpress/wp-content/tests

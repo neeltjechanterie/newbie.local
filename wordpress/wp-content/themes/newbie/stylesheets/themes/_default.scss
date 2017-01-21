@@ -171,3 +171,6 @@ label.baby:before{
   padding-left: 15px!important;
   padding-right: 0!important;
 }
+.icons, .icons[class*=" icon-"], .icons[class^=icon-]{
+  font-family: 'simple-line-icons' !important;
+}

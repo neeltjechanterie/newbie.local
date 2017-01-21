@@ -1136,6 +1136,21 @@ nav ul {
   font-size: 2.65em;
   margin-top: 0; }
 
+.mom a.result {
+  padding-top: 30px;
+  display: block;
+  font-size: 2.65em;
+  text-decoration: none; }
+
+a.result {
+  color: #fff;
+  text-decoration: none; }
+  a.result:hover {
+    color: #ef7729; }
+
+a.result p {
+  padding-left: 20px; }
+
 .info-banner.left {
   text-align: right; }
 
@@ -1398,3 +1413,6 @@ label.baby:before {
   width: 14%;
   padding-left: 15px !important;
   padding-right: 0 !important; }
+
+.icons, .icons[class*=" icon-"], .icons[class^=icon-] {
+  font-family: 'simple-line-icons' !important; }

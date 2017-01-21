@@ -10,7 +10,66 @@ app.run(function(amMoment) {
  */
 ;(function () {
     'use strict';
+    app.controller('EditUser', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout) {
+        $http.get('wp-json/wp/v2/users/me').success(function(res){
+            WPService.currentUser = res;
 
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
+
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            $scope.user = response.data;
+
+
+
+                            // Update user
+                            $scope.updateUser = function() {
+                                $http({
+                                    url: 'wp-json/wp/v2/users/' + $scope.user.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                                    method: "POST",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: $httpParamSerializerJQLike({
+                                        email: $scope.user.email,
+                                        description: $scope.user.description,
+                                        first_name: $scope.user.first_name,
+                                        last_name: $scope.user.last_name,
+                                        nickname: $scope.user.nickname,
+                                        username: $scope.user.username
+                                    })
+                                }).then(function successCallback(response) {
+                                    console.log(response);
+
+                                    //$scope.loadData();
+
+                                    document.getElementById('editUser').style.display = 'none';
+                                    document.getElementById('responseMessage').innerHTML = 'Succesfuly updated user.' + $scope.user.id;
+
+
+                                }, function errorCallback(response) {
+                                    console.log(response);
+                                });
+                            };
+
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+
+        });
+
+        $scope.data = WPService;
+
+    }]);
     app.controller('Main', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
@@ -166,6 +225,7 @@ app.run(function(amMoment) {
 
                             var ctx = document.getElementById("canvas").getContext("2d");
                             window.myLine = new Chart(ctx, config);
+
 
 
                         }, function errorCallback(response) {
@@ -840,8 +900,8 @@ app.factory('WPService', ['$http', WPService]);
                 controller: 'Main'
             })
             .when('/mom-edit/:id',{
-                templateUrl: myLocalized.views + 'profile/user.html',
-                controller: 'Main'
+                templateUrl: myLocalized.views + 'profile/user-edit.html',
+                controller: 'EditUser'
             })
             .when('/mom-weight/:id',{
                 templateUrl: myLocalized.views + 'profile/weight.html',

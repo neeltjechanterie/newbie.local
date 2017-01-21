@@ -1,8 +1,9 @@
 <div ng-hide="data.currentUser.id" class="col-xs-12 col-md-12">
     <div class="blue-banner">
         <div class="col col-xs-12 user-info">
-            <p>You must be logged in.</p>
-            <p>Go to the <a href="/login" onclick='location.reload(true);'>login</a> page</p>
+            <p>Welkom op de Newbie webapp!</p>
+            <p>Ben je zwanger? Dan is dit de ideale manier om jouw zwangerschap op de voet op te volgen.</p>
+            <p>Klik <a href="/login" onclick='location.reload(true);'>hier</a> om een profiel aan te maken.</p>
         </div>
     </div>
 </div>
@@ -31,21 +32,29 @@
                         <p class="result">{{data.currentUser.acf.due_date | amDifference : today : 'weeks' }}</p>
                     </div>
                     <div class="col col-xs-4 col-md-2 user-profile mom">
-                        <ui-image data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="Test"></ui-image>
+                        <ui-image ng-show="data.currentUser.acf.profile_picture" data-src="{{data.currentUser.acf.profile_picture}}" src="{{data.currentUser.acf.profile_picture}}" data-title="profile-pic"></ui-image>
+                        <a ng-hide="data.currentUser.acf.profile_picture" href="/mom-edit-picture/{{data.currentUser.id}}" class="result"><i class="icon-plus"></i></a>
 
                         <!--<div class="user-img" style="background-image:url('{{data.currentUser.acf.profile_picture}}')"></div>-->
                     </div>
                     <div class="col col-xs-4 col-md-5 info-banner right">
                         <p>Jouw gewicht</p>
-                        <p class="result">{{last_item_weight}}<span> kg</span></p>
+                        <p ng-show="data.currentUser.acf.weight_statistics" class="result">{{last_item_weight}}<span> kg</span></p>
+                        <a  ng-hide="data.currentUser.acf.weight_statistics" href="/mom-weight/{{data.currentUser.id}}" class="result">
+                            <p class="result"><i class="icon-plus"></i></p>
+                        </a>
+
                     </div>
             </div>
         </div>
     </div>
     <div ng-hide="data.currentUser.acf.due_date">
         <div class="blue-banner">
-            <div class="col col-xs-12 user-info">
-                <p>update your profile</p>
+            <div class="col col-xs 12 col-md-4 offset-md-4 user-info">
+                <br><br>
+                <p>Update jouw profiel, we hebben opgemerkt dat je nog geen uitgerekende datum hebt toegevoegd.</p>
+                <a href="/mom-settings/{{data.currentUser.id}}" class="btn primary">UITGEREKENDE DATUM TOEVOEGEN</a>
+
             </div>
         </div>
     </div>

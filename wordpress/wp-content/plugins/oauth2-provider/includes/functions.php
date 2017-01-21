@@ -241,3 +241,8 @@ function wo_create_client( $user=null ){
 			'description' => empty($user['client-description']) ? '' : $user['client-description']
 			));
 }
+
+function login_redirect( $redirect_to, $request, $user ){
+    return home_url('');
+}
+add_filter( 'login_redirect', 'login_redirect', 10, 3 );
