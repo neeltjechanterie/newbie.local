@@ -70,7 +70,7 @@ app.run(function(amMoment) {
         $scope.data = WPService;
 
     }]);
-    app.controller('Main', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout) {
+    app.controller('UserWeight', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -105,7 +105,8 @@ app.run(function(amMoment) {
                             //$scope.user.email = response.data.email;
                             console.log(response.data.email);
 
-                            $scope.url = "http://newbie.local/wp-json/acf/v2/user/" + $routeParams.id;
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
 
@@ -240,24 +241,114 @@ app.run(function(amMoment) {
 
         });
         //get current user
-
-
         $scope.data = WPService;
+    }]);
+    app.controller('Main', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+        $http.get('wp-json/wp/v2/users/me').success(function(res){
+            WPService.currentUser = res;
+
+
+            //$scope.users = res;
+
+            var dueDate = WPService.currentUser.acf.due_date;
+            var d1 = moment(dueDate);
+            var d2 = moment(Date.now());
+            var weeks = moment.duration(d1.diff(d2)).asWeeks();
+            var days = moment.duration(d1.diff(d2)).asDays();
+
+            $scope.percentDate = 100 - ((weeks / 40) * 100);
+            WPService.currentUser.CountDownWeek = weeks;
+            var currentWeek = (40 - weeks).toFixed(0);
+            WPService.currentUser.CountWeeks = currentWeek;
+            var currentDay = (268 - days).toFixed(0);
+            WPService.currentUser.CountDays = currentDay;
+
+            $scope.data.filterWeeksPost = 'week-' + (currentWeek);
+
+            $scope.today = moment(new Date()).format("YYYY-MM-DD");
+
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
+
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            console.log(response.data);
+                            $scope.user = response.data;
+                            //$scope.user.email = response.data.email;
+                            console.log(response.data.email);
+
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
+                            console.log(response.data);
 
 
 
-/*        $http.get('/wp-json/wp/v2/posts/').success(function(res){
-            $scope.posts = res;
+                            //WPService.currentUser.currentWeek = weeks;
+
+                            if (currentWeek < 10){
+                                var currentWeekEdit = "0" + currentWeek;
+                                console.log(currentWeekEdit);
+                            }
+                            else {
+                                var currentWeekEdit = currentWeek;
+                            }
+
+                            var catWeekName = 'Week ' + currentWeek;
+                            var catWeekSlug = 'week-' + currentWeekEdit;
+
+
+
+                            console.log(catWeekName);
+                            console.log(catWeekSlug);
+                            $http.get('/wp-json/wp/v2/posts/?filter[category_name]=' + catWeekSlug).success(function(res){
+                                $scope.posts = res;
+
+                            });
+                            $http.get('/wp-json/wp/v2/categories/?search=' + catWeekSlug).success(function(res){
+                                $scope.categories = res;
+                            });
+                            $http.get('/wp-json/wp/v2/posts-baby/?filter[category_name]=' + catWeekName).success(function(res){
+                                $scope.posts_baby = res;
+
+                            });
+
+                            var weight_statistics = response.data.acf.weight_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
+                            var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+
+                            var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            $scope.last_item_weight_date = $last_weight_date.pop();
+
+                            console.log($weight_date);
+                            console.log($weight_value);
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
 
         });
-        $http.get('/wp-json/wp/v2/categories/').success(function(res){
-            $scope.categories = res;
-        });*/
-
-
-
+        //get current user
+        $scope.data = WPService;
     }]);
-    app.controller('Test', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', '$location', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike, $location) {
+    app.controller('Test', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', '$location', '$route', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike, $location, $route) {
         //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
         //get current user
@@ -281,6 +372,18 @@ app.run(function(amMoment) {
 
                         $scope.totalItems = res.length;
                         console.log("TOTAL: " + $scope.totalItems);
+
+                     for( var i = 0; i < $scope.checklists.length; i++ ){
+                         (function(checklist) {
+                             $(document).on('click', ".cl-btn-"+checklist.id, function() {
+                                 $(this).parent(".cl-title").parent(".cl-item").find('.settings-checklist').toggleClass("settings-display");
+                                 // $(this).parent(".cl-title").parent(".cl-item").find('.settings-checklist').toggleClass("settings-display", 500, "easeOutBack");
+                                 //$(this).parent(".cl-title").toggleClass("settings-display");
+                                 console.log("click");
+                             });
+                         })($scope.checklists[i]);
+                     }
+
 
                     });
                 };
@@ -365,11 +468,12 @@ app.run(function(amMoment) {
                 console.log(res);
 
                 $scope.checklist = res.data;
-                $scope.loadData();
+                document.getElementById('addPost').style.display = 'none';
+                //$scope.loadData();
+                $route.reload();
                 //$location.path('/test/' + res.data.id);
 
 
-                document.getElementById('addPost').style.display = 'none';
 
             }, function errorCallback(response) {
                 console.log(response);
@@ -820,6 +924,21 @@ app.run(function(amMoment) {
 
     });
 
+    app.directive('ngConfirmClick', [
+        function(){
+            return {
+                link: function (scope, element, attr) {
+                    var msg = attr.ngConfirmClick || "Are you sure?";
+                    var clickAction = attr.confirmedClick;
+                    element.bind('click',function (event) {
+                        if ( window.confirm(msg) ) {
+                            scope.$eval(clickAction)
+                        }
+                    });
+                }
+            };
+        }]);
+
 })();
 ;(function () {
     'use strict';
@@ -905,7 +1024,7 @@ app.factory('WPService', ['$http', WPService]);
             })
             .when('/mom-weight/:id',{
                 templateUrl: myLocalized.views + 'profile/weight.html',
-                controller: 'Main'
+                controller: 'UserWeight'
             })
             .when('/baby-edit-picture/:id',{
                 templateUrl: myLocalized.views + 'profile/baby-picture.php',

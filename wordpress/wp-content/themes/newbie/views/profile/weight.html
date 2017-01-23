@@ -46,7 +46,7 @@
 						<tr ng-repeat="item in data.currentUser.acf.weight_statistics | orderBy:'-weight_date'" id="{{data.currentUser.acf.weight_statistics.length - $index}}" class="table_item">
 							<th>{{data.currentUser.acf.weight_statistics.length - $index}}</th>
 							<td>
-								<input type="text" id="today" ng-readonly="item.weight_date != today" class="form-control datepicker" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_date]" value="{{item.weight_date}}" data-date-format="yyyy-mm-dd">
+								<input type="text" id="today" ng-readonly="item.weight_date != today" class="form-control" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_date]" value="{{item.weight_date}}" data-date-format="yyyy-mm-dd">
 							</td>
 							<td>
 								<input type="text" id="weight" class="form-control" name="fields[weight_statistics][{{data.currentUser.acf.weight_statistics.length - $index}}][weight_number]" value="{{item.weight_number}}" >
@@ -55,7 +55,7 @@
 						<tr ng-if="!data.currentUser.acf.weight_statistics.length" class="table_item">
 							<th>1</th>
 							<td>
-								<input type="text" id="today" class="form-control datepicker" name="fields[weight_statistics][1][weight_date]" value="{{today}}" data-date-format="yyyy-mm-dd">
+								<input type="text" id="today" class="form-control" name="fields[weight_statistics][1][weight_date]" value="{{today}}" data-date-format="yyyy-mm-dd">
 							</td>
 							<td>
 								<input type="text" id="weight" class="form-control" name="fields[weight_statistics][1][weight_number]" value="">

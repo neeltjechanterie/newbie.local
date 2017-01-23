@@ -66,7 +66,7 @@ $edit = true;
         </li>
         <li><a href="#">Help</a>
             <ul>
-                <li><a id="tips" href="/tips">Tips &amp;amp; Tricks</a>
+                <li><a id="tips" href="/tips">Tips &amp; Tricks</a>
                 <li><a id="gids" href="/financieël">Financieël</a></li>
             </ul>
         </li>

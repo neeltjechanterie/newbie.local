@@ -1,12 +1,62 @@
 // -----------------------------------------------------------------------------
 // MAIN STYLE
 // -----------------------------------------------------------------------------
-
+.checklists .badge{
+  //display: inline-block;
+  //min-width: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: $white;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: $light-grey;
+  //border-radius: 50%;
+  //width: 26px;
+  //height: 26px;
+  //line-height: 26px;
+  top: 0;
+  float: left;
+}
+.checklists .badge.arrow{
+  //display: inline-block;
+  //min-width: 0;
+  //padding: 0px 5% 0 6%;
+  font-size: 12px;
+  font-weight: bold;
+  color: #777777;
+  vertical-align: middle;
+  //white-space: nowrap;
+  //text-align: center;
+  //background-color: transparent;
+  //border-radius: 50%;
+  //width: 26px;
+  //height: 26px;
+  line-height: 26px;
+  /*top: 0;*/
+  background-color: transparent;
+}
+.list-group-item > .badge.arrow{
+  float: left;
+}
 .checklists .list-group-item{
   border-left: none;
   border-right: none;
   padding: 18px 18px 18px 0;
   height: 60px;
+  &:hover {
+    background-color:#eee;
+    color: $secondary-color;
+
+    .checklists .badge.arrow{
+      background-color:#eee;
+    }
+    a{
+      color: $secondary-color;
+      text-decoration: none;
+    }
+  }
 }
 .checklist .list-group-item{
   border-left: none;
@@ -19,41 +69,7 @@
   border-radius: 0;
 }
 
-.checklists .badge{
-  display: inline-block;
-  min-width: 0;
-  padding: 0;
-  font-size: 12px;
-  font-weight: bold;
-  color: $white;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-  background-color: $light-grey;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  top: 0;
-  float: left;
-}
-.checklists .badge.arrow{
-  display: inline-block;
-  min-width: 0;
-  padding: 0px 5% 0 6%;
-  font-size: 12px;
-  font-weight: bold;
-  color: #777777;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-  background-color: transparent;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  top: 0;
-}
+
 .checklists .check,
 .checklist .check{
   color: $secondary-color;
@@ -123,7 +139,7 @@ table{
   border: none;
   font-weight: 300;
   font-size: 17px;
-  padding: 0;
+  padding: 0 20px;
 }
 input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 input[type=checkbox] + label:before {
@@ -173,4 +189,48 @@ label.baby:before{
 }
 .icons, .icons[class*=" icon-"], .icons[class^=icon-]{
   font-family: 'simple-line-icons' !important;
+}
+.cl-item{
+  height:60px;
+  overflow: hidden;
+  margin-bottom: -1px;
+}
+.settings-checklist{
+  top: -59px;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  z-index: 1;
+  background: #d84f19;
+  height: 60px;
+  border: #fff;
+  position: relative;
+  top: -59px;
+  overflow: hidden;
+  margin-right: 0;
+  transition: all .5s;
+  padding:12px 15px;
+}
+.settings-checklist.settings-display{
+  -webkit-transform: translateX(0);
+  -ms-transform: translatex(0);
+  transform: translateX(0);
+  margin-right: 21%;
+  left: 0;
+  background: #d84f19;
+  padding:9px 20px;
+  &:hover{
+    background: #d84f19;
+  }
+}
+.settings-checklist .btn{
+  height: 40px;
+  width: 40px;
+}
+#addPost{
+  padding: 12px 20px;
+}
+#addPost input{
+  padding: 0 20px;
+  border: 1px solid #ccc;
 }

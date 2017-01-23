@@ -9,8 +9,11 @@ jQuery(document).ready(function(e) {
 
     e(".navigation-toggle").on("click",
         function() {
-            e("body").toggleClass("navigation-active")
+            e("body").toggleClass("navigation-active");
+            console.log("click");
         });
+
+
    /* e(".navigation-edit-toggle").on("click",
         function() {
             e("article").toggleClass("settings-navigation-active");
@@ -21,6 +24,12 @@ jQuery(document).ready(function(e) {
         //e("body").toggleClass("navigation-active");
 
     });
+    // $(document).on('click', '.settings-cl-btn', function() {
+    //     e(".settings-checklist").toggleClass("settings-display");
+    //     //e("body").toggleClass("navigation-active");
+    //     console.log("click");
+    //
+    // });
 
     // JS CIRCLES
     function serviceCircleHeights() {

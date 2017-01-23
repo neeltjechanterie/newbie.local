@@ -31,12 +31,12 @@ if ( $edit ) {
 	<div class="sub-header clearfix ">
 		<div class="row">
 			<!--<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>-->
-			<div class="pull-left col-xs-2 col-lg-1"><button class="btn" ng-click="deletePost(checklist.id)">DELETE</button>
+			<div class="pull-left col-xs-2 col-lg-1 subnav-btn"><button ng-click="deletePost(checklist.id)"><i class="icon icon-trash"></i></button>
 			</div>
 			<p class="col-xs-8 col-lg-10">
 				{{checklist.title.rendered}}
 			</p>
-			<div class="pull-right col-xs-2 col-lg-1"> <button type="submit" class="btn"><i class="icon icon-pencil"></i></button> </div>
+			<div class="pull-right col-xs-2 col-lg-1 subnav-btn"> <button type="submit"><i class="icon icon-pencil"></i></button> </div>
 
 			<!--<pre>You are currently on page {{currentPage}}</pre>
 			<ul uib-pager total-items="totalItems" ng-model="currentPage"></ul>-->

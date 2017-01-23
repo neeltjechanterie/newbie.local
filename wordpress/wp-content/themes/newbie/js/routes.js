@@ -39,7 +39,7 @@
             })
             .when('/mom-weight/:id',{
                 templateUrl: myLocalized.views + 'profile/weight.html',
-                controller: 'Main'
+                controller: 'UserWeight'
             })
             .when('/baby-edit-picture/:id',{
                 templateUrl: myLocalized.views + 'profile/baby-picture.php',

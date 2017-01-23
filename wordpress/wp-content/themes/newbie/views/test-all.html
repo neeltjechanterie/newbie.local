@@ -6,8 +6,8 @@
 		<a ng-click="addPostShow()"
 		   ng-show="user.capabilities.edit_posts"
 		   class="logo-button add"><i class="icons icon-plus"></i></a>
-		<button ng-click="editPost(checklist)" class="btn"
-				ng-show="user.capabilities.edit_posts">Edit</button>
+		<!--<button ng-click="editPost(checklist)" class="btn"
+				ng-show="user.capabilities.edit_posts">Edit</button>-->
 	</div>
 </header>
 
@@ -19,35 +19,49 @@
 			<div class="col-xs-12">
 				<div class="list-group checklists">
 
-					<div ng-repeat="checklist in checklists">
-					<a  href="checklist/{{checklist.id}}" id="{{$index + 1}}" class="list-group-item">
-						<span class="check icons icon-check"></span>
-						<p class="uncheck">{{checklist.title.rendered}}</p>
-						<span class="badge icons icon-arrow-right arrow"> </span>
-						<span class="badge">{{checklist.acf.checklist_items.lengths }}</span>
-						<!--filtered.length or try (data|filter:query).length-->
-						<!--OR ng-repeat="person in data | filter:query as results" AND {{results.length}} -->
-					</a>
-						<button class="btn" ng-click="deletePostRepeater(checklist)">DELETE</button>
-						<button ng-click="editPost(checklist)" class="btn"
-						   ng-show="user.capabilities.edit_posts">Edit</button>
+                    <form name="addPostForm" id="addPost"  class="list-group-item" style="display: none;" class="edit">
+                        <div class="col-xs-10">
+                        <input type="text" class="form-control" id="title" ng-model="checklist.title" placeholder="Titel nieuwe checklist ... ">
+                        </div>
+                        <a ng-click="addPost()" class="btn pull-right col-xs-2">Save</a>
+                    </form>
+
+					<div ng-repeat="checklist in checklists" class="cl-item">
+						<div  class="list-group-item cl-title col-xs-12">
+							<a  href="checklist/{{checklist.id}}" id="{{$index + 1}}" class="col-xs-10">
+								<span class="check icons icon-check"></span>
+								<p class="uncheck">{{checklist.title.rendered}}</p>
+							</a>
+                            <a  href="checklist/{{checklist.id}}" id="{{$index + 1}}" class="col-xs-1">
+                                <span class="badge icons icon-arrow-right arrow"> </span>
+                                <!--<span class="badge col-xs-1">{{checklist.acf.checklist_items.lengths }}</span>-->
+                            </a>
+							<div class="cl-btn-{{checklist.id}} badge arrow col-xs-1"><i class="icons icon-options-vertical"></i></div>
+						</div>
+						<!--<div class="settings-checklist">-->
+						<div  class="list-group-item settings-checklist">
+                            <button class="btn"
+                                    ng-confirm-click="Zeker dat je '{{checklist.title.rendered}}' wilt verwijderen?"
+                                    confirmed-click="deletePostRepeater(checklist)"><i class="icon icon-trash"></i></button>
+							<button ng-click="editPost(checklist)" class="btn"
+									ng-show="user.capabilities.edit_posts"><i class="icon icon-pencil"></i></button>
+						</div>
 
 					</div>
 
 
 
 
-					<form name="addPostForm" id="addPost" style="display: none;" class="edit">
-						<label for="title">Title:</label>
-						<input type="text" id="title" ng-model="checklist.title">
 
-						<a ng-click="addPost()">Save</a>
-					</form>
+
 					<form name="editPostForm" id="editPost" style="display: none;" class="edit">
+						<br>
 						<label for="title">Title:</label>
-						<input type="text" id="title" ng-model="checklist.title">
+						<div class="form-group">
+							<input type="text" class="form-control" id="title" ng-model="checklist.title">
+						</div>
 
-						<a ng-click="updatePost()">Save</a>
+						<a class="btn secondary pull-right" ng-click="updatePost()">Save</a>
 					</form>
 
 					<p id="responseMessage"></p>

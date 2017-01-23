@@ -1,7 +1,14 @@
 // -----------------------------------------------------------------------------
 // BUTTONS
 // -----------------------------------------------------------------------------
-
+button.remove-row,
+button[type=button].remove-row{
+  width: 35px;
+  height: 35px;
+  border-radius: 20px !important;
+  font-size: 17px;
+  padding: 0 0 0 4px;
+}
 [type=reset], [type=submit], button, html [type=button], .button, .btn {
   color: $white !important;
   background: $main-color;

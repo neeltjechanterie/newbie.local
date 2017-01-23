@@ -987,6 +987,30 @@ nav ul {
 .navigation-toggle {
   display: block; }
 
+.subnav-btn {
+  display: block;
+  margin-top: 8px;
+  color: #fff;
+  font-size: 22px;
+  /* border: 2px solid #d84f19; */
+  line-height: 44px;
+  text-align: center;
+  /* margin-right: .5rem; */ }
+
+.subnav-btn button,
+.subnav-btn button[type=submit] {
+  border: 1px solid #fff;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  margin-top: 0;
+  color: #fff;
+  font-size: 16px;
+  line-height: 0;
+  padding: 0 0 0 2px;
+  border-radius: 30px !important;
+  margin-bottom: 8px; }
+
 .footer {
   background: #d84f19;
   color: white;
@@ -1019,6 +1043,14 @@ nav ul {
   display: inline-block;
   padding: 0 20px;
   padding: 0 2rem; }
+
+button.remove-row,
+button[type=button].remove-row {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px !important;
+  font-size: 17px;
+  padding: 0 0 0 4px; }
 
 [type=reset], [type=submit], button, html [type=button], .button, .btn {
   color: white !important;
@@ -1241,11 +1273,43 @@ PERCENT BLUE LINE
 .events li.selected {
   right: 9px; }
 
+.checklists .badge {
+  padding: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: #ededed;
+  top: 0;
+  float: left; }
+
+.checklists .badge.arrow {
+  font-size: 12px;
+  font-weight: bold;
+  color: #777777;
+  vertical-align: middle;
+  line-height: 26px;
+  /*top: 0;*/
+  background-color: transparent; }
+
+.list-group-item > .badge.arrow {
+  float: left; }
+
 .checklists .list-group-item {
   border-left: none;
   border-right: none;
   padding: 18px 18px 18px 0;
   height: 60px; }
+  .checklists .list-group-item:hover {
+    background-color: #eee;
+    color: #60c0c5; }
+    .checklists .list-group-item:hover .checklists .badge.arrow {
+      background-color: #eee; }
+    .checklists .list-group-item:hover a {
+      color: #60c0c5;
+      text-decoration: none; }
 
 .checklist .list-group-item {
   border-left: none;
@@ -1256,41 +1320,6 @@ PERCENT BLUE LINE
 .checklists .list-group-item:first-child,
 .list-group-item:last-child {
   border-radius: 0; }
-
-.checklists .badge {
-  display: inline-block;
-  min-width: 0;
-  padding: 0;
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-  background-color: #ededed;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  top: 0;
-  float: left; }
-
-.checklists .badge.arrow {
-  display: inline-block;
-  min-width: 0;
-  padding: 0px 5% 0 6%;
-  font-size: 12px;
-  font-weight: bold;
-  color: #777777;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-  background-color: transparent;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  top: 0; }
 
 .checklists .check,
 .checklist .check {
@@ -1358,7 +1387,7 @@ table {
   border: none;
   font-weight: 300;
   font-size: 17px;
-  padding: 0; }
+  padding: 0 20px; }
 
 input[type=checkbox] {
   display: none; }
@@ -1416,3 +1445,46 @@ label.baby:before {
 
 .icons, .icons[class*=" icon-"], .icons[class^=icon-] {
   font-family: 'simple-line-icons' !important; }
+
+.cl-item {
+  height: 60px;
+  overflow: hidden;
+  margin-bottom: -1px; }
+
+.settings-checklist {
+  top: -59px;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  z-index: 1;
+  background: #d84f19;
+  height: 60px;
+  border: #fff;
+  position: relative;
+  top: -59px;
+  overflow: hidden;
+  margin-right: 0;
+  transition: all .5s;
+  padding: 12px 15px; }
+
+.settings-checklist.settings-display {
+  -webkit-transform: translateX(0);
+  -ms-transform: translatex(0);
+  transform: translateX(0);
+  margin-right: 21%;
+  left: 0;
+  background: #d84f19;
+  padding: 9px 20px; }
+  .settings-checklist.settings-display:hover {
+    background: #d84f19; }
+
+.settings-checklist .btn {
+  height: 40px;
+  width: 40px; }
+
+#addPost {
+  padding: 12px 20px; }
+
+#addPost input {
+  padding: 0 20px;
+  border: 1px solid #ccc; }
