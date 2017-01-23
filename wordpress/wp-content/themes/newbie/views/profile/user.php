@@ -64,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-
+			<a href="{{baseUrl}}" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>
 
 		</div>

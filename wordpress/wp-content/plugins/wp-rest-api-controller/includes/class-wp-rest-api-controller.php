@@ -61,6 +61,8 @@ class wp_rest_api_controller {
 
 	private $enabled_post_types;
 
+	private $post_meta;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -73,7 +75,7 @@ class wp_rest_api_controller {
 	public function __construct() {
 
 		$this->plugin_name        = 'WP REST API Controller';
-		$this->version            = '1.3.0';
+		$this->version            = '1.4.0';
 		$this->enabled_post_types = $this->get_stored_post_types();
 
 		if ( isset( $plugin ) ) {
@@ -94,6 +96,8 @@ class wp_rest_api_controller {
 		$this->set_locale();
 
 		$this->define_admin_hooks();
+
+		$this->run_one_point_four_update_check();
 
 	}
 
@@ -178,6 +182,25 @@ class wp_rest_api_controller {
 
 		$this->loader->run();
 
+	}
+
+	/**
+	 * As of 1.4.0, we've made some core changes to the plugin, so run the changes
+	 *
+	 * @since    1.4.0
+	 */
+	public function run_one_point_four_update_check() {
+
+		// Check if we've done this before
+		if ( get_option( 'wp_rest_api_controller_one_point_four', false ) === false ) {
+
+			// We no longer support enabling/disabling post/page endpoints, so remove these options
+			delete_option( 'wp_rest_api_controller_post_types_post' );
+			delete_option( 'wp_rest_api_controller_post_types_page' );
+
+			// Add a flag so we don't do this all the time
+			add_option( 'wp_rest_api_controller_one_point_four', true );
+		}
 	}
 
 	/**
@@ -269,21 +292,29 @@ class wp_rest_api_controller {
 			'meta_data' => array(),
 		) );
 
-		if ( ! is_array( $meta_options['meta_data'] ) ) {
-
+		if ( ! isset( $meta_options['meta_data'] ) || ! is_array( $meta_options['meta_data'] ) ) {
 			return;
-
 		}
 
 		foreach ( $meta_options['meta_data'] as $key ) {
 
-			if ( $custom_meta_key_name === $key['custom_key'] ) {
+			if ( strtolower( $custom_meta_key_name ) === strtolower( $key['custom_key'] ) ) {
 
 				return $key['original_meta_key'];
 
 			}
 		}
 
+		// Make sure we have a 'original_key' before returning it
+		$return_key = '';
+		if ( isset( $this->post_meta[ $post_type_slug ] ) && isset( $this->post_meta[ $post_type_slug ][ $custom_meta_key_name ] ) 
+			&& isset( $this->post_meta[ $post_type_slug ][ $custom_meta_key_name ]['original_key'] ) ) {
+
+			$return_key = $this->post_meta[ $post_type_slug ][ $custom_meta_key_name ]['original_key'];
+
+		}
+
+		return $return_key;
 	}
 
 	/**
@@ -310,7 +341,6 @@ class wp_rest_api_controller {
 			if ( ! isset( $wp_post_types[ $post_type_slug ] ) || ! is_object( $wp_post_types[ $post_type_slug ] ) ) {
 
 				continue;
-
 			}
 
 			$rest_base = $this->get_post_type_rest_base( $post_type_slug );
@@ -324,9 +354,7 @@ class wp_rest_api_controller {
 			}
 
 			$wp_post_types[ $post_type_slug ]->show_in_rest = true;
-			$wp_post_types[ $post_type_slug ]->rest_base   = $rest_base;
-			$wp_post_types[ $post_type_slug ]->rest_controller_class = 'WP_REST_Posts_Controller';
-
+			$wp_post_types[ $post_type_slug ]->rest_base    = $rest_base;
 		}
 	}
 
@@ -377,7 +405,13 @@ class wp_rest_api_controller {
 
 				$rest_api_meta_name = ( isset( $meta_data['custom_key'] ) && ! empty( $meta_data['custom_key'] ) ) ? $meta_data['custom_key'] : $meta_key;
 
-				register_rest_field( $post_type_slug,
+				$this->post_meta[ $post_type_slug ][ $rest_api_meta_name ] = array(
+					'original_key' => $meta_key,
+					'custom_key'   => $meta_data['custom_key'],
+				);
+
+				register_rest_field(
+					$post_type_slug,
 					str_replace( '-', '_', sanitize_title( $rest_api_meta_name ) ),
 					array(
 						'get_callback'    => array( $this, 'custom_meta_data_callback' ),
@@ -402,6 +436,12 @@ class wp_rest_api_controller {
 	function custom_meta_data_callback( $object, $field_name, $request ) {
 
 		$original_meta_key_name = $this->get_original_meta_key_name( $object['type'], $field_name );
+		
+		// If we can't find the original meta key name, then return. 
+		// We do not want our get_post_meta() call to look like get_post_meta( $id, NULL, true ) or all meta fields will be returned
+		if ( empty( $original_meta_key_name ) ) {
+			return;
+		}
 
 		return apply_filters( 'wp_rest_api_controller_api_property_value', get_post_meta( $object['id'], $original_meta_key_name, true ), $object['id'], $original_meta_key_name );
 

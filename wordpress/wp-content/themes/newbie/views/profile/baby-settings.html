@@ -2,7 +2,7 @@
 	<header class="header" role="banner">
 		<div class="header-inner clearfix">
 			<p class="logo">
-				Wijzig profielfoto {{data.currentUser.name}}
+				{{data.currentUser.acf.name_child}}
 			</p>
 			<div class="navigation-edit-toggle pull-right">
 				<button type="submit"><i class="icons icon-note"></i></button>
@@ -12,21 +12,29 @@
 
 	<div class="wrapper">
 		<div class="content container  col-xs 12 col-md-6 offset-md-3">
-			<h1>Profiel foto bewerken</h1>
+			<h1>Profiel {{data.currentUser.acf.name_child}} bewerken</h1>
 
+
+			<br>
 			<div class="form-group">
-				<label for="acf-file-url">File URL</label>
-				<input type="hidden" name="fields[profile_picture]" id="acf-file-url-id" value="{{data.currentUser.acf.profile_picture}}">
-				<div class="input-group">
-					<input type="text" class="form-control" id="acf-file-url" value="{{data.currentUser.acf.profile_picture}}" readonly>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" id="acf-file-url-btn">Select file</button>
-					</span>
+				<div>
+					<label for="acf-weight">Naam baby</label>
+					<div class="form-group">
+						<input type="text" name="fields[name_child]" value="{{data.currentUser.acf.name_child}}" class="form-control" id="acf-weight">
+					</div>
+
+					<label for="acf-weight">Geboortedatum kind</label>
+					<div class="form-group input-group date" data-provide="datepicker">
+						<input type="text" class="form-control datepicker group-addon" name="fields[birthday_child]" value="{{data.currentUser.acf.birthday_child}}" data-date-format="yyyy-mm-dd">
+						<div class="input-group-addon">
+							<span class="icon icon-grid"></span>
+						</div>
+					</div>
 				</div>
-				<img src="{{data.currentUser.acf.profile_picture}}" alt="profile-picture">
 			</div>
-			<a href="{{baseUrl}}" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
+			<a href="{{baseUrl}}/baby" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>
+
 		</div>
 	</div>
 </form>

@@ -156,3 +156,34 @@ function my_login_stylesheet() {
 
 }
 add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );
+
+
+add_action( 'after_setup_theme', 'ja_theme_setup' );
+function ja_theme_setup() {
+    add_theme_support( 'post-thumbnails');
+}
+
+
+//Get image URL
+function get_thumbnail_url($post){
+    if(has_post_thumbnail($post['id'])){
+        $imgArray = wp_get_attachment_image_src( get_post_thumbnail_id( $post['id'] ), 'full' ); // replace 'full' with 'thumbnail' to get a thumbnail
+        $imgURL = $imgArray[0];
+        return $imgURL;
+    } else {
+        return false;
+    }
+}
+//integrate with WP-REST-API
+function insert_thumbnail_url_posts_child_profile() {
+    register_rest_field( 'posts_child_profile',
+        'featured_image',  //key-name in json response
+        array(
+            'get_callback'    => 'get_thumbnail_url',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
+}
+//register action
+add_action( 'rest_api_init', 'insert_thumbnail_url_posts_child_profile' );

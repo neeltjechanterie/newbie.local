@@ -241,7 +241,7 @@ input[type=text]#stopwatch {
 }
 
 .wrapper {
-  min-height: 80vh;
+  min-height: 80%;
 }
 
 .weight tbody th{
@@ -266,3 +266,7 @@ body.admin-bar .header, body.admin-bar .settings-navigation { top: 28px;}
 body.admin-bar .profile-header,
 body.admin-bar .sub-header,
 body.admin-bar .sub-header+.wrapper { margin-top: 28px;}
+.baby-wrapper{
+  background-size: cover;
+  background-repeat: no-repeat;
+}

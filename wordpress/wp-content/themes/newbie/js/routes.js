@@ -9,12 +9,37 @@
         $locationProvider.html5Mode(true);
 
         $routeProvider
+            .when('/_=_', {
+                templateUrl: myLocalized.views + 'main.html',
+                controller: 'Main'
+            })
             .when('/', {
                 templateUrl: myLocalized.views + 'main.html',
                 controller: 'Main'
             })
             .when('/baby', {
                 templateUrl: myLocalized.views + 'baby.html',
+                controller: 'Baby'
+            })
+            .when('/baby/baby-edit-picture/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-picture.html',
+                controller: 'Baby'
+            })
+
+            .when('/baby/baby-settings/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-settings.html',
+                controller: 'Baby'
+            })
+            .when('/baby/weight/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-weight.html',
+                controller: 'BabyWeight'
+            })
+            .when('/baby/length/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-length.html',
+                controller: 'BabyLength'
+            })
+            .when('/baby/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-post.html',
                 controller: 'Baby'
             })
             .when('/checklists',{

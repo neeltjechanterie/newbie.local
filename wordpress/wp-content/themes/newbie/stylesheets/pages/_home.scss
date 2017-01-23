@@ -84,9 +84,13 @@
   text-transform: uppercase;
   font-family: TradeGothicCondensed,sans-serif;
 }
-.info-banner p.result,
-.info-baby p.result {
-  font-size: 2.65em;
+.info-banner p.result {
+  font-size: 3.5em;
+  margin-top: 0;
+}
+,
+.info-baby p.result{
+  font-size: 2.2em;
   margin-top: 0;
 }
 .mom a.result{

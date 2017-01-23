@@ -105,8 +105,8 @@ app.run(function(amMoment) {
                             //$scope.user.email = response.data.email;
                             console.log(response.data.email);
 
-                            var baseUrl = window.location.origin;
-                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
+                            $scope.baseUrl = window.location.origin;
+                            $scope.url =  $scope.baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
 
@@ -390,7 +390,8 @@ app.run(function(amMoment) {
                 $scope.loadData();
 
                 $http.get('/wp-json/wp/v2/checklists/' + $routeParams.id).success(function(res){
-                    $scope.url = "http://newbie.local/wp-json/acf/v2/checklists/" + $routeParams.id;
+                    $scope.baseUrl = window.location.origin;
+                    $scope.url =  $scope.baseUrl + "//wp-json/acf/v2/checklists/" + $routeParams.id;
                     $scope.checklist = res;
                     var items = res.acf.checklist_items;
                     var ag_items = res.acf.ag_repeater_checklist;
@@ -524,7 +525,6 @@ app.run(function(amMoment) {
 
 
     }]);
-
     //app.controller('Checklists', function($scope, $http, moment, $routeParams) {
     app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
     //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
@@ -668,80 +668,477 @@ app.run(function(amMoment) {
     });
 
 
-
-    app.controller('Baby', function($scope, $http, $routeParams, WPService) {
-        /*$http.get('/wp-json/wp/v2/posts/').success(function(res){
-            $scope.posts = res;
-            document.querySelector('title').innerHTML = 'BABY';
-        });
-        $http.get('/wp-json/wp/v2/categories').success(function(res){
-            $scope.categories = res;
-        });*/
-
+    app.controller('Baby', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
-            console.log(res.currentUser);
 
 
-            var dueDate = WPService.currentUser.acf.due_date;
-            var d1 = moment(dueDate);
-            var d2 = moment(Date.now());
-            var weeks = moment.duration(d1.diff(d2)).asWeeks();
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
 
-            $scope.data.filterWeeksPost = 'Week-' + (weeks).toFixed(0);
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            console.log(response.data);
+                            $scope.user = response.data;
 
-            $http.get('/wp-json/wp/v2/categories').success(function(res, filterWeeksPost){
-                $scope.categories = res;
-                $scope.data.filterWeeksPost = res;
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
+                            console.log(response.data);
 
-                $http.get('/wp-json/wp/v2/posts/?filter[category_name]=' + filterWeeksPost).success(function(res){
-                    $scope.posts = res;
-                    console.log(res.posts);
+                            //var thisDay = moment(new Date()).format('DD/MM/YYYY');
+                            $scope.thisDay = moment(new Date());
+                            console.log($scope.thisDay);
+
+
+                            var weight_statistics = response.data.acf.baby_weight_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
+                            var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+
+                            var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            $scope.last_item_weight_date = $last_weight_date.pop();
+
+                            console.log($weight_date);
+                            console.log($weight_value);
+
+                            var length_statistics = response.data.acf.baby_length_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_length_statistics = sortByKey(length_statistics, 'length_date');
+                            var $length_date = sort_length_statistics.map(function(a) {return a.length_date;});
+                            var $length_value = sort_length_statistics.map(function(a) {return a.length_number;});
+
+
+                            var $last_length_date = sort_length_statistics.map(function(a) {return a.length_date;});
+                            var $last_length_value = sort_length_statistics.map(function(a) {return a.length_number;});
+
+                            $scope.last_item_length = $last_length_value.pop();
+                            $scope.last_item_length_date = $last_length_date.pop();
+
+                            console.log($length_date);
+                            console.log($length_value);
+
+                            var $lenght_value_m = $length_value / 100;
+                            $scope.bmi = ($weight_value /  ($lenght_value_m * $lenght_value_m)).toFixed(2);
+                            console.log($lenght_value_m);
+
+                            $scope.loadData = function () {
+                                $http.get('/wp-json/wp/v2/posts-child-profile/?author=' + $scope.user.id).success(function (res) {
+                                    $scope.posts_child_profile = res;
+                                    console.log(res);
+                                });
+                            };
+                            $scope.loadData();
+
+
+                            // Edit checklist button
+                            $scope.editPost = function(checklist) {
+                                document.getElementById('editPost').style.display = 'block';
+                                $scope.posts_child_profile = checklist;
+                                $scope.posts_child_profile.title = $scope.checklist.title.rendered;
+                                $scope.posts_child_profile.content = $scope.checklist.content.rendered;
+                                $scope.loadData();
+
+                            };
+
+                            // Update checklist
+                            $scope.updatePost = function() {
+                                $http({
+                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                                    method: "POST",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: $httpParamSerializerJQLike({
+                                        title: $scope.checklist.title
+                                    })
+                                }).then(function successCallback(response) {
+                                    console.log(response);
+
+                                    //$scope.checklists = response.data;
+                                    $scope.loadData();
+
+                                    document.getElementById('editPost').style.display = 'none';
+                                    document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
+
+
+                                }, function errorCallback(response) {
+                                    console.log(response);
+                                });
+                            };
+
+                            // Edit checklist button
+                            $scope.addPostShow = function() {
+                                document.getElementById('addPost').style.display = 'block';
+                                var item = $( '#addPost' );
+                                item.find( 'input' ).val( '' );
+                            };
+
+                            // ADD checklist
+                            $scope.addPost = function() {
+                                $http({
+                                    url: 'wp-json/wp/v2/checklists/?context=add&access_token=' + $cookies.get('wordpress_access_token'),
+                                    method: "POST",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: $httpParamSerializerJQLike({
+                                        title: $scope.checklist.title,
+                                        status: 'publish'
+                                    })
+                                }).then(function successCallback(res) {
+                                    console.log(res);
+
+                                    $scope.checklist = res.data;
+                                    document.getElementById('addPost').style.display = 'none';
+                                    //$scope.loadData();
+                                    $route.reload();
+                                    //$location.path('/test/' + res.data.id);
+
+
+
+                                }, function errorCallback(response) {
+                                    console.log(response);
+                                });
+                            };
+
+                            // delete checklist in detail
+                            $scope.deletePost = function(id) {
+                                $scope.checklist.id = id;
+                                $http({
+                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
+                                    method: "DELETE",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: {
+                                        id: $scope.checklist.id
+                                    }
+                                }).then(function successCallback(res) {
+                                    console.log(res);
+                                    $location.path('/test');
+
+                                }, function errorCallback(res) {
+                                    console.log(res);
+                                });
+                            };
+
+                            // delete checklist in repeater
+                            $scope.deletePostRepeater = function(checklist) {
+                                $scope.checklist = checklist;
+                                $http({
+                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
+                                    method: "DELETE",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: {
+                                        id: $scope.checklist.id
+                                    }
+                                }).then(function successCallback(res) {
+                                    console.log(res);
+                                    //location.reload();
+                                    $scope.loadData();
+                                }, function errorCallback(res) {
+                                    console.log(res);
+                                });
+                            };
+
+
+
+
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
                 });
-            });
 
         });
+        //get current user
         $scope.data = WPService;
-
-
-
-/*        $http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
-            $scope.current_category_id = res[0].ID;
-            $scope.pageTitle = 'Posts in ' + res[0].name + ':';
-            document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
-
-            $http.get('wp-json/posts/?filter[category_name]=' + res[0].name).success(function(res){
-                $scope.posts = res;
-            });
-        });*/
-    });
-
-
-/*    app.controller('Categories', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get('/wp-json/wp/v2/categories').success(function(res){
-            $scope.categories = res;
-        });
-
-        $http.get('wp-json/wp/v2/categories/' + $routeParams.id).success(function(res){
-            $scope.current_category_id = res.id;
-            $scope.pageTitle = 'Posts in ' + res[0].name + ':';
-            document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
-
-            $http.get('wp-json/wp/v2/posts?categories=' + res[0].id).success(function(res){
-                $scope.posts = res;
-            })
-        });
     }]);
-    app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-        $http.get('/wp-json/wp/v2/categories/' + $routeParams.id).success(function(res){
-            $scope.category = res;
-            document.querySelector('title').innerHTML = 'DETAIL';
+    app.controller('BabyWeight', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+        $http.get('wp-json/wp/v2/users/me').success(function(res){
+            WPService.currentUser = res;
 
-            $http.get('wp-json/wp/v2/posts?categories=' + res.id).success(function(res){
-                $scope.posts = res;
-            })
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
+
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            console.log(response.data);
+                            $scope.user = response.data;
+
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
+                            console.log(response.data);
+
+                            var weight_statistics = response.data.acf.baby_weight_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
+                            var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+
+                            var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
+                            var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
+
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            $scope.last_item_weight_date = $last_weight_date.pop();
+
+                            console.log($weight_date);
+                            console.log($weight_value);
+
+                            var config = {
+                                type: 'line',
+                                data: {
+                                    labels: $weight_date,
+                                    datasets: [
+                                        {
+                                            label: "Gewicht kind",
+                                            fill: false,
+                                            lineTension: 0.1,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            data: $weight_value,
+                                            spanGaps: false,
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title:{
+                                        display:true,
+                                        text:'Gewicht mama'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    },
+                                    scales: {
+                                        xAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Datum'
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Gewicht in kg'
+                                            }
+                                        }]
+                                    }
+                                }
+                            };
+
+                            var ctx = document.getElementById("canvas").getContext("2d");
+                            window.myLine = new Chart(ctx, config);
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+
         });
-    }]);*/
+        //get current user
+        $scope.data = WPService;
+    }]);
+
+    app.controller('BabyLength', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+        $http.get('wp-json/wp/v2/users/me').success(function(res){
+            WPService.currentUser = res;
+
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
+
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            console.log(response.data);
+                            $scope.user = response.data;
+
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
+                            console.log(response.data);
+
+                            var length_statistics = response.data.acf.baby_length_statistics;
+                            function sortByKey(array, key) {
+                                return array.sort(function(a, b) {
+                                    var x = a[key]; var y = b[key];
+                                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                                });
+                            }
+                            var sort_length_statistics = sortByKey(length_statistics, 'length_date');
+                            var $length_date = sort_length_statistics.map(function(a) {return a.length_date;});
+                            var $length_value = sort_length_statistics.map(function(a) {return a.length_number;});
+
+
+                            var $last_length_date = sort_length_statistics.map(function(a) {return a.length_date;});
+                            var $last_length_value = sort_length_statistics.map(function(a) {return a.length_number;});
+
+                            $scope.last_item_length = $last_length_value.pop();
+                            $scope.last_item_length_date = $last_length_date.pop();
+
+                            console.log($length_date);
+                            console.log($length_value);
+
+                            var config = {
+                                type: 'line',
+                                data: {
+                                    labels: $length_date,
+                                    datasets: [
+                                        {
+                                            label: "Lengte kind",
+                                            fill: false,
+                                            lineTension: 0.1,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            data: $length_value,
+                                            spanGaps: false,
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    responsive: true,
+                                    title:{
+                                        display:true,
+                                        text:'Lengte kind'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    hover: {
+                                        mode: 'nearest',
+                                        intersect: true
+                                    },
+                                    scales: {
+                                        xAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Datum'
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            display: true,
+                                            scaleLabel: {
+                                                display: true,
+                                                labelString: 'Lengte in cm'
+                                            }
+                                        }]
+                                    }
+                                }
+                            };
+
+                            var ctx = document.getElementById("canvas").getContext("2d");
+                            window.myLine = new Chart(ctx, config);
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+
+        });
+        //get current user
+        $scope.data = WPService;
+    }]);
+
+
+    /*    app.controller('Categories', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+            $http.get('/wp-json/wp/v2/categories').success(function(res){
+                $scope.categories = res;
+            });
+
+            $http.get('wp-json/wp/v2/categories/' + $routeParams.id).success(function(res){
+                $scope.current_category_id = res.id;
+                $scope.pageTitle = 'Posts in ' + res[0].name + ':';
+                document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
+
+                $http.get('wp-json/wp/v2/posts?categories=' + res[0].id).success(function(res){
+                    $scope.posts = res;
+                })
+            });
+        }]);
+        app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+            $http.get('/wp-json/wp/v2/categories/' + $routeParams.id).success(function(res){
+                $scope.category = res;
+                document.querySelector('title').innerHTML = 'DETAIL';
+
+                $http.get('wp-json/wp/v2/posts?categories=' + res.id).success(function(res){
+                    $scope.posts = res;
+                })
+            });
+        }]);*/
     app.controller('Content', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
         $http.get('wp-json/wp/v2/posts/' + $routeParams.ID).success(function(res) {
@@ -994,12 +1391,37 @@ app.factory('WPService', ['$http', WPService]);
         $locationProvider.html5Mode(true);
 
         $routeProvider
+            .when('/_=_', {
+                templateUrl: myLocalized.views + 'main.html',
+                controller: 'Main'
+            })
             .when('/', {
                 templateUrl: myLocalized.views + 'main.html',
                 controller: 'Main'
             })
             .when('/baby', {
                 templateUrl: myLocalized.views + 'baby.html',
+                controller: 'Baby'
+            })
+            .when('/baby/baby-edit-picture/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-picture.html',
+                controller: 'Baby'
+            })
+
+            .when('/baby/baby-settings/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-settings.html',
+                controller: 'Baby'
+            })
+            .when('/baby/weight/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-weight.html',
+                controller: 'BabyWeight'
+            })
+            .when('/baby/length/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-length.html',
+                controller: 'BabyLength'
+            })
+            .when('/baby/:id', {
+                templateUrl: myLocalized.views + 'profile/baby-length.html',
                 controller: 'Baby'
             })
             .when('/checklists',{

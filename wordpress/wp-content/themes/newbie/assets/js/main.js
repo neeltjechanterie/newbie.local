@@ -40,16 +40,22 @@ jQuery(document).ready(function(e) {
         var circleTimerWidth = $("#stopwatch").width();
         $("#stopwatch").height( circleTimerWidth + "px" );
     }
+    function babyHeights() {
+        var babyWidth = $(".baby-wrapper").width();
+        $(".baby-wrapper").height( babyWidth + "px" );
+    }
     ///// ON WINDOW LOAD /////
     $(window).load(function(){
         serviceCircleHeights();
         timerCircleHeights();
+        babyHeights();
     });
 
     ///// ON WINDOW RESIZE /////
     $(window).resize(function(){
         serviceCircleHeights();
         timerCircleHeights();
+        babyHeights();
     });
 
     var iScrollPos = 0;

@@ -166,10 +166,13 @@ jQuery( function( $ ) {
 
 	// TYPE: Date Picker
 	//----------------------------------------
-	//$.fn.datepicker.defaults.format = "yyyy-mm-dd";
-	$('.datepicker').datepicker({
-		format: 'yyyy-mm-dd',
-		autoclose: true
+	// $.fn.datepicker.defaults.format = "yy-mm-dd";
+	// $('.datepicker').datepicker({
+	// 	format: 'yyyy-mm-dd',
+	// 	autoclose: true
+	// });
+	$(".datepicker").datepicker({
+		dateFormat: 'yy-mm-dd'
 	});
 	$(".date-pick").datepicker('setDate', new Date());
 

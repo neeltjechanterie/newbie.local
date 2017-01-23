@@ -42,3 +42,10 @@ button[type=button].remove-row{
   padding: 0;
   margin: 0;
 }
+
+.input-group-btn button[type=button]#acf-file-url-btn{
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border: 0;
+  height: 34px
+}

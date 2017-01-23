@@ -637,7 +637,7 @@ input[type=text]#stopwatch {
   line-height: 0; }
 
 .wrapper {
-  min-height: 80vh; }
+  min-height: 80%; }
 
 .weight tbody th {
   line-height: 2.5 !important; }
@@ -663,6 +663,10 @@ body.admin-bar .profile-header,
 body.admin-bar .sub-header,
 body.admin-bar .sub-header + .wrapper {
   margin-top: 28px; }
+
+.baby-wrapper {
+  background-size: cover;
+  background-repeat: no-repeat; }
 
 @font-face {
   font-family: Populaire;
@@ -842,7 +846,7 @@ a.logo-button:hover {
   padding-top: 3rem; }
 
 .profile-header + .wrapper {
-  padding-top: 25vh; }
+  padding-top: 200px; }
 
 .navigation-toggle {
   position: fixed;
@@ -1082,6 +1086,12 @@ button[type=button].remove-row {
   padding: 0;
   margin: 0; }
 
+.input-group-btn button[type=button]#acf-file-url-btn {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border: 0;
+  height: 34px; }
+
 .blue-banner {
   background-color: #60c0c5;
   height: 200px;
@@ -1163,9 +1173,13 @@ button[type=button].remove-row {
   text-transform: uppercase;
   font-family: TradeGothicCondensed,sans-serif; }
 
-.info-banner p.result,
+.info-banner p.result {
+  font-size: 3.5em;
+  margin-top: 0; }
+
+
 .info-baby p.result {
-  font-size: 2.65em;
+  font-size: 2.2em;
   margin-top: 0; }
 
 .mom a.result {
