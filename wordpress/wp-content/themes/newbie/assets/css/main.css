@@ -664,9 +664,17 @@ body.admin-bar .sub-header,
 body.admin-bar .sub-header + .wrapper {
   margin-top: 28px; }
 
-.baby-wrapper {
+.baby-container {
   background-size: cover;
   background-repeat: no-repeat; }
+
+.baby-wrapper {
+  min-height: 130px;
+  min-height: 20vh; }
+
+.detail-baby .baby-wrapper {
+  min-height: 230px;
+  min-height: 25vh; }
 
 @font-face {
   font-family: Populaire;
@@ -830,7 +838,8 @@ a.logo-button:hover {
   left: 0;
   width: 100%;
   z-index: 2;
-  text-align: center; }
+  text-align: center;
+  padding: 8px 15px 0; }
 
 .sub-header a, .sub-header a:hover,
 .sub-header a:active, .sub-header a:focus,
@@ -993,7 +1002,6 @@ nav ul {
 
 .subnav-btn {
   display: block;
-  margin-top: 8px;
   color: #fff;
   font-size: 22px;
   /* border: 2px solid #d84f19; */

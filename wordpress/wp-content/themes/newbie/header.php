@@ -24,7 +24,8 @@
 	<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js'></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 
-	<script type='text/javascript' src='<?php echo get_stylesheet_directory_uri();?>/assets/js/main.js'></script>
+	<script type="text/javascript" src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script>tinymce.init({ selector:'textarea' });</script>
 
 	<?php wp_head(); ?>
 

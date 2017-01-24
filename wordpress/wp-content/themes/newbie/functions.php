@@ -79,10 +79,18 @@ function my_scripts() {
         'ngFileUpload',
         get_stylesheet_directory_uri() . '/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js'
     );
+    wp_register_script(
+        'ui-tinymce',
+        get_stylesheet_directory_uri() . '/bower_components/angular-ui-tinymce/dist/tinymce.min.js'
+    );
+    wp_register_script(
+        'tinymce',
+        get_stylesheet_directory_uri() . '/bower_components/tinymce/tinymce.js'
+    );
     wp_enqueue_script(
         'my-scripts',
         get_stylesheet_directory_uri() . '/assets/js/app.js',
-        array( 'my-jquery', 'angularjs', 'angular-local-storage', 'moment', 'moment-locale', 'angular-moment', 'angular-oauth1-client', 'angularjs-route', 'angularjs-sanitize', 'angular-slick', 'angular-cookies', 'angular-image-cache', 'ngFileUpload', 'FileUpload' )
+        array( 'my-jquery', 'angularjs', 'angular-local-storage', 'moment', 'moment-locale', 'angular-moment', 'angular-oauth1-client', 'angularjs-route', 'angularjs-sanitize', 'angular-slick', 'angular-cookies', 'angular-image-cache', 'ngFileUpload', 'FileUpload', 'ui-tinymce' )
     );
     wp_enqueue_script(
         'wp-service',

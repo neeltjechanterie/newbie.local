@@ -1,15 +1,27 @@
-jQuery(document).ready(function(e) {
+jQuery(document).ready(function($) {
+    // Prevent jQuery UI dialog from blocking focusin
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window, .moxman-window").length) {
+            e.stopImmediatePropagation();
+        }
+    });
+    // Prevent Bootstrap dialog from blocking focusin
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+        }
+    });
 
-    e(".btnTest").on("click",
+    $(".btnTest").on("click",
         function() {
             console.log('Hello');
             alert( "Alert" );
         });
 
 
-    e(".navigation-toggle").on("click",
+    $(".navigation-toggle").on("click",
         function() {
-            e("body").toggleClass("navigation-active");
+            $("body").toggleClass("navigation-active");
             console.log("click");
         });
 
@@ -20,7 +32,7 @@ jQuery(document).ready(function(e) {
             console.log('Hello')
         });*/
     $(document).on('click', '.navigation-edit-toggle', function() {
-        e("article").toggleClass("settings-navigation-active");
+        $("article").toggleClass("settings-navigation-active");
         //e("body").toggleClass("navigation-active");
 
     });
@@ -43,16 +55,32 @@ jQuery(document).ready(function(e) {
     function babyHeights() {
         var babyWidth = $(".baby-wrapper").width();
         $(".baby-wrapper").height( babyWidth + "px" );
+        $('.baby-wrapper').each(function() {
+            $(this).height( babyWidth + "px");
+        });
+    }
+    function babyHeightsContainer() {
+        var babyWidth = $(".baby-container").width();
+        $(".baby-container").height( babyWidth + "px" );
+        $(".test").height( babyWidth + "px" );
+
     }
     ///// ON WINDOW LOAD /////
     $(window).load(function(){
         serviceCircleHeights();
         timerCircleHeights();
         babyHeights();
+        babyHeightsContainer();
     });
 
     ///// ON WINDOW RESIZE /////
     $(window).resize(function(){
+        serviceCircleHeights();
+        timerCircleHeights();
+        babyHeights();
+    });
+
+    $(window).scroll(function(){
         serviceCircleHeights();
         timerCircleHeights();
         babyHeights();

@@ -266,7 +266,15 @@ body.admin-bar .header, body.admin-bar .settings-navigation { top: 28px;}
 body.admin-bar .profile-header,
 body.admin-bar .sub-header,
 body.admin-bar .sub-header+.wrapper { margin-top: 28px;}
-.baby-wrapper{
+.baby-container{
   background-size: cover;
   background-repeat: no-repeat;
+}
+.baby-wrapper{
+  min-height: 130px;
+  min-height: 20vh;
+}
+.detail-baby .baby-wrapper{
+  min-height: 230px;
+  min-height: 25vh;
 }

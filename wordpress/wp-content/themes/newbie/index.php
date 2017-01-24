@@ -45,7 +45,7 @@ $edit = true;
                if ( get_field('is_de_baby_geboren', $current_id_var) != '0') :
                if( get_field('name_child', $current_id_var) ): ?>
                    <li>
-                       <a href="/baby">
+                       <a href="/child">
                            <?php the_field('name_child', $current_id_var); ?>
                        </a>
                    </li>
@@ -82,6 +82,6 @@ $edit = true;
     </footer>-->
 </div>
 <?php endif; ?>
-<div class="hidden"><?php wp_editor( '', ''); ?></div>
+<!--<div class="hidden">--><?php //wp_editor( '', ''); ?><!--</div>-->
 
 <?php get_footer(); ?>

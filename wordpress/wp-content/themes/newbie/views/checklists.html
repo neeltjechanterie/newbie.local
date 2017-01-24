@@ -1,66 +1,64 @@
+<header class="header" role="banner">
+	<div class="header-inner clearfix">
+		<p class="logo">
+		CHECKLISTS
+		</p>
+		<a href="#" class="logo-button add"><i class="icons icon-plus"></i></a>
+	</div>
+</header>
 
-
-		<header class="header" role="banner">
-			<div class="header-inner clearfix">
-				<p class="logo">
-				CHECKLISTS
-				</p>
-				<a href="#" class="logo-button add"><i class="icons icon-plus"></i></a>
-			</div>
-		</header>
-
-		<div class="wrapper">
+<div class="wrapper">
 <!--
-			<a class="btnTest btn">Next</a>
+	<a class="btnTest btn">Next</a>
 -->
 
 
 <!--			<uib-tabset active="active">
 
-				<uib-tab index="0" heading="Static title">
-					<a class="btn btn-primary btnNext">Next</a>
-					<a class="btn btn-primary btnPrevious">Previous</a>
-					Static content
+		<uib-tab index="0" heading="Static title">
+			<a class="btn btn-primary btnNext">Next</a>
+			<a class="btn btn-primary btnPrevious">Previous</a>
+			Static content
 
-				</uib-tab>
-				<uib-tab index="1" heading="Static title 2">Static content 2
-					<a class="btn btn-primary btnNext">Next</a>
-					<a class="btn btn-primary btnPrevious">Previous</a>
-				</uib-tab>
-			</uib-tabset>-->
+		</uib-tab>
+		<uib-tab index="1" heading="Static title 2">Static content 2
+			<a class="btn btn-primary btnNext">Next</a>
+			<a class="btn btn-primary btnPrevious">Previous</a>
+		</uib-tab>
+	</uib-tabset>-->
 
-			<div class="content container">
+	<div class="content container">
 
-				<div class="clearfix row" role="main">
-					<div class="col-xs-12">
-						<div class="list-group checklists">
+		<div class="clearfix row" role="main">
+			<div class="col-xs-12">
+				<div class="list-group checklists">
 
-							<a ng-repeat="checklist in checklists" href="test/{{checklist.id}}" id="{{$index + 1}}" class="list-group-item">
-								<span class="check icons icon-check"></span>
-								<p class="uncheck">{{checklist.title.rendered}}</p>
-								<span class="badge icons icon-arrow-right arrow"> </span>
-								<span class="badge">{{checklist.acf.checklist_items.lengths }}</span>
-								<!--filtered.length or try (data|filter:query).length-->
-								<!--OR ng-repeat="person in data | filter:query as results" AND {{results.length}} -->
-							</a>
+					<a ng-repeat="checklist in checklists" href="test/{{checklist.id}}" id="{{$index + 1}}" class="list-group-item">
+						<span class="check icons icon-check"></span>
+						<p class="uncheck">{{checklist.title.rendered}}</p>
+						<span class="badge icons icon-arrow-right arrow"> </span>
+						<span class="badge">{{checklist.acf.checklist_items.lengths }}</span>
+						<!--filtered.length or try (data|filter:query).length-->
+						<!--OR ng-repeat="person in data | filter:query as results" AND {{results.length}} -->
+					</a>
 
-						</div>
-
-
-					</div>
 				</div>
 
-			</div>
 
+			</div>
 		</div>
 
-		<footer class="footer" role="contentinfo">
-			<div class="footer-inner clearfix">
-				<p class="source-org copyright">&copy; 2016 Neeltje Chanterie</p>
-				<div class="footer-links">
-					<ul id="menu-footer-links" class="footer-nav cf">
-						<li id="menu-item-619" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-619"><a href="#">Bachelorproef MMP-ProDev Arteveldehogeschool</a></li>
-					</ul>
-				</div>
-			</div>
-		</footer>
+	</div>
+
+</div>
+
+<footer class="footer" role="contentinfo">
+	<div class="footer-inner clearfix">
+		<p class="source-org copyright">&copy; 2016 Neeltje Chanterie</p>
+		<div class="footer-links">
+			<ul id="menu-footer-links" class="footer-nav cf">
+				<li id="menu-item-619" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-619"><a href="#">Bachelorproef MMP-ProDev Arteveldehogeschool</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>

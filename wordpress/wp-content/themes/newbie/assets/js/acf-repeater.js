@@ -4,6 +4,7 @@ jQuery( function( $ ) {
 	// The magic
 	//----------------------------------------
 
+
 	$( document ).on( 'submit', '.editForm', function() {
 		var _this  = $( this );
 		var url    = _this.attr( 'action' );

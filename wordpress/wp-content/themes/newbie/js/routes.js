@@ -17,30 +17,30 @@
                 templateUrl: myLocalized.views + 'main.html',
                 controller: 'Main'
             })
-            .when('/baby', {
-                templateUrl: myLocalized.views + 'baby.html',
-                controller: 'Baby'
+            .when('/child', {
+                templateUrl: myLocalized.views + 'child.html',
+                controller: 'Child'
             })
-            .when('/baby/baby-edit-picture/:id', {
-                templateUrl: myLocalized.views + 'profile/baby-picture.html',
-                controller: 'Baby'
+            .when('/child/child-edit-picture/:id', {
+                templateUrl: myLocalized.views + 'profile/child-picture.html',
+                controller: 'Child'
             })
 
-            .when('/baby/baby-settings/:id', {
-                templateUrl: myLocalized.views + 'profile/baby-settings.html',
-                controller: 'Baby'
+            .when('/child/child-settings/:id', {
+                templateUrl: myLocalized.views + 'profile/child-settings.html',
+                controller: 'Child'
             })
-            .when('/baby/weight/:id', {
-                templateUrl: myLocalized.views + 'profile/baby-weight.html',
-                controller: 'BabyWeight'
+            .when('/child/weight/:id', {
+                templateUrl: myLocalized.views + 'profile/child-weight.html',
+                controller: 'ChildWeight'
             })
-            .when('/baby/length/:id', {
-                templateUrl: myLocalized.views + 'profile/baby-length.html',
-                controller: 'BabyLength'
+            .when('/child/length/:id', {
+                templateUrl: myLocalized.views + 'profile/child-length.html',
+                controller: 'ChildLength'
             })
-            .when('/baby/:id', {
-                templateUrl: myLocalized.views + 'profile/baby-post.html',
-                controller: 'Baby'
+            .when('/child/:id', {
+                templateUrl: myLocalized.views + 'profile/child-post.html',
+                controller: 'Child'
             })
             .when('/checklists',{
                 templateUrl: myLocalized.views + 'test-all.html',
@@ -66,16 +66,12 @@
                 templateUrl: myLocalized.views + 'profile/weight.html',
                 controller: 'UserWeight'
             })
-            .when('/baby-edit-picture/:id',{
-                templateUrl: myLocalized.views + 'profile/baby-picture.php',
+            .when('/child-edit-picture/:id',{
+                templateUrl: myLocalized.views + 'profile/child-picture.html',
                 controller: 'Main'
             })
-            .when('/baby-settings/:id',{
-                templateUrl: myLocalized.views + 'profile/baby-settings.php',
-                controller: 'Main'
-            })
-            .when('/baby-body/:id',{
-                templateUrl: myLocalized.views + 'profile/baby-body.php',
+            .when('/child-settings/:id',{
+                templateUrl: myLocalized.views + 'profile/child-settings.html',
                 controller: 'Main'
             })
 

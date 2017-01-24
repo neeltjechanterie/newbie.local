@@ -518,7 +518,6 @@
 
 
     }]);
-    //app.controller('Checklists', function($scope, $http, moment, $routeParams) {
     app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
     //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
@@ -661,7 +660,7 @@
     });
 
 
-    app.controller('Baby', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+    app.controller('Child', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -679,11 +678,12 @@
                             $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
+                            // CALCULATE BIRTHDAY (with amDifference in view)
                             //var thisDay = moment(new Date()).format('DD/MM/YYYY');
                             $scope.thisDay = moment(new Date());
                             console.log($scope.thisDay);
 
-
+                            // SORT WEIGHT STATISTICS BY DATE
                             var weight_statistics = response.data.acf.baby_weight_statistics;
                             function sortByKey(array, key) {
                                 return array.sort(function(a, b) {
@@ -692,19 +692,18 @@
                                 });
                             }
                             var sort_weight_statistics = sortByKey(weight_statistics, 'weight_date');
-                            var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
-                            var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
-
 
                             var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
 
-                            $scope.last_item_weight = $last_weight_value.pop();
+                            // GET LAST DATE WITH WEIGHT
                             $scope.last_item_weight_date = $last_weight_date.pop();
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            var last_item_weight = $scope.last_item_weight;
+                            console.log(last_item_weight);
 
-                            console.log($weight_date);
-                            console.log($weight_value);
 
+                            // SORT LENGTH STATISTICS BY DATE
                             var length_statistics = response.data.acf.baby_length_statistics;
                             function sortByKey(array, key) {
                                 return array.sort(function(a, b) {
@@ -713,21 +712,19 @@
                                 });
                             }
                             var sort_length_statistics = sortByKey(length_statistics, 'length_date');
-                            var $length_date = sort_length_statistics.map(function(a) {return a.length_date;});
-                            var $length_value = sort_length_statistics.map(function(a) {return a.length_number;});
-
 
                             var $last_length_date = sort_length_statistics.map(function(a) {return a.length_date;});
                             var $last_length_value = sort_length_statistics.map(function(a) {return a.length_number;});
 
+                            // GET LAST DATE WITH LENGTH
                             $scope.last_item_length = $last_length_value.pop();
                             $scope.last_item_length_date = $last_length_date.pop();
+                            var last_item_length = $scope.last_item_length;
+                            console.log(last_item_length);
 
-                            console.log($length_date);
-                            console.log($length_value);
-
-                            var $lenght_value_m = $length_value / 100;
-                            $scope.bmi = ($weight_value /  ($lenght_value_m * $lenght_value_m)).toFixed(2);
+                            // CALCULATE BMI
+                            var $lenght_value_m = last_item_length / 100;
+                            $scope.bmi = (last_item_weight /  ($lenght_value_m * $lenght_value_m)).toFixed(2);
                             console.log($lenght_value_m);
 
                             $scope.loadData = function () {
@@ -738,27 +735,47 @@
                             };
                             $scope.loadData();
 
+                            $scope.loadDataDetail = function () {
+                                //get category by slug
+                                $http.get('wp-json/wp/v2/posts-child-profile/' + $routeParams.id).success(function (res) {
+                                    $scope.post = res;
+                                    console.log(res);
+                                    console.log($routeParams.id);
+
+                                }).error(function (res) {
+                                    console.log(res);
+
+                                });
+                            };
+                            $scope.loadDataDetail();
 
                             // Edit checklist button
-                            $scope.editPost = function(checklist) {
+                            $scope.editPost = function(post) {
                                 document.getElementById('editPost').style.display = 'block';
-                                $scope.posts_child_profile = checklist;
-                                $scope.posts_child_profile.title = $scope.checklist.title.rendered;
-                                $scope.posts_child_profile.content = $scope.checklist.content.rendered;
+                                $scope.post.title = $scope.post.title.rendered;
+                                $scope.post.content = $scope.post.content.rendered;
                                 $scope.loadData();
 
+                                $scope.tinymceOptions = {
+                                    plugins: 'link image code',
+                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+                                    inline: false,
+                                    skin: 'lightgray',
+                                    theme : 'modern'
+                                };
                             };
 
                             // Update checklist
                             $scope.updatePost = function() {
                                 $http({
-                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                                    url: 'wp-json/wp/v2/posts-child-profile/' + $scope.post.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
                                     method: "POST",
                                     headers: {
                                         'content-type': 'application/x-www-form-urlencoded'
                                     },
                                     data: $httpParamSerializerJQLike({
-                                        title: $scope.checklist.title
+                                        title: $scope.post.title,
+                                        content: $scope.post.content
                                     })
                                 }).then(function successCallback(response) {
                                     console.log(response);
@@ -767,7 +784,7 @@
                                     $scope.loadData();
 
                                     document.getElementById('editPost').style.display = 'none';
-                                    document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
+                                    document.getElementById('responseMessage').innerHTML = 'Succesfuly updated post.' + $scope.post.id;
 
 
                                 }, function errorCallback(response) {
@@ -870,7 +887,7 @@
         //get current user
         $scope.data = WPService;
     }]);
-    app.controller('BabyWeight', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+    app.controller('ChildWeight', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -887,6 +904,7 @@
                             $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
+                            // SORT WEIGHT BY DATE
                             var weight_statistics = response.data.acf.baby_weight_statistics;
                             function sortByKey(array, key) {
                                 return array.sort(function(a, b) {
@@ -898,7 +916,7 @@
                             var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
 
-
+                            // GET LAST DATE WEIGHT (if date not today in view > add button)
                             var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
 
@@ -908,6 +926,7 @@
                             console.log($weight_date);
                             console.log($weight_value);
 
+                            // GRAPH VALUES
                             var config = {
                                 type: 'line',
                                 data: {
@@ -941,7 +960,7 @@
                                     responsive: true,
                                     title:{
                                         display:true,
-                                        text:'Gewicht mama'
+                                        text:'Gewicht kind'
                                     },
                                     tooltips: {
                                         mode: 'index',
@@ -970,6 +989,7 @@
                                 }
                             };
 
+                            // GET GRAPH BY ID
                             var ctx = document.getElementById("canvas").getContext("2d");
                             window.myLine = new Chart(ctx, config);
 
@@ -987,8 +1007,7 @@
         //get current user
         $scope.data = WPService;
     }]);
-
-    app.controller('BabyLength', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+    app.controller('ChildLength', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -1005,6 +1024,7 @@
                             $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
+                            // SORT LENGHT BY DATE
                             var length_statistics = response.data.acf.baby_length_statistics;
                             function sortByKey(array, key) {
                                 return array.sort(function(a, b) {
@@ -1016,7 +1036,7 @@
                             var $length_date = sort_length_statistics.map(function(a) {return a.length_date;});
                             var $length_value = sort_length_statistics.map(function(a) {return a.length_number;});
 
-
+                            // GET LAST DATE LENGTH (if date not today in view > add button)
                             var $last_length_date = sort_length_statistics.map(function(a) {return a.length_date;});
                             var $last_length_value = sort_length_statistics.map(function(a) {return a.length_number;});
 
@@ -1026,6 +1046,7 @@
                             console.log($length_date);
                             console.log($length_value);
 
+                            // GRAPH VALUES
                             var config = {
                                 type: 'line',
                                 data: {
@@ -1088,6 +1109,7 @@
                                 }
                             };
 
+                            // GET GRAPH BY ID
                             var ctx = document.getElementById("canvas").getContext("2d");
                             window.myLine = new Chart(ctx, config);
 

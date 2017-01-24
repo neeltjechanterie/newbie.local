@@ -69,6 +69,7 @@ a.logo-button:hover {
   width: 100%;
   z-index: 2;
   text-align: center;
+  padding: 8px 15px 0;
 }
 .sub-header a, .sub-header a:hover,
 .sub-header a:active, .sub-header a:focus,
@@ -240,7 +241,6 @@ nav ul {
 }
 .subnav-btn{
   display: block;
-  margin-top: 8px;
   color: #fff;
   font-size: 22px;
   /* border: 2px solid #d84f19; */
