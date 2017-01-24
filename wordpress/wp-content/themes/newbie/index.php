@@ -82,6 +82,6 @@ $edit = true;
     </footer>-->
 </div>
 <?php endif; ?>
-<!--<div class="hidden">--><?php //wp_editor( '', ''); ?><!--</div>-->
+<div class="hidden"><?php wp_editor( '', ''); ?></div>
 
 <?php get_footer(); ?>

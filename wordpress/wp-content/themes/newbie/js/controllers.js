@@ -752,6 +752,7 @@
                             // Edit checklist button
                             $scope.editPost = function(post) {
                                 document.getElementById('editPost').style.display = 'block';
+                                document.getElementById('contentPost').style.display = 'none';
                                 $scope.post.title = $scope.post.title.rendered;
                                 $scope.post.content = $scope.post.content.rendered;
                                 $scope.loadData();
@@ -767,24 +768,30 @@
 
                             // Update checklist
                             $scope.updatePost = function() {
+                                console.log( $scope.post.thumb);
                                 $http({
-                                    url: 'wp-json/wp/v2/posts-child-profile/' + $scope.post.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'),
+                                    url: 'wp-json/wp/v2/posts-child-profile/' + $scope.post.id + '/?context=edit&custom_fields=_thumbnail_id=' + "555" + '&access_token=' + $cookies.get('wordpress_access_token'),
                                     method: "POST",
                                     headers: {
                                         'content-type': 'application/x-www-form-urlencoded'
                                     },
                                     data: $httpParamSerializerJQLike({
                                         title: $scope.post.title,
-                                        content: $scope.post.content
+                                        content: $scope.post.content,
+                                        custom_fields: {"_thumbnail_id" :"555"}
+
                                     })
                                 }).then(function successCallback(response) {
                                     console.log(response);
 
                                     //$scope.checklists = response.data;
                                     $scope.loadData();
+                                    $scope.loadDataDetail();
 
                                     document.getElementById('editPost').style.display = 'none';
-                                    document.getElementById('responseMessage').innerHTML = 'Succesfuly updated post.' + $scope.post.id;
+                                    document.getElementById('contentPost').style.display = 'block';
+
+                                    document.getElementById('responseMessage').innerHTML = 'Succesvol aangepast.' + $scope.post.id;
 
 
                                 }, function errorCallback(response) {
@@ -890,6 +897,7 @@
     app.controller('ChildWeight', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
+            $scope.today = moment(new Date()).format("YYYY-MM-DD");
 
             $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
                 .then(function successCallback(response) {
@@ -904,7 +912,8 @@
                             $scope.url =  baseUrl + "/wp-json/acf/v2/user/" + $routeParams.id;
                             console.log(response.data);
 
-                            // SORT WEIGHT BY DATE
+
+                            // SORT WEIGHT STATISTICS BY DATE
                             var weight_statistics = response.data.acf.baby_weight_statistics;
                             function sortByKey(array, key) {
                                 return array.sort(function(a, b) {
@@ -916,15 +925,16 @@
                             var $weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
 
-                            // GET LAST DATE WEIGHT (if date not today in view > add button)
                             var $last_weight_date = sort_weight_statistics.map(function(a) {return a.weight_date;});
                             var $last_weight_value = sort_weight_statistics.map(function(a) {return a.weight_number;});
 
-                            $scope.last_item_weight = $last_weight_value.pop();
+                            // GET LAST DATE WITH WEIGHT
                             $scope.last_item_weight_date = $last_weight_date.pop();
-
-                            console.log($weight_date);
-                            console.log($weight_value);
+                            $scope.last_item_weight = $last_weight_value.pop();
+                            var last_item_weight_date = $scope.last_item_weight_date;
+                            var last_item_weight = $scope.last_item_weight;
+                            console.log(last_item_weight_date);
+                            console.log(last_item_weight);
 
                             // GRAPH VALUES
                             var config = {
@@ -1010,7 +1020,7 @@
     app.controller('ChildLength', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
-
+            $scope.today = moment(new Date()).format("YYYY-MM-DD");
             $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
                 .then(function successCallback(response) {
 

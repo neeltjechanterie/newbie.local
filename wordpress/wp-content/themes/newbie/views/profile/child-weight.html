@@ -29,7 +29,7 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr class="row-table-add-btn" ng-show="last_item_weight_date <= today" ng-hide="last_item_weight_date == today || !data.currentUser.acf.baby_weight_statistics.length">
+						<tr class="row-table-add-btn" ng-show="last_item_weight_date < today" ng-hide="last_item_weight_date == today || !data.currentUser.acf.baby_weight_statistics.length">
 							<th colspan='3'><a href="#" class="add-table-row btn">
 									Voeg nieuw item toe ...
 								</a>

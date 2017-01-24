@@ -13,9 +13,9 @@
 	<div class="wrapper">
 		<div class="content container  col-xs 12 col-md-6 offset-md-3">
 			<h1>Profiel bewerken</h1>
-			<label for="acf-weight">Uitgerekende datum</label>
+			<label for="acf-due_date">Uitgerekende datum</label>
 			<div class="input-group date" data-provide="datepicker">
-				<input type="text" class="form-control datepicker group-addon" name="fields[due_date]" value="{{data.currentUser.acf.due_date}}" data-date-format="yyyy-mm-dd">
+				<input type="text" class="form-control datepicker group-addon" id="acf-due_date" name="fields[due_date]" value="{{data.currentUser.acf.due_date}}" data-date-format="yyyy-mm-dd">
 				<div class="input-group-addon">
 					<span class="icon icon-grid"></span>
 				</div>
@@ -45,9 +45,9 @@
 					</div>
 
 
-					<label for="acf-weight">Geboortedatum kind</label>
+					<label for="acf-birthday_child">Geboortedatum kind</label>
 					<div class="form-group input-group date" data-provide="datepicker">
-						<input type="text" class="form-control datepicker group-addon" name="fields[birthday_child]" value="{{data.currentUser.acf.birthday_child}}" data-date-format="yyyy/mm/dd">
+						<input type="text" class="form-control datepicker group-addon" id="acf-birthday_child" name="fields[birthday_child]" value="{{data.currentUser.acf.birthday_child}}" data-date-format="yyyy/mm/dd">
 						<div class="input-group-addon">
 							<span class="icon icon-grid"></span>
 						</div>

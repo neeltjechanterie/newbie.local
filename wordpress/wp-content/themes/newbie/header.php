@@ -27,6 +27,8 @@
 	<script type="text/javascript" src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 	<script>tinymce.init({ selector:'textarea' });</script>
 
+	<script type='text/javascript' src='<?php echo get_stylesheet_directory_uri();?>/assets/js/main.js'></script>
+
 	<?php wp_head(); ?>
 
 </head>

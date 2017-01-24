@@ -42,6 +42,47 @@ jQuery( function( $ ) {
 		return false;
 	} );
 
+	$( document ).on( 'submit', '.editFormTest', function() {
+		var _this  = $( this );
+		var url    = _this.attr( 'action' );
+		var method = _this.attr( 'method' );
+		var data   = _this.serializeArray();
+		var btn    = _this.find( 'button[type="submit"]' );
+		var modal  = $( '#modalResponse' );
+
+		if ( $( '#ag_wysiwyg_editor' ).length && typeof tinyMCE !== 'undefined' ) {
+			data.push( {
+				name: 'fields[ag_wysiwyg_editor]',
+				value: tinyMCE.get( 'ag_wysiwyg_editor' ).getContent()
+			} );
+		}
+
+		btn.prop( { 'disabled' : true } );
+		console.log(data);
+
+
+		$.ajax( {
+			url: url,
+			method: method,
+			beforeSend: function ( xhr ) {
+				xhr.setRequestHeader( 'X-WP-Nonce', WP_API_Settings.nonce );
+			},
+			data: {
+				'title' : 'Hello Moon',
+				'content' : 'Test',
+				'featured_media' : 506
+			},
+			dataType: 'json',
+		} )
+			.always( function ( data ) {
+				btn.removeProp( 'disabled' );
+				modal.find( '.modal-body' ).html( '<pre>' + url + method + JSON.stringify( data, null, "\t" ) + '</pre>' );
+				modal.modal( 'show' );
+			} );
+
+		return false;
+	} );
+
 
 	//----------------------------------------
 	// TAB: Content
@@ -127,6 +168,40 @@ jQuery( function( $ ) {
 		return false;
 	} );
 
+	var mediaFileUrl;
+	//$( '#acf-file-url-btn' ).click( function() {
+
+	$( document ).on( 'click', '#featured_media_btn', function() {
+		var removeBtn = $( '#acf-file-url-remove-btn' );
+
+		if ( ! $.isFunction( wp.media ) ) {
+			return;
+		}
+
+		if ( mediaFileUrl ) {
+			mediaFileUrl.open();
+			return;
+		}
+
+		mediaFileUrl = wp.media( {
+			multiple: false
+		} );
+
+		mediaFileUrl.on( 'select', function() {
+			var file = mediaFileUrl.state().get( 'selection' ).first().toJSON();
+			$( '.media-modal-close' ).trigger( 'click' );
+			$( '#featured_media' ).val( file.id );
+			$( '#acf-file-url' ).val( file.url );
+			removeBtn.removeClass( 'hide' );
+		} );
+
+		mediaFileUrl.open();
+
+		return false;
+	} );
+
+
+
 	//----------------------------------------
 	// TAB: Choice, Relational
 	//----------------------------------------
@@ -167,13 +242,10 @@ jQuery( function( $ ) {
 
 	// TYPE: Date Picker
 	//----------------------------------------
-	// $.fn.datepicker.defaults.format = "yy-mm-dd";
-	// $('.datepicker').datepicker({
-	// 	format: 'yyyy-mm-dd',
-	// 	autoclose: true
-	// });
-	$(".datepicker").datepicker({
-		dateFormat: 'yy-mm-dd'
+	$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+	$('.datepicker').datepicker({
+		format: 'yyyy-mm-dd',
+		autoclose: true
 	});
 	$(".date-pick").datepicker('setDate', new Date());
 
@@ -181,7 +253,7 @@ jQuery( function( $ ) {
 		$( '.datepicker' ).datepicker( {
 			format: 'yyyy-mm-dd',
 			autoclose: true
-		} );		
+		} );
 	}
 
 	// TYPE: Color Picker
@@ -332,6 +404,7 @@ jQuery( function( $ ) {
 		var today = moment(new Date()).format("YYYY-MM-DD");
 		var clone = $( '.table_item:first' ).clone();
 		clone.find( 'input#today' ).val( today );
+		console.log("today: "+today);
 		clone.find( 'input#today' ).removeAttr('readonly');
 		//clone.find( 'input#weight' ).prop("disabled", false);
 		clone.find( 'input#weight' ).val( '' );

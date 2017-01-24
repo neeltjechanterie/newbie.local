@@ -1,19 +1,19 @@
-<form action="{{url}}" method="PUT" class="editForm">
-	<header class="header" role="banner">
-		<div class="header-inner clearfix">
-			<p class="logo">
-				{{data.currentUser.acf.name_child}}
-			</p>
-			<div class="navigation-edit-toggle pull-right">
-				<button type="submit"><i class="icons icon-note"></i></button>
-			</div>
+<header class="header" role="banner">
+	<div class="header-inner clearfix">
+		<p class="logo">
+			{{data.currentUser.acf.name_child}}
+		</p>
+		<div class="navigation-edit-toggle pull-right">
+			<button type="submit"><i class="icons icon-note"></i></button>
 		</div>
-	</header>
+	</div>
+</header>
 
-	<div class="wrapper">
-		<div class="content container  col-xs 12 col-md-6 offset-md-3">
-			<h1>Profiel {{data.currentUser.acf.name_child}} bewerken</h1>
+<div class="wrapper">
+	<div class="content container  col-xs 12 col-md-6 offset-md-3">
+		<h1>Profiel {{data.currentUser.acf.name_child}} bewerken</h1>
 
+		<form action="{{url}}" method="PUT" class="editForm">
 
 			<br>
 			<div class="form-group">
@@ -35,9 +35,9 @@
 			<a href="{{baseUrl}}/child" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>
 
-		</div>
+		</form>
 	</div>
-</form>
+</div>
 
 
 <div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">

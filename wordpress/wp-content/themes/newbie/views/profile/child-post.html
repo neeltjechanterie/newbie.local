@@ -26,7 +26,7 @@
 </div>
 
 <div class="wrapper">
-    <div class="content container detail-baby col-xs-12 col-md-6 offset-md-3">
+    <div class="content container detail-baby col-xs-12 col-md-6 offset-md-3" id="contentPost">
 
         <div class="clearfix row" role="main">
             <div class="col-xs-12 col-md-6">
@@ -43,19 +43,63 @@
 
         </div>
 
-        <div class="clearfix row" role="main">
-            <div class="col-xs-12 col-md-6">
-                <form name="editPostForm" id="editPost" style="display: none;" class="edit">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" ng-model="post.title">
-                    <label for="content">Content</label>
-                    <textarea id="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>
-                    <a ng-click="updatePost()">Save</a>
-                </form>
 
-                <p id="responseMessage"></p>
+    </div>
+    <p id="responseMessage"></p>
+
+    <div class="content container detail-baby col-xs-12 col-md-10 offset-md-1" id="editPost" style="display: none;">
+        <div class="clearfix row" role="main">
+            <form name="editPostForm" class="edit">
+                <label for="title">Titel</label>
+                <div class="form-group">
+                    <input type="text" id="title" class="form-control" ng-model="post.title">
+                </div>
+
+                <label for="featured_media">File URL</label>
+                <input type="hidden" id="acf-file-url">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="featured_media" ng-model="post.thumb">
+                    <span class="input-group-btn">
+						<button type="button" class="btn btn-primary" id="featured_media_btn">Select file</button>
+					</span>
+                </div>
+
+
+
+
+                <img src="{{post.featured_image}}" alt="profile-picture">
+
+                <label for="content">Beschrijving</label>
+                <textarea id="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>
+
+                <br>
+
+                <a  class="btn secondary pull-left" href="/{{post.id}}"><i class="icon icon-arrow-left"></i> Terug</a>
+                <a  class="btn secondary pull-right" ng-click="updatePost()">Save</a>
+
+
+
+            </form>
+            <br><br>
+            <form action="http://newbie.local/wp-json/wp/v2/posts-child-profile/505" method="PUT" class="editFormTest">
+                <button type="submit" >submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalResponseLabel">Response</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
