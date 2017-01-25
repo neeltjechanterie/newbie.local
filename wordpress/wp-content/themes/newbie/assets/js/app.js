@@ -391,7 +391,7 @@ app.run(function(amMoment) {
 
                 $http.get('/wp-json/wp/v2/checklists/' + $routeParams.id).success(function(res){
                     $scope.baseUrl = window.location.origin;
-                    $scope.url =  $scope.baseUrl + "//wp-json/acf/v2/checklists/" + $routeParams.id;
+                    $scope.url =  $scope.baseUrl + "/wp-json/acf/v2/checklists/" + $routeParams.id;
                     $scope.checklist = res;
                     var items = res.acf.checklist_items;
                     var ag_items = res.acf.ag_repeater_checklist;
@@ -495,7 +495,7 @@ app.run(function(amMoment) {
                 }
             }).then(function successCallback(res) {
                 console.log(res);
-                $location.path('/test');
+                $location.path('/checklists');
 
             }, function errorCallback(res) {
                 console.log(res);
@@ -525,6 +525,8 @@ app.run(function(amMoment) {
 
 
     }]);
+
+    /*
     app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
     //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
@@ -632,6 +634,7 @@ app.run(function(amMoment) {
         };
 
     }]);
+*/
 
     app.filter('filterChecklist', function(WPService){
         WPService.getCurrentUser();
@@ -1568,14 +1571,14 @@ app.factory('WPService', ['$http', WPService]);
                 templateUrl: myLocalized.views + 'content.html',
                 controller: 'Content'
             })
-            .when('/test/:id', {
-                templateUrl: myLocalized.views + 'detail-checklist.html',
-                controller: 'Checklists'
-            })
-            .when('/tests', {
-                templateUrl: myLocalized.views + 'checklists.html',
-                controller: 'Checklists'
-            })
+            // .when('/test/:id', {
+            //     templateUrl: myLocalized.views + 'detail-checklist.html',
+            //     controller: 'Checklists'
+            // })
+            // .when('/tests', {
+            //     templateUrl: myLocalized.views + 'checklists.html',
+            //     controller: 'Checklists'
+            // })
             /*.when('/checklist/:slug/', {
                 templateUrl: myLocalized.views + 'detail-checklist.html',
                 controller: 'DetailChecklist'
@@ -1583,14 +1586,7 @@ app.factory('WPService', ['$http', WPService]);
             .when('/timer', {
                 templateUrl: myLocalized.views + 'timer.html'
             })
-            /*.when('/login', {
-                url: '/wp-login.php'
-            })*/
-            /*.when('secure', {
-                url: '/secure',
-                templateUrl: 'templates/secure.html',
-                controller: 'SecureController'
-            })*/
+            .otherwise({templateUrl: myLocalized.views + '404.html'})
         ;
 
         $httpProvider.interceptors.push([function() {

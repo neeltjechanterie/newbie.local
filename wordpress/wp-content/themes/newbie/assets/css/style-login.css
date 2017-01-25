@@ -224,9 +224,14 @@ input[type=checkbox]{
     border: none;
     box-shadow: none;
 }
-#wpoa-title,
-#backtoblog{
+#wpoa-title{
     display: none;
+}
+#backtoblog{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin: 15px 0;
 }
 
 div[data-name="is_de_baby_geboren"]{

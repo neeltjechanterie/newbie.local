@@ -19,10 +19,10 @@
                             <li ng-show="user.capabilities.edit_posts"><a href="/mom-weight/{{data.currentUser.id}}">Lichaamsmetingen</a></li>
                         </ul>
                     </li>
-                    <li><a href="/child">Baby</a>
+                    <li ng-hide="!data.currentUser.acf.name_child || !data.currentUser.acf.is_de_baby_geboren"><a href="/child">Baby</a>
                         <ul>
-                            <li ng-show="user.capabilities.edit_posts"><a href="/child-edit-picture/{{data.currentUser.id}}">Foto {{data.currentUser.acf.name_child}} wijzigen</a></li>
-                            <li ng-show="user.capabilities.edit_posts"><a href="/child-settings/{{data.currentUser.id}}">Wijzig profiel van {{data.currentUser.acf.name_child}}</a></li>
+                            <li ng-show="user.capabilities.edit_posts" ng-hide="!data.currentUser.acf.name_child || !data.currentUser.acf.is_de_baby_geboren"><a href="/child-edit-picture/{{data.currentUser.id}}">Foto {{data.currentUser.acf.name_child}} wijzigen</a></li>
+                            <li ng-show="user.capabilities.edit_posts" ng-hide="!data.currentUser.acf.name_child || !data.currentUser.acf.is_de_baby_geboren"><a href="/child-settings/{{data.currentUser.id}}">Wijzig profiel van {{data.currentUser.acf.name_child}}</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -1,3 +1,4 @@
+<form action="{{url}}" method="PUT" class="editForm">
 <header class="header" role="banner">
 	<div class="header-inner clearfix">
 		<p class="logo">
@@ -12,9 +13,6 @@
 <div class="wrapper">
 	<div class="content container  col-xs 12 col-md-6 offset-md-3">
 		<h1>Profiel {{data.currentUser.acf.name_child}} bewerken</h1>
-
-		<form action="{{url}}" method="PUT" class="editForm">
-
 			<br>
 			<div class="form-group">
 				<div>
@@ -35,24 +33,24 @@
 			<a href="{{baseUrl}}/child" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>
 
-		</form>
 	</div>
-</div>
+	<div class="content container  col-xs 12 col-md-6 offset-md-3">
 
-
-<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="modalResponseLabel">Response</h4>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalResponseLabel">Response</h4>
+					</div>
+					<div class="modal-body">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+</form>

@@ -1,18 +1,18 @@
 <form action="{{url}}" method="PUT" class="editForm">
-	<header class="header" role="banner">
-		<div class="header-inner clearfix">
-			<p class="logo">
-				Wijzig profielfoto {{data.currentUser.name}}
-			</p>
-			<div class="navigation-edit-toggle pull-right">
-				<button type="submit"><i class="icons icon-note"></i></button>
-			</div>
+<header class="header" role="banner">
+	<div class="header-inner clearfix">
+		<p class="logo">
+			Wijzig profielfoto {{data.currentUser.name}}
+		</p>
+		<div class="navigation-edit-toggle pull-right">
+			<button type="submit"><i class="icons icon-note"></i></button>
 		</div>
-	</header>
+	</div>
+</header>
 
-	<div class="wrapper">
-		<div class="content container  col-xs 12 col-md-6 offset-md-3">
-			<h1>Profiel foto bewerken</h1>
+<div class="wrapper">
+	<div class="content container  col-xs 12 col-md-6 offset-md-3">
+		<h1>Profiel foto bewerken</h1>
 
 			<div class="form-group">
 				<label for="acf-file-url">File URL</label>
@@ -28,24 +28,24 @@
 			</div>
 			<a href="{{baseUrl}}" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>
-		</div>
 	</div>
-</form>
 
-
-<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="modalResponseLabel">Response</h4>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<div class="content container  col-xs 12 col-md-6 offset-md-3">
+		<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalResponseLabel">Response</h4>
+					</div>
+					<div class="modal-body">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+</form>

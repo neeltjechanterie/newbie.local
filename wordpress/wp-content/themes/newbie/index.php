@@ -21,7 +21,7 @@ $edit = true;
 
             <a class="btn secondary" href="<?php echo wp_login_url( $redirect ); ?>">LOGIN</a>
             <br><br>
-            <a class="btn secondary" href="<?php echo wp_login_url( $redirect ); ?>">REGISTREER</a>
+            <a class="btn secondary" href="<?php echo wp_login_url( $redirect ); ?>?action=register">REGISTREER</a>
         </div>
     </div>
 <?php else : ?>

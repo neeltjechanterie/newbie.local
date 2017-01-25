@@ -195,3 +195,464 @@ function insert_thumbnail_url_posts_child_profile() {
 }
 //register action
 add_action( 'rest_api_init', 'insert_thumbnail_url_posts_child_profile' );
+
+//create checklists on registration
+function create_new_user_posts($user_id){
+    if (!$user_id>0)
+        return;
+
+    //here we know the user has been created so to create
+    // Create post object
+    $babykleding = array(
+        'post_title' => 'Babykleding',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($babykleding);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "6 rompertjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "6 stuks bovenkleding",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "6 broekjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "4 paar sokjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "1 jasje of vestje",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 katoenen mutsjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Kledingkast voor de baby",
+            "ag_user"	=> $user_id,
+        )
+
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $doekjes = array(
+        'post_title' => 'Doekjes',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($doekjes);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "16 hydrofiele luiers",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "6 monddoekjes",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $bad = array(
+        'post_title' => 'Voor in bad',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($bad);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Babybad met standaard",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Babybadolie of zeepvrije wasgel",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Babyshampoo",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "6 hydrofiele washandjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 Badcapes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Badthermometers",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $luiers = array(
+        'post_title' => 'Voor het verschonen van de luiers',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($luiers);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 pakken newborn luiers",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Billendoekjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Billencrème",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Aankleedkussen",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 hoezen voor het aankleedkussens",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Commode",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Luieremmer",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+
+    //here we know the user has been created so to create
+    // Create post object
+    $overige = array(
+        'post_title' => 'Overige verzorging',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($overige);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 digitale thermometers",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Babyolie",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Zacht babyborsteltje of kammetje",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Nagelvijltjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Zonnebrand voor baby’s (50+)",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $slapen = array(
+        'post_title' => 'Voor het slapen',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($slapen);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Wiegje of ledikant",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Matras",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 moltons",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "3 hoeslakens",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "3 bovenlakens",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 dekentjes van katoen of wol",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 slaapzakjes",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 naadloze metalen kruiken",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 kruikenzakken",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Nachtlampje",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Reiswiegje",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $borstvoeding = array(
+        'post_title' => 'Borstvoeding',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($borstvoeding);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "2 voedingsbeha’s",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Zoogkompressen",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Borstkolf",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Flesjes voor afgekolfde melk",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Voedingskussen",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $flesvoeding = array(
+        'post_title' => 'Voor flesvoeding',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($flesvoeding);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Zuigelingenvoeding",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "4 flessen en 2 spenen",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Flessenwarmer",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Flessenborstel",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Magnetron sterilisator",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Melkpoedertoren",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $huis = array(
+        'post_title' => 'Handige producten voor in huis',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($huis);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Babyfoon",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Box",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Boxkleed",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Wipstoeltje",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Speelgoed en knuffels",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Fopspeen",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+    //here we know the user has been created so to create
+    // Create post object
+    $opstap = array(
+        'post_title' => 'Met baby op stap',
+        'post_type' => 'checklist',
+        'post_status' => 'publish',
+        'post_author' => $user_id
+    );
+    $the_post_id = wp_insert_post($opstap);
+    // save a repeater field value
+    $field_key = "field_4444444444ddd";
+    $value = array(
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Autostoel 0+",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Kinderwagen",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Luiertas",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Verschoonmatje",
+            "ag_user"	=> $user_id,
+        ),
+        array(
+            "ag_true_false"	=> "",
+            "ag_checklist_item"	=> "Draagzak",
+            "ag_user"	=> $user_id,
+        )
+    );
+    update_field( $field_key, $value, $the_post_id );
+
+};
+
+add_action('user_register','create_new_user_posts', 999);

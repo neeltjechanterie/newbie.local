@@ -384,7 +384,7 @@
 
                 $http.get('/wp-json/wp/v2/checklists/' + $routeParams.id).success(function(res){
                     $scope.baseUrl = window.location.origin;
-                    $scope.url =  $scope.baseUrl + "//wp-json/acf/v2/checklists/" + $routeParams.id;
+                    $scope.url =  $scope.baseUrl + "/wp-json/acf/v2/checklists/" + $routeParams.id;
                     $scope.checklist = res;
                     var items = res.acf.checklist_items;
                     var ag_items = res.acf.ag_repeater_checklist;
@@ -488,7 +488,7 @@
                 }
             }).then(function successCallback(res) {
                 console.log(res);
-                $location.path('/test');
+                $location.path('/checklists');
 
             }, function errorCallback(res) {
                 console.log(res);
@@ -518,6 +518,8 @@
 
 
     }]);
+
+    /*
     app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
     //app.controller('Checklists', ['$scope', '$cookies', '$routeParams', '$http', '$httpParamSerializerJQLike', function($scope, $cookies, $routeParams, $http, $httpParamSerializerJQLike) {
 
@@ -625,6 +627,7 @@
         };
 
     }]);
+*/
 
     app.filter('filterChecklist', function(WPService){
         WPService.getCurrentUser();

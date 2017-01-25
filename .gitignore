@@ -8,3 +8,4 @@ node_modules/
 /Artestead.yaml
 !bin
 /wordpress/wp-content/tests
+/wordpress/wp-content/uploads

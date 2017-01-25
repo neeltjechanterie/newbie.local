@@ -1,3 +1,4 @@
+<form action="{{urlEdit}}"  method="PUT" class="editForm">
 <header class="header" role="banner">
     <div class="header-inner clearfix">
         <p class="logo">
@@ -9,13 +10,17 @@
 <div class="sub-header clearfix ">
     <div class="row">
         <!--<a href="#" class="pull-left col-xs-2 col-lg-1"><i class="icons icon-arrow-left"> </i></a>-->
-        <div class="pull-left col-xs-2 col-lg-1 subnav-btn"><button ng-click="deletePost(post.id)"><i class="icon icon-trash"></i></button>
+        <div class="pull-left col-xs-2 col-lg-1 subnav-btn">
+            <a class="submit-btn btn"
+               ng-confirm-click="Zeker dat je '{{post.title.rendered}}' wilt verwijderen?"
+               confirmed-click="deletePost(post.id)"><i class="icon icon-trash"></i></a>
         </div>
         <h3 class="col-xs-8 col-lg-10">
             {{post.title.rendered}}
         </h3>
         <div class="pull-right col-xs-2 col-lg-1 subnav-btn">
-            <button ng-click="editPost(post.id)" ng-show="user.capabilities.edit_posts"><i class="icon icon-pencil"></i></button>
+            <a class="submit-btn btn"
+                    ng-click="editPost(post.id)" ng-show="user.capabilities.edit_posts"><i class="icon icon-pencil"></i></a>
         </div>
 
         <!--<pre>You are currently on page {{currentPage}}</pre>
@@ -79,7 +84,6 @@
 
             <!--</form>-->
             <br><br>
-            <form action="{{urlEdit}}"  method="PUT" class="editForm">
                 <label for="title">Titel</label>
                 <div class="form-group">
                     <input type="text" id="title" name="title" class="form-control" ng-model="post.title">
@@ -105,23 +109,26 @@
                 <br>
                 <!--<button type="submit" ng-click="updatePost()" >submit</button>-->
                 <button type="submit">submit</button>
-            </form>
+        </div>
+    </div>
+    <div class="content container detail-baby col-xs-12 col-md-10 offset-md-1">
+        <div class="clearfix row" role="main">
+            <div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalResponseLabel">Response</h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalResponseLabel">Response</h4>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+</form>
