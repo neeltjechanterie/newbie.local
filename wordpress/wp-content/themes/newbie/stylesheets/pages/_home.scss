@@ -16,6 +16,7 @@
   border-radius: 20px;
   display: flex;
   color: $secondary-color;
+  overflow: hidden;
 }
 .orange-reverse-banner{
   border: 1px solid $dark-main-color;
@@ -85,7 +86,7 @@
   font-family: TradeGothicCondensed,sans-serif;
 }
 .info-banner p.result {
-  font-size: 3.5em;
+  font-size: 3em;
   margin-top: 0;
 }
 ,

@@ -49,16 +49,46 @@
 
     <div class="content container detail-baby col-xs-12 col-md-10 offset-md-1" id="editPost" style="display: none;">
         <div class="clearfix row" role="main">
-            <form name="editPostForm" class="edit">
+            <!--<form name="editPostForm" class="edit">-->
+                <!--<label for="title">Titel</label>-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" id="title" name="title" class="form-control" ng-model="post.title">-->
+                <!--</div>-->
+
+                <!--<label for="featured_media">File URL</label>-->
+                <!--<input type="hidden" id="acf-file-url">-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" name="featured_media" id="featured_media" ng-model="post.featured_media">-->
+                    <!--<span class="input-group-btn">-->
+						<!--<button type="button" name="content" class="btn btn-primary" id="featured_media_btn">Select file</button>-->
+					<!--</span>-->
+                <!--</div>-->
+
+
+
+
+                <!--<img src="{{post.featured_image}}" alt="profile-picture">-->
+
+                <!--<label for="content">Beschrijving</label>-->
+                <!--<textarea id="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>-->
+
+                <!--<br>-->
+
+                <!--<a  class="btn secondary pull-left" href="/{{post.id}}"><i class="icon icon-arrow-left"></i> Terug</a>-->
+                <!--<a  class="btn secondary pull-right" ng-click="updatePost()">Save</a>-->
+
+            <!--</form>-->
+            <br><br>
+            <form action="{{urlEdit}}"  method="PUT" class="editForm">
                 <label for="title">Titel</label>
                 <div class="form-group">
-                    <input type="text" id="title" class="form-control" ng-model="post.title">
+                    <input type="text" id="title" name="title" class="form-control" ng-model="post.title">
                 </div>
 
                 <label for="featured_media">File URL</label>
                 <input type="hidden" id="acf-file-url">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="featured_media" ng-model="post.thumb">
+                    <input type="text" class="form-control" name="featured_media" id="featured_media" ng-model="post.featured_media">
                     <span class="input-group-btn">
 						<button type="button" class="btn btn-primary" id="featured_media_btn">Select file</button>
 					</span>
@@ -70,19 +100,11 @@
                 <img src="{{post.featured_image}}" alt="profile-picture">
 
                 <label for="content">Beschrijving</label>
-                <textarea id="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>
+                <textarea id="content" name="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>
 
                 <br>
-
-                <a  class="btn secondary pull-left" href="/{{post.id}}"><i class="icon icon-arrow-left"></i> Terug</a>
-                <a  class="btn secondary pull-right" ng-click="updatePost()">Save</a>
-
-
-
-            </form>
-            <br><br>
-            <form action="http://newbie.local/wp-json/wp/v2/posts-child-profile/505" method="PUT" class="editFormTest">
-                <button type="submit" >submit</button>
+                <!--<button type="submit" ng-click="updatePost()" >submit</button>-->
+                <button type="submit">submit</button>
             </form>
         </div>
     </div>

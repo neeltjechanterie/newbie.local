@@ -1,0 +1,89 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            DAGBOEK
+        </p>
+        <!--<a ng-click="addPostShow()"-->
+        <!--ng-show="user.capabilities.edit_posts"-->
+        <!--class="logo-button add"><i class="icons icon-plus"></i></a>-->
+        <a class="logo-button add"><i class="icons icon-plus"></i></a>
+
+    </div>
+</header>
+<div class="sub-header clearfix ">
+    <div class="row">
+        <div class="pull-left col-xs-2 col-lg-1 subnav-btn"><button ng-click="deletePost(post.id)"><i class="icon icon-trash"></i></button>
+        </div>
+        <h3 class="col-xs-8 col-lg-10">
+            titel
+        </h3>
+        <div class="pull-right col-xs-2 col-lg-1 subnav-btn">
+            <button ng-click="editPost(post.id)" ng-show="user.capabilities.edit_posts"><i class="icon icon-pencil"></i></button>
+        </div>
+        <!--<pre>You are currently on page {{currentPage}}</pre>
+        <ul uib-pager total-items="totalItems" ng-model="currentPage"></ul>-->
+        <!--<a href="#" class="col-xs-2 col-lg-1"><i class="icons icon-arrow-right"> </i></a>-->
+
+    </div>
+</div>
+<div class="wrapper">
+
+    <div class="content container">
+
+        <div class="clearfix row" role="main">
+            <div class="col-xs 12 col-md-6 offset-md-3" id="contentPost">
+                <h1>{{post.title.rendered}}</h1>
+                <p>{{post.date}}</p>
+                <div ng-bind-html="post.content.rendered"></div>
+            </div>
+
+
+            <div class="col-xs 12 col-md-6 offset-md-3" id="editPost" style="display: none;">
+                <form action="{{urlEdit}}"  method="PUT" class="editForm">
+                    <label for="title">Titel</label>
+                    <div class="form-group">
+                        <input type="text" id="title" name="title" class="form-control" ng-model="post.title">
+                    </div>
+
+                    <label for="featured_media">File URL</label>
+                    <input type="hidden" id="acf-file-url">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="featured_media" id="featured_media" ng-model="post.featured_media">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary" id="featured_media_btn">Select file</button>
+                        </span>
+                    </div>
+
+
+
+
+                    <img src="{{post.featured_image}}" alt="profile-picture">
+
+                    <label for="content">Beschrijving</label>
+                    <textarea id="content" name="content" ui-tinymce="tinymceOptions" ng-model="post.content"></textarea>
+
+                    <br>
+                    <!--<button type="submit" ng-click="updatePost()" >submit</button>-->
+                    <button type="submit">submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalResponseLabel">Response</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

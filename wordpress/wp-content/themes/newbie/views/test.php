@@ -82,7 +82,7 @@ if ( $edit ) {
 											<label for="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]">
 												<input type="text" name="fields[ag_repeater_checklist][{{$index}}][ag_checklist_item]" class="form-control" value="{{item.ag_checklist_item}}">
 											</label>
-											<button type="button" class="remove-row"><i class="icon icon-trash"></i></button>
+											<button type="button" class="remove-row btn"><i class="icon icon-trash"></i></button>
 
 										</div>
 
@@ -105,7 +105,7 @@ if ( $edit ) {
 											<label for="fields[ag_repeater_checklist][0][ag_checklist_item]">
 												<input type="text" name="fields[ag_repeater_checklist][0][ag_checklist_item]" class="form-control" value="">
 											</label>
-											<button type="button" class="remove-row"><i class="icon icon-trash"></i></button>
+											<button type="button" class="remove-row btn"><i class="icon icon-trash"></i></button>
 
 										</div>
 

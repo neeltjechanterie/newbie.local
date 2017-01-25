@@ -9,7 +9,7 @@ button[type=button].remove-row{
   font-size: 17px;
   padding: 0 0 0 4px;
 }
-[type=reset], [type=submit], button, html [type=button], .button, .btn {
+[type=reset], [type=submit], .button, .btn {
   color: $white !important;
   background: $main-color;
   display: inline-block;
@@ -43,7 +43,8 @@ button[type=button].remove-row{
   margin: 0;
 }
 
-.input-group-btn button[type=button]#acf-file-url-btn{
+.input-group-btn button[type=button]#acf-file-url-btn,
+.input-group-btn button[type=button]#featured_media_btn{
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border: 0;

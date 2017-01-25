@@ -20,10 +20,11 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="acf-file-url" value="{{data.currentUser.acf.profile_picture}}" readonly>
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" id="acf-file-url-btn">Select file</button>
+						<button type="button" class="btn primary" id="acf-file-url-btn">Select file</button>
 					</span>
 				</div>
-				<img src="{{data.currentUser.acf.profile_picture}}" alt="profile-picture">
+				<br><br>
+				<span id="thumbnail"></span>
 			</div>
 			<a href="{{baseUrl}}" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
 			<button type="submit" class="btn secondary pull-right">Opslaan</button>

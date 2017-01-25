@@ -87,6 +87,14 @@
                 templateUrl: myLocalized.views + 'category.html',
                 controller: 'Category'
             })*/
+            .when('/dagboek', {
+                templateUrl: myLocalized.views + 'dagboek/dagboek.html',
+                controller: 'Dagboek'
+            })
+            .when('/dagboek/:id', {
+                templateUrl: myLocalized.views + 'dagboek/dagboek-detail.html',
+                controller: 'Dagboek'
+            })
             .when('/category/:id/', {
                 templateUrl: myLocalized.views + 'content-category.html',
                 controller: 'Content'

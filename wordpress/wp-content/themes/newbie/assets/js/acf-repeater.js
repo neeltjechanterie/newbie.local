@@ -4,6 +4,20 @@ jQuery( function( $ ) {
 	// The magic
 	//----------------------------------------
 
+	$(document).on('click', '#addBabyPost', function() {
+		var _this  = $( this );
+		var btn    = _this.find( '.addBabyPost' );
+		var modal  = $( '#modalResponse' );
+		btn.prop( { 'disabled' : true } );
+		modal.modal( 'show' );
+	});
+	$(document).on('click', '#addDagboekPost', function() {
+		var _this  = $( this );
+		var btn    = _this.find( '.addBabyPost' );
+		var modal  = $( '#modalResponse' );
+		btn.prop( { 'disabled' : true } );
+		modal.modal( 'show' );
+	});
 
 	$( document ).on( 'submit', '.editForm', function() {
 		var _this  = $( this );
@@ -47,17 +61,6 @@ jQuery( function( $ ) {
 		var url    = _this.attr( 'action' );
 		var method = _this.attr( 'method' );
 		var data   = _this.serializeArray();
-		var btn    = _this.find( 'button[type="submit"]' );
-		var modal  = $( '#modalResponse' );
-
-		if ( $( '#ag_wysiwyg_editor' ).length && typeof tinyMCE !== 'undefined' ) {
-			data.push( {
-				name: 'fields[ag_wysiwyg_editor]',
-				value: tinyMCE.get( 'ag_wysiwyg_editor' ).getContent()
-			} );
-		}
-
-		btn.prop( { 'disabled' : true } );
 		console.log(data);
 
 
@@ -67,19 +70,37 @@ jQuery( function( $ ) {
 			beforeSend: function ( xhr ) {
 				xhr.setRequestHeader( 'X-WP-Nonce', WP_API_Settings.nonce );
 			},
-			data: {
-				'title' : 'Hello Moon',
-				'content' : 'Test',
-				'featured_media' : 506
-			},
-			dataType: 'json',
-		} )
-			.always( function ( data ) {
-				btn.removeProp( 'disabled' );
-				modal.find( '.modal-body' ).html( '<pre>' + url + method + JSON.stringify( data, null, "\t" ) + '</pre>' );
-				modal.modal( 'show' );
-			} );
+			data: data,
+			success: function() {
+				//location.reload();
+			}
+		} );
+		return false;
+	} );
+	$( document ).on( 'submit', '.addFormPostBaby', function() {
+		var _this  = $( this );
+		var url    = _this.attr( 'action' );
+		var method = _this.attr( 'method' );
+		var data   = _this.serializeArray();
+		data.push( {
+			name: 'status',
+			value: 'publish'
+		} );
 
+		$.ajax( {
+			url: url,
+			method: method,
+			beforeSend: function ( xhr ) {
+				xhr.setRequestHeader( 'X-WP-Nonce', WP_API_Settings.nonce );
+			},
+			data: data,
+			success: function() {
+				location.reload();
+				//console.log(data);
+				//document.getElementById('addFormPostBaby').style.display = 'none';
+				//document.getElementById('responseMessage').innerHTML = 'Succesfuly updated checklist.' + $scope.checklist.id;
+			}
+		} );
 		return false;
 	} );
 
@@ -152,6 +173,7 @@ jQuery( function( $ ) {
 			$( '.media-modal-close' ).trigger( 'click' );
 			$( '#acf-file-url-id' ).val( file.id );
 			$( '#acf-file-url' ).val( file.url );
+			$( '<img src="' + file.url + '" width="171">' ).insertAfter( '#thumbnail');
 			removeBtn.removeClass( 'hide' );
 		} );
 
@@ -173,7 +195,6 @@ jQuery( function( $ ) {
 
 	$( document ).on( 'click', '#featured_media_btn', function() {
 		var removeBtn = $( '#acf-file-url-remove-btn' );
-
 		if ( ! $.isFunction( wp.media ) ) {
 			return;
 		}
@@ -192,6 +213,7 @@ jQuery( function( $ ) {
 			$( '.media-modal-close' ).trigger( 'click' );
 			$( '#featured_media' ).val( file.id );
 			$( '#acf-file-url' ).val( file.url );
+			$( '<img src="' + file.url + '" width="171">' ).insertAfter( '#thumbnail');
 			removeBtn.removeClass( 'hide' );
 		} );
 

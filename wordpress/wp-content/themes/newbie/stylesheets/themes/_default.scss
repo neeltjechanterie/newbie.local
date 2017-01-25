@@ -227,10 +227,21 @@ label.baby:before{
   height: 40px;
   width: 40px;
 }
-#addPost{
-  padding: 12px 20px;
+#addBabyPost{
+  padding: 30%;
+  width: 100%;
+  height: 100%;
+  font-size: 35px;
 }
-#addPost input{
+@media (min-width: 992px) {
+  #addBabyPost{
+    padding: 40%;
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+  }
+}
+#addBabyPost input{
   padding: 0 20px;
   border: 1px solid #ccc;
 }

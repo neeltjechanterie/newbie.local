@@ -59,8 +59,8 @@ $edit = true;
             <ul>
                 <li><a id="timer" href="/timer">Weeëntimer</a></li>
                 <li><a id="checklist" href="/checklists">Checklists</a></li>
-                <li><a id="albums" href="/albums">Albums</a></li>
-                <li><a id="agenda" href="/agenda">Agenda</a></li>
+<!--                <li><a id="albums" href="/albums">Albums</a></li>-->
+<!--                <li><a id="agenda" href="/agenda">Agenda</a></li>-->
                 <li><a id="dagboek" href="/dagboek">Dagboek</a></li>
             </ul>
         </li>

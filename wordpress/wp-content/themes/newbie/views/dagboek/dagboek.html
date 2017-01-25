@@ -1,0 +1,68 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            DAGBOEK
+        </p>
+        <!--<a ng-click="addPostShow()"-->
+           <!--ng-show="user.capabilities.edit_posts"-->
+           <!--class="logo-button add"><i class="icons icon-plus"></i></a>-->
+        <a class="logo-button add" id="addDagboekPost"><i class="icons icon-plus"></i></a>
+
+    </div>
+</header>
+<div class="wrapper">
+
+    <div class="content container">
+
+        <div class="clearfix row" role="main">
+            <div ng-repeat="post in dagboek" class="col-xs 12 col-md-6 offset-md-3">
+                <h1><a href="/dagboek/{{post.id}}">{{post.title.rendered}}</a></h1>
+                <p>{{post.date}}</p>
+                <div ng-bind-html="post.content.rendered"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalResponseLabel">Nieuwe foto</h4>
+            </div>
+            <form action="{{urlAdd}}"  method="POST" class="addFormPostBaby">
+                <div class="modal-body">
+                    <label for="title">Titel</label>
+                    <div class="form-group">
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+
+                    <label for="featured_media">File URL</label>
+                    <input type="hidden" id="acf-file-url">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="featured_media" id="featured_media">
+                        <span class="input-group-btn">
+						    <button type="button" class="btn primary" id="featured_media_btn">Select file</button>
+					    </span>
+                    </div>
+
+                    <span id="thumbnail"></span>
+
+                    <br><br>
+                    <label for="content">Beschrijving</label><br>
+                    <textarea id="content" name="content" class="col-xs-12"></textarea>
+                    <br>
+                    <br>
+                    <!--<button type="submit" ng-click="updatePost()" >submit</button>-->
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn secondary pull-right">submit</button>
+                    <button type="button" class="btn primary pull-left" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

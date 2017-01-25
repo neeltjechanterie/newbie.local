@@ -35,13 +35,13 @@
     <div class="col-xs-12 col-md-12">
         <div class="blue-banner">
             <div class="col col-xs-12 user-info">
-                <p class="user-name">{{data.currentUser.acf.name_child}} - {{data.currentUser.acf.birthday_child}}</p>
+                <p class="user-name">{{data.currentUser.acf.name_child}}</p>
             </div>
             <div class="col col-xs 12 col-md-8 offset-md-2 no-padding">
                 <div class="col col-xs-4 col-md-5 info-banner left">
-                    <p>Leeftijd</p>
+                    <p>Verjaardag</p>
 
-                    <p class="result">{{ thisDay | amDifference: data.currentUser.acf.birthday_child  : 'years' }}</p>
+                    <p class="result">{{brithday}}</p>
                 </div>
                 <div class="col col-xs-4 col-md-2 user-profile baby">
                     <ui-image ng-show="data.currentUser.acf.baby_profile_picture" data-src="{{data.currentUser.acf.baby_profile_picture}}" src="{{data.currentUser.acf.baby_profile_picture}}" data-title="baby_profile_picture"></ui-image>
@@ -50,8 +50,8 @@
                     </a>
                 </div>
                 <div class="col col-xs-4 col-md-5 info-banner right">
-                    <p>BMI</p>
-                    <p class="result">{{bmi}}</p>
+                    <p>Leeftijd</p>
+                    <p class="result">{{ thisDay | amDifference: data.currentUser.acf.birthday_child  : 'years' }}</p>
                 </div>
             </div>
         </div>
@@ -84,10 +84,8 @@
 
         <div class="clearfix row" role="main">
             <div class="col col-xs-4 col-sm-3 col-md-3">
-                <div class="blue-reverse-banner baby-wrapper">
-                    <div class="info-baby center">
-                        <p class="user-extra"><i class="icon-plus"></i></p>
-                    </div>
+                <div class="baby-wrapper">
+                        <a class="btn" id="addBabyPost"><i class="icon-plus"></i></a>
                 </div>
             </div>
             <a ng-repeat="post in posts_child_profile" class="col col-xs-4 col-sm-3 col-md-3" href="/child/{{post.id}}">
@@ -97,28 +95,51 @@
             </a>
         </div>
 
-
-
-        <!--<div class="col-xs-12 col-md-7">
-
-            <div ng-repeat="post in posts" class="clearfix row" role="main">
-                <div class="col-xs-12 col-md-12">
-                    <div class="orange-reverse-banner">
-                        <div class="col col-xs-12 info-baby center">
-                            <a href="blog/{{post.slug}}"><h2>{{post.title.rendered}}</h2></a>
-                            <p ng-bind-html="post.content.rendered">Wat je kleine wondertje de gehele dag doet in je buik?
-                                Hij trekt gezichten, slikt, ademt, hikt, beweegt zijn armen en benen, zuigt op zijn vingers en draait zijn hoofd.
-                                Wees dus maar niet bang dat hij zich verveelt! Is hij zo druk dat je er ’s nachts niet van kan slapen?
-                                Troost je dan met de gedachte dat al die bewegingen een teken zijn dat hij gezond is.
-                                Iedere week groeien de kansen van je baby om buiten de baarmoeder te overleven.
-                                Dit komt onder andere door het extra lichaamsvet en de betere werking van de longen.
-                                Wordt je baby voor de 37ste week geboren dan geldt dit nog wel als een vroeggeboorte (prematuur).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>-->
 </article>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalResponse" tabindex="-1" role="dialog" aria-labelledby="modalResponseLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalResponseLabel">Nieuwe foto</h4>
+            </div>
+            <form action="{{urlAdd}}"  method="POST" class="addFormPostBaby">
+            <div class="modal-body">
+                    <label for="title">Titel</label>
+                    <div class="form-group">
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+
+                    <label for="featured_media">File URL</label>
+                    <input type="hidden" id="acf-file-url">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="featured_media" id="featured_media">
+                        <span class="input-group-btn">
+						    <button type="button" class="btn primary" id="featured_media_btn">Select file</button>
+					    </span>
+                    </div>
+
+                    <span id="thumbnail"></span>
+
+                    <br><br>
+                    <label for="content">Beschrijving</label><br>
+                    <textarea id="content" name="content" class="col-xs-12"></textarea>
+                    <br>
+                    <br>
+                    <!--<button type="submit" ng-click="updatePost()" >submit</button>-->
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn secondary pull-right">submit</button>
+                <button type="button" class="btn primary pull-left" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>

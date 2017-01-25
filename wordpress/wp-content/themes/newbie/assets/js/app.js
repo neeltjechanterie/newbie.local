@@ -667,7 +667,7 @@ app.run(function(amMoment) {
     });
 
 
-    app.controller('Child', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser) {
+    app.controller('Child', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', '$location', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser, $location) {
         $http.get('wp-json/wp/v2/users/me').success(function(res){
             WPService.currentUser = res;
 
@@ -689,6 +689,10 @@ app.run(function(amMoment) {
                             //var thisDay = moment(new Date()).format('DD/MM/YYYY');
                             $scope.thisDay = moment(new Date());
                             console.log($scope.thisDay);
+
+                            var formatBirthday = $scope.user.acf.birthday_child;
+                            $scope.brithday = formatBirthday.split("-").reverse().join("/");
+
 
                             // SORT WEIGHT STATISTICS BY DATE
                             var weight_statistics = response.data.acf.baby_weight_statistics;
@@ -742,22 +746,23 @@ app.run(function(amMoment) {
                             };
                             $scope.loadData();
 
-                            $scope.loadDataDetail = function () {
-                                //get category by slug
-                                $http.get('wp-json/wp/v2/posts-child-profile/' + $routeParams.id).success(function (res) {
-                                    $scope.post = res;
-                                    console.log(res);
-                                    console.log($routeParams.id);
 
-                                }).error(function (res) {
-                                    console.log(res);
+                            //get category by slug
+                            $http.get('wp-json/wp/v2/posts-child-profile/' + $routeParams.id).success(function (res) {
+                                $scope.post = res;
+                                console.log(res);
+                                console.log($routeParams.id);
 
-                                });
-                            };
-                            $scope.loadDataDetail();
+                            }).error(function (res) {
+                                console.log(res);
+
+                            });
+
+                            $scope.urlAdd =  baseUrl + "/wp-json/wp/v2/posts-child-profile/";
+                            $scope.urlEdit =  baseUrl + "/wp-json/wp/v2/posts-child-profile/" + $routeParams.id;
 
                             // Edit checklist button
-                            $scope.editPost = function(post) {
+                            $scope.editPost = function() {
                                 document.getElementById('editPost').style.display = 'block';
                                 document.getElementById('contentPost').style.display = 'none';
                                 $scope.post.title = $scope.post.title.rendered;
@@ -765,46 +770,16 @@ app.run(function(amMoment) {
                                 $scope.loadData();
 
                                 $scope.tinymceOptions = {
+                                    selector: 'textarea',
                                     plugins: 'link image code',
-                                    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+                                    menubar: false,
                                     inline: false,
                                     skin: 'lightgray',
                                     theme : 'modern'
                                 };
                             };
 
-                            // Update checklist
-                            $scope.updatePost = function() {
-                                console.log( $scope.post.thumb);
-                                $http({
-                                    url: 'wp-json/wp/v2/posts-child-profile/' + $scope.post.id + '/?context=edit&custom_fields=_thumbnail_id=' + "555" + '&access_token=' + $cookies.get('wordpress_access_token'),
-                                    method: "POST",
-                                    headers: {
-                                        'content-type': 'application/x-www-form-urlencoded'
-                                    },
-                                    data: $httpParamSerializerJQLike({
-                                        title: $scope.post.title,
-                                        content: $scope.post.content,
-                                        custom_fields: {"_thumbnail_id" :"555"}
 
-                                    })
-                                }).then(function successCallback(response) {
-                                    console.log(response);
-
-                                    //$scope.checklists = response.data;
-                                    $scope.loadData();
-                                    $scope.loadDataDetail();
-
-                                    document.getElementById('editPost').style.display = 'none';
-                                    document.getElementById('contentPost').style.display = 'block';
-
-                                    document.getElementById('responseMessage').innerHTML = 'Succesvol aangepast.' + $scope.post.id;
-
-
-                                }, function errorCallback(response) {
-                                    console.log(response);
-                                });
-                            };
 
                             // Edit checklist button
                             $scope.addPostShow = function() {
@@ -813,78 +788,26 @@ app.run(function(amMoment) {
                                 item.find( 'input' ).val( '' );
                             };
 
-                            // ADD checklist
-                            $scope.addPost = function() {
-                                $http({
-                                    url: 'wp-json/wp/v2/checklists/?context=add&access_token=' + $cookies.get('wordpress_access_token'),
-                                    method: "POST",
-                                    headers: {
-                                        'content-type': 'application/x-www-form-urlencoded'
-                                    },
-                                    data: $httpParamSerializerJQLike({
-                                        title: $scope.checklist.title,
-                                        status: 'publish'
-                                    })
-                                }).then(function successCallback(res) {
-                                    console.log(res);
-
-                                    $scope.checklist = res.data;
-                                    document.getElementById('addPost').style.display = 'none';
-                                    //$scope.loadData();
-                                    $route.reload();
-                                    //$location.path('/test/' + res.data.id);
-
-
-
-                                }, function errorCallback(response) {
-                                    console.log(response);
-                                });
-                            };
-
                             // delete checklist in detail
                             $scope.deletePost = function(id) {
-                                $scope.checklist.id = id;
+                                $scope.post.id = id;
                                 $http({
-                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
+                                    url: 'wp-json/wp/v2/posts-child-profile/' + $scope.post.id,
                                     method: "DELETE",
                                     headers: {
                                         'content-type': 'application/x-www-form-urlencoded'
                                     },
                                     data: {
-                                        id: $scope.checklist.id
+                                        id: $scope.post.id
                                     }
                                 }).then(function successCallback(res) {
                                     console.log(res);
-                                    $location.path('/test');
+                                    $location.path('/child');
 
                                 }, function errorCallback(res) {
                                     console.log(res);
                                 });
                             };
-
-                            // delete checklist in repeater
-                            $scope.deletePostRepeater = function(checklist) {
-                                $scope.checklist = checklist;
-                                $http({
-                                    url: 'wp-json/wp/v2/checklists/' + $scope.checklist.id,
-                                    method: "DELETE",
-                                    headers: {
-                                        'content-type': 'application/x-www-form-urlencoded'
-                                    },
-                                    data: {
-                                        id: $scope.checklist.id
-                                    }
-                                }).then(function successCallback(res) {
-                                    console.log(res);
-                                    //location.reload();
-                                    $scope.loadData();
-                                }, function errorCallback(res) {
-                                    console.log(res);
-                                });
-                            };
-
-
-
 
 
                         }, function errorCallback(response) {
@@ -1129,6 +1052,134 @@ app.run(function(amMoment) {
                             // GET GRAPH BY ID
                             var ctx = document.getElementById("canvas").getContext("2d");
                             window.myLine = new Chart(ctx, config);
+
+                        }, function errorCallback(response) {
+                            console.log(response);
+                        });
+                    $scope.user = response.data;
+
+
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+
+        });
+        //get current user
+        $scope.data = WPService;
+    }]);
+
+    app.controller('Dagboek', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', '$location', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser, $location) {
+        $http.get('wp-json/wp/v2/users/me').success(function(res){
+            WPService.currentUser = res;
+
+
+            $http.get('wp-json/wp/v2/users/me/?access_token=' + $cookies.get('wordpress_access_token'))
+                .then(function successCallback(response) {
+
+                    // second API call to get more details about the current user, e.g. capabilities
+                    $http.get('/wp-json/wp/v2/users/' + response.data.id + '/?context=edit&access_token=' + $cookies.get('wordpress_access_token'))
+                        .then(function successCallback(response) {
+                            console.log(response.data);
+                            $scope.user = response.data;
+
+                            var baseUrl = window.location.origin;
+                            $scope.url =  baseUrl + "/wp-json/wp/v2/dagboek" + $routeParams.id;
+                            console.log(response.data);
+
+                            // CALCULATE BIRTHDAY (with amDifference in view)
+                            //var thisDay = moment(new Date()).format('DD/MM/YYYY');
+                            //$scope.thisDay = moment(new Date());
+                            //console.log($scope.thisDay);
+
+                            //var formatBirthday = $scope.user.acf.birthday_child;
+                            //$scope.brithday = formatBirthday.split("-").reverse().join("/");
+
+                            $scope.loadData = function () {
+                                $http.get('/wp-json/wp/v2/dagboek/?author=' + $scope.user.id).success(function (res) {
+                                    $scope.dagboek = res;
+                                    console.log(res);
+
+                                    $http.get('wp-json/wp/v2/tags?post=' + $routeParams.id).success(function (res) {
+                                        $scope.tags = res;
+                                        console.log(res);
+
+                                    }).error(function (res) {
+                                        console.log(res);
+                                    });
+
+                                });
+                            };
+                            $scope.loadData();
+
+
+                            //get category by slug
+                            $http.get('wp-json/wp/v2/dagboek/' + $routeParams.id).success(function (res) {
+                                $scope.post = res;
+                                console.log(res);
+                                console.log($routeParams.id);
+
+                                $http.get('wp-json/wp/v2/tags?post=' + $routeParams.id).success(function (res) {
+                                    $scope.tags = res;
+                                    console.log(res);
+
+                                }).error(function (res) {
+                                    console.log(res);
+                                });
+
+                            }).error(function (res) {
+                                console.log(res);
+
+                            });
+
+                            $scope.urlAdd =  baseUrl + "/wp-json/wp/v2/dagboek/";
+                            $scope.urlEdit =  baseUrl + "/wp-json/wp/v2/dagboek/" + $routeParams.id;
+
+                            // Edit checklist button
+                            $scope.editPost = function() {
+                                document.getElementById('editPost').style.display = 'block';
+                                document.getElementById('contentPost').style.display = 'none';
+                                $scope.post.title = $scope.post.title.rendered;
+                                $scope.post.content = $scope.post.content.rendered;
+                                $scope.loadData();
+
+                                $scope.tinymceOptions = {
+                                    selector: 'textarea',
+                                    plugins: 'link image code',
+                                    menubar: false,
+                                    inline: false,
+                                    skin: 'lightgray',
+                                    theme : 'modern'
+                                };
+                            };
+
+                            // Add button
+                            // $scope.addPostShow = function() {
+                            //     document.getElementById('addPost').style.display = 'block';
+                            //     var item = $( '#addPost' );
+                            //     item.find( 'input' ).val( '' );
+                            // };
+
+                            // delete checklist in detail
+                            $scope.deletePost = function(id) {
+                                $scope.post.id = id;
+                                $http({
+                                    url: 'wp-json/wp/v2/dagboek/' + $scope.post.id,
+                                    method: "DELETE",
+                                    headers: {
+                                        'content-type': 'application/x-www-form-urlencoded'
+                                    },
+                                    data: {
+                                        id: $scope.post.id
+                                    }
+                                }).then(function successCallback(res) {
+                                    console.log(res);
+                                    $location.path('/dagboek');
+
+                                }, function errorCallback(res) {
+                                    console.log(res);
+                                });
+                            };
+
 
                         }, function errorCallback(response) {
                             console.log(response);
@@ -1501,6 +1552,14 @@ app.factory('WPService', ['$http', WPService]);
                 templateUrl: myLocalized.views + 'category.html',
                 controller: 'Category'
             })*/
+            .when('/dagboek', {
+                templateUrl: myLocalized.views + 'dagboek/dagboek.html',
+                controller: 'Dagboek'
+            })
+            .when('/dagboek/:id', {
+                templateUrl: myLocalized.views + 'dagboek/dagboek-detail.html',
+                controller: 'Dagboek'
+            })
             .when('/category/:id/', {
                 templateUrl: myLocalized.views + 'content-category.html',
                 controller: 'Content'
