@@ -1,0 +1,25 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            TIPS
+        </p>
+    </div>
+</header>
+<div class="sub-header clearfix ">
+    <div class="row">
+        <h3 class="col-xs-12">
+            {{post.title.rendered}}
+        </h3>
+    </div>
+</div>
+<div class="wrapper">
+
+    <div class="content container">
+
+        <div class="clearfix row" role="main">
+            <div class="col-xs 12 col-md-8 offset-md-2" id="contentPost">
+                <div ng-bind-html="post.content.rendered"></div>
+            </div>
+        </div>
+    </div>
+</div>

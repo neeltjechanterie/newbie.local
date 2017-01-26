@@ -44,11 +44,11 @@
             })
             .when('/checklists',{
                 templateUrl: myLocalized.views + 'test-all.html',
-                controller: 'Test'
+                controller: 'Checklists'
             })
             .when('/checklist/:id',{
                 templateUrl: myLocalized.views + 'test.php',
-                controller: 'Test'
+                controller: 'Checklists'
             })
             .when('/mom-edit-picture/:id',{
                 templateUrl: myLocalized.views + 'profile/user-picture.php',
@@ -99,17 +99,25 @@
                 templateUrl: myLocalized.views + 'info/tips.html',
                 controller: 'Tips'
             })
-            .when('/tips/:id', {
+            .when('/tips/:id/:slug', {
                 templateUrl: myLocalized.views + 'info/tips-detail.html',
-                controller: 'Tips'
+                controller: 'TipsDetail'
+            })
+            .when('/tip/:post_id', {
+                templateUrl: myLocalized.views + 'info/tips-detail-post.html',
+                controller: 'TipsItemDetail'
             })
             .when('/gids', {
                 templateUrl: myLocalized.views + 'info/gids.html',
                 controller: 'Gids'
             })
-            .when('/tips/:id', {
+            .when('/gids/:id/:slug', {
                 templateUrl: myLocalized.views + 'info/gids-detail.html',
-                controller: 'Gids'
+                controller: 'GidsDetail'
+            })
+            .when('/gids_item/:post_id', {
+                templateUrl: myLocalized.views + 'info/gids-detail-post.html',
+                controller: 'GidsItemDetail'
             })
             .when('/category/:id/', {
                 templateUrl: myLocalized.views + 'content-category.html',

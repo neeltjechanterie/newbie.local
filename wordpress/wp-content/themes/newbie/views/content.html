@@ -1,29 +1,15 @@
 <header class="header" role="banner">
     <div class="header-inner clearfix">
         <p class="logo">
-            {{post.title.rendered}}
+            WEEKELIJKSE TIP
         </p>
     </div>
 </header>
 <div class="wrapper">
     <div class="content container detail-baby col-xs-12 col-md-6 offset-md-3" id="contentPost">
         <div class="clearfix row" role="main">
-            <h1>{{post.title.rendered}}</h1>
-            <h2>{{post.slug}}</h2>
+            <h1 ng-bind-html="post.title.rendered"></h1>
             <div ng-bind-html="post.content.rendered"></div>
-            <!--<a ng-click="editPost(post.id)"-->
-               <!--ng-show="user.capabilities.edit_posts">Edit</a>-->
-
-
-            <!--<form name="editPostForm" id="editPost" style="display: none;" class="edit">-->
-                <!--<label for="title">Title:</label>-->
-                <!--<input type="text" id="title" ng-model="post.title">-->
-                <!--<label for="content">Content</label>-->
-                <!--<textarea type="text" id="content" ng-model="post.content"></textarea>-->
-                <!--<a ng-click="updatePost()">Save</a>-->
-            <!--</form>-->
-
-            <!--<p id="responseMessage"></p>-->
         </div>
     </div>
 </div>

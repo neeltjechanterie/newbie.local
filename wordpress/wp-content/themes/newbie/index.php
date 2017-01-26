@@ -76,7 +76,7 @@ $edit = true;
         <li><a href="#">Help</a>
             <ul>
                 <li><a id="tips" href="/tips">Tips &amp; Tricks</a>
-                <li><a id="gids" href="/gids">Financieël</a></li>
+                <li><a id="gids" href="/gids">Gids</a></li>
             </ul>
         </li>
         <li><a href="<?php echo wp_logout_url(); ?>">Logout</a></li>

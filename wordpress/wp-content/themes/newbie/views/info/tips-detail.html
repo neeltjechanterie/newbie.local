@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            TIPS
+        </p>
+    </div>
+</header>
+<div class="sub-header clearfix ">
+    <div class="row">
+        <h3 class="col-xs-12">
+            {{category.name}}
+        </h3>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="content container">
+        <div class="clearfix row" role="main">
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                <p>{{category.description}}</p>
+            </div>
 
-</body>
-</html>
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                <div class="list-group checklists">
+                    <div ng-repeat="post in posts" class="cl-item">
+                        <div  class="list-group-item cl-title col-xs-12">
+                            <a  href="/tip/{{post.id}}" id="{{$index + 1}}">
+                                <p class="uncheck">{{post.title.rendered}}</p>
+                                <span class="badge icons icon-arrow-right arrow pull-right"> </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

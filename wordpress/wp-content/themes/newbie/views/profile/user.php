@@ -54,16 +54,6 @@
 						<span class="icon icon-grid"></span>
 					</div>
 				</div>
-
-				<label for="acf-weight">Lengte kind (in cm)</label>
-				<div class="form-group">
-					<input type="text" name="fields[length_child]" value="{{data.currentUser.acf.length_child}}" class="form-control" id="acf-weight">
-				</div>
-
-				<label for="acf-weight">Gewicht kind (in gram)</label>
-				<div class="form-group">
-					<input type="text" name="fields[weight_child]" value="{{data.currentUser.acf.weight_child}}" class="form-control" id="acf-weight">
-				</div>
 			</div>
 		</div>
 		<a href="{{baseUrl}}" class="btn secondary pull-left"><i class="icon icon-arrow-left"></i> Terug</a>
