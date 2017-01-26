@@ -45,7 +45,9 @@
                     <p class="result">{{brithday}}</p>
                 </div>
                 <div class="col col-xs-4 col-md-2 user-profile baby">
-                    <ui-image ng-show="data.currentUser.acf.baby_profile_picture" data-src="{{data.currentUser.acf.baby_profile_picture}}" src="{{data.currentUser.acf.baby_profile_picture}}" data-title="baby_profile_picture"></ui-image>
+                    <!--<ui-image ng-show="data.currentUser.acf.baby_profile_picture" data-src="{{data.currentUser.acf.baby_profile_picture}}" src="{{data.currentUser.acf.baby_profile_picture}}" data-title="baby_profile_picture"></ui-image>-->
+                    <div class="user-img" style="background-image:url('{{data.currentUser.acf.baby_profile_picture}}')"></div>
+
                     <a ng-hide="data.currentUser.acf.baby_profile_picture" href="/child/child-edit-picture/{{data.currentUser.id}}" class="result">
                         <p class="result"><i class="icon-plus"></i></p>
                     </a>

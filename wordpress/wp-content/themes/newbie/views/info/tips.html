@@ -1,0 +1,25 @@
+<header class="header" role="banner">
+    <div class="header-inner clearfix">
+        <p class="logo">
+            DAGBOEK
+        </p>
+        <!--<a ng-click="addPostShow()"-->
+        <!--ng-show="user.capabilities.edit_posts"-->
+        <!--class="logo-button add"><i class="icons icon-plus"></i></a>-->
+        <a class="logo-button add" id="addDagboekPost"><i class="icons icon-plus"></i></a>
+
+    </div>
+</header>
+<div class="wrapper">
+
+    <div class="content container">
+
+        <div class="clearfix row" role="main">
+            <div ng-repeat="category in categories" ng-show="category.parent != 0" class="col-xs-12 col-md-6 offset-md-3 dagboek">
+                <div class="col-xs-9 offset-xs-1 dagboek-content">
+                    <h2><a href="/dagboek/{{category.id}}">{{category.name}}</a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

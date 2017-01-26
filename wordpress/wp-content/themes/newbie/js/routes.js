@@ -95,6 +95,22 @@
                 templateUrl: myLocalized.views + 'dagboek/dagboek-detail.html',
                 controller: 'Dagboek'
             })
+            .when('/tips', {
+                templateUrl: myLocalized.views + 'info/tips.html',
+                controller: 'Tips'
+            })
+            .when('/tips/:id', {
+                templateUrl: myLocalized.views + 'info/tips-detail.html',
+                controller: 'Tips'
+            })
+            .when('/gids', {
+                templateUrl: myLocalized.views + 'info/gids.html',
+                controller: 'Gids'
+            })
+            .when('/tips/:id', {
+                templateUrl: myLocalized.views + 'info/gids-detail.html',
+                controller: 'Gids'
+            })
             .when('/category/:id/', {
                 templateUrl: myLocalized.views + 'content-category.html',
                 controller: 'Content'

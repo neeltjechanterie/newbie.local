@@ -1097,10 +1097,25 @@ app.run(function(amMoment) {
                             //var formatBirthday = $scope.user.acf.birthday_child;
                             //$scope.brithday = formatBirthday.split("-").reverse().join("/");
 
+
+
                             $scope.loadData = function () {
                                 $http.get('/wp-json/wp/v2/dagboek/?author=' + $scope.user.id).success(function (res) {
                                     $scope.dagboek = res;
                                     console.log(res);
+
+                                    var monthNames = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN",
+                                        "JUL", "AUG", "SEP", "OKT", "NOV", "DEC"
+                                    ];
+
+                                    var items = $scope.dagboek;
+                                    var i;
+                                    for (i = 0; i < items.length; i++) {
+                                        var dagboekDate = new Date(items[i].date);
+                                        console.log("The current month is " + monthNames[dagboekDate.getMonth()]);
+                                        $scope.month = monthNames[dagboekDate.getMonth()];
+                                        $scope.day = dagboekDate.getDate();
+                                    }
 
                                     $http.get('wp-json/wp/v2/tags?post=' + $routeParams.id).success(function (res) {
                                         $scope.tags = res;
@@ -1120,6 +1135,15 @@ app.run(function(amMoment) {
                                 $scope.post = res;
                                 console.log(res);
                                 console.log($routeParams.id);
+
+                                var monthNames = ["JANUARI", "FEBRUARI", "MAART", "APRIL", "MEI", "JUNI",
+                                    "JULI", "AUGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"
+                                ];
+
+                                var postDate = new Date($scope.post.date);
+                                console.log("The current month is " + monthNames[postDate.getMonth()]);
+                                $scope.monthDetail = monthNames[postDate.getMonth()];
+                                $scope.dayDetail = postDate.getDate();
 
                                 $http.get('wp-json/wp/v2/tags?post=' + $routeParams.id).success(function (res) {
                                     $scope.tags = res;
@@ -1197,6 +1221,44 @@ app.run(function(amMoment) {
         });
         //get current user
         $scope.data = WPService;
+    }]);
+    app.controller('Tips', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', '$location', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser, $location) {
+        $scope.loadData = function () {
+            $http.get('/wp-json/wp/v2/tips').success(function (res) {
+                $scope.dagboek = res;
+                console.log(res);
+
+                $http.get('wp-json/wp/v2/categories?filter[type]=tips').success(function (res) {
+                    $scope.categories = res;
+                    console.log(res);
+
+                }).error(function (res) {
+                    console.log(res);
+                });
+
+
+            });
+        };
+        $scope.loadData();
+    }]);
+    app.controller('Gids', ['$scope', '$routeParams', '$http', 'WPService', '$httpParamSerializerJQLike', '$cookies', 'Upload', '$timeout', '$browser', '$location', function($scope, $routeParams, $http, WPService, $httpParamSerializerJQLike, $cookies, Upload, $timeout, $browser, $location) {
+        $scope.loadData = function () {
+            $http.get('/wp-json/wp/v2/gids').success(function (res) {
+                $scope.gids = res;
+                console.log(res);
+
+                $http.get('wp-json/wp/v2/gids_cat').success(function (res) {
+                    $scope.categories = res;
+                    console.log(res);
+
+                }).error(function (res) {
+                    console.log(res);
+                });
+
+
+            });
+        };
+        $scope.loadData();
     }]);
 
 
@@ -1562,6 +1624,22 @@ app.factory('WPService', ['$http', WPService]);
             .when('/dagboek/:id', {
                 templateUrl: myLocalized.views + 'dagboek/dagboek-detail.html',
                 controller: 'Dagboek'
+            })
+            .when('/tips', {
+                templateUrl: myLocalized.views + 'info/tips.html',
+                controller: 'Tips'
+            })
+            .when('/tips/:id', {
+                templateUrl: myLocalized.views + 'info/tips-detail.html',
+                controller: 'Tips'
+            })
+            .when('/gids', {
+                templateUrl: myLocalized.views + 'info/gids.html',
+                controller: 'Gids'
+            })
+            .when('/tips/:id', {
+                templateUrl: myLocalized.views + 'info/gids-detail.html',
+                controller: 'Gids'
             })
             .when('/category/:id/', {
                 templateUrl: myLocalized.views + 'content-category.html',

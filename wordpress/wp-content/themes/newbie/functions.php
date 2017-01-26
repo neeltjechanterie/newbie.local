@@ -192,6 +192,14 @@ function insert_thumbnail_url_posts_child_profile() {
             'schema'          => null,
         )
     );
+    register_rest_field( 'dagboek',
+        'featured_image',  //key-name in json response
+        array(
+            'get_callback'    => 'get_thumbnail_url',
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
 }
 //register action
 add_action( 'rest_api_init', 'insert_thumbnail_url_posts_child_profile' );

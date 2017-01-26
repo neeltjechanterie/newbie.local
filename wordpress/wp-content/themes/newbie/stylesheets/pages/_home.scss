@@ -9,6 +9,15 @@
   display: block;
   color: $white;
 }
+
+@media (max-width: 500px) {
+  .blue-banner{
+    background-color: $secondary-color;
+    height: 150px;
+    display: block;
+    color: $white;
+  }
+}
 .blue-reverse-banner{
   border: 1px solid $secondary-color;
   -webkit-border-radius: 20px;
@@ -62,7 +71,7 @@
   padding: .25em 0;
 }
 .info-banner{
-  padding-top: 8%;
+  padding-top: 3%;
 }
 .info-banner p,
 .info-banner span{

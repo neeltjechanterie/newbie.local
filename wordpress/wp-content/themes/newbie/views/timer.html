@@ -8,9 +8,13 @@
 
 <div class="wrapper">
     <div class="content container">
-        <div class="clearfix row" role="main">
-            <div class="col-xs-12 col-sm-8 col-md-6 info-baby center">
+        <div class="col-xs-12 text-center info-baby">
+            <div class="clearfix row" role="main">
                 <h2>TIMER</h2>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-6 info-baby text-center">
+            <div class="clearfix row" role="main">
                 <div class="col-xs-12">
                     <input class="stopwatch" id="stopwatch" type="text" value="0:0:0">
                 </div>
@@ -21,21 +25,18 @@
                 <!-- <textarea class="lap" id="lapdetails"></textarea> -->
             </div>
         </div>
-
-        <div class="clearfix row">
-            <div class="col-xs-6">
-                <input class="button" id="marklapbutton" type="button" value="Mark Contraction" onclick="marklap();">
+        <div class="col-xs-12 col-sm-8 col-md-6 info-baby">
+            <div class="clearfix row">
+                <div class="pull-left">
+                    <input class="button" id="marklapbutton" type="button" value="Markeer wee" onclick="marklap();">
+                </div>
+                <div class="pull-right">
+                    <input class="button pull-right" id="resetbutton" type="button" value="Vernieuw Timer" onclick="resetstopwatch();">
+                </div>
             </div>
-            <div class="col-xs-6 pull-right">
-                <input class="button pull-right" id="resetbutton" type="button" value="Reset Timer" onclick="resetstopwatch();">
-            </div>
-        </div>
 
-        <div class="clearfix row">
-            <div class="col-xs-12 col-sm-8 col-md-6">
-
+            <div class="clearfix row">
                 <div class="table-responsive">
-
                     <table class="table table-striped" >
                         <thead>
                         <tr>
@@ -44,15 +45,13 @@
                             <th>Contraction time</th>
                         </tr>
                         </thead>
-                        <tbody id="myTable">
+                        <tbody id="counterTableBody">
                         <!--JS TIMER FILLS DATA-->
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
-
     </div>
-
-
 </div>

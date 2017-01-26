@@ -246,3 +246,21 @@ label.baby:before{
   border: 1px solid #ccc;
 }
 
+.text-center{
+  text-align: center;
+}
+
+.dagboek{
+  border-top: 1px dotted #ccc;
+  border-bottom: 1px dotted #ccc;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.dagboek-date{
+  border-right: 1px dotted #ccc;
+}
+.dagboek-detail-title h1{
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 15px;
+
+}

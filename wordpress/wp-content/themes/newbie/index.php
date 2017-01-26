@@ -33,8 +33,17 @@ $edit = true;
     <ul id="menu-mobile-navigation" class="mobile-nav">
         <li><a href="#">Profiel</a>
             <ul>
-                <li><a href="<?php echo site_url(); ?>">Jouw profiel <?php $current_user = wp_get_current_user();
-                        echo $current_user->display_name; ?>
+                <li><a href="<?php echo site_url(); ?>">Jouw profiel
+                        <?php
+                            $current_user = wp_get_current_user();
+                            $current_id = $current_user->ID;
+                            $nickname = get_user_meta($current_id, 'nickname', true);
+                            if (empty($nickname)) :
+                            echo $current_user->display_name;
+                            else :
+                            echo $nickname;
+                            endif;
+                        ?>
                     </a>
                 </li>
                 <?php
@@ -67,7 +76,7 @@ $edit = true;
         <li><a href="#">Help</a>
             <ul>
                 <li><a id="tips" href="/tips">Tips &amp; Tricks</a>
-                <li><a id="gids" href="/financieël">Financieël</a></li>
+                <li><a id="gids" href="/gids">Financieël</a></li>
             </ul>
         </li>
         <li><a href="<?php echo wp_logout_url(); ?>">Logout</a></li>

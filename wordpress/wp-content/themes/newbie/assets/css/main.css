@@ -858,6 +858,10 @@ a.logo-button:hover {
 .profile-header + .wrapper {
   padding-top: 200px; }
 
+@media (max-width: 500px) {
+  .profile-header + .wrapper {
+    padding-top: 150px; } }
+
 .navigation-toggle {
   position: fixed;
   top: 7px;
@@ -1113,6 +1117,13 @@ button[type=button].remove-row {
   display: block;
   color: white; }
 
+@media (max-width: 500px) {
+  .blue-banner {
+    background-color: #60c0c5;
+    height: 150px;
+    display: block;
+    color: white; } }
+
 .blue-reverse-banner {
   border: 1px solid #60c0c5;
   -webkit-border-radius: 20px;
@@ -1166,7 +1177,7 @@ button[type=button].remove-row {
   padding: .25em 0; }
 
 .info-banner {
-  padding-top: 8%; }
+  padding-top: 3%; }
 
 .info-banner p,
 .info-banner span {
@@ -1528,3 +1539,19 @@ label.baby:before {
 #addBabyPost input {
   padding: 0 20px;
   border: 1px solid #ccc; }
+
+.text-center {
+  text-align: center; }
+
+.dagboek {
+  border-top: 1px dotted #ccc;
+  border-bottom: 1px dotted #ccc;
+  margin-top: 15px;
+  margin-bottom: 15px; }
+
+.dagboek-date {
+  border-right: 1px dotted #ccc; }
+
+.dagboek-detail-title h1 {
+  border-bottom: 1px dotted #ccc;
+  padding-bottom: 15px; }

@@ -87,6 +87,11 @@ a.logo-button:hover {
 .profile-header + .wrapper{
   padding-top: 200px;
 }
+@media (max-width: 500px){
+  .profile-header + .wrapper{
+    padding-top: 150px;
+  }
+}
 .navigation-toggle {
   position: fixed;
   top: 7px;

@@ -15,10 +15,15 @@
     <div class="content container">
 
         <div class="clearfix row" role="main">
-            <div ng-repeat="post in dagboek" class="col-xs 12 col-md-6 offset-md-3">
-                <h1><a href="/dagboek/{{post.id}}">{{post.title.rendered}}</a></h1>
-                <p>{{post.date}}</p>
-                <div ng-bind-html="post.content.rendered"></div>
+            <div ng-repeat="post in dagboek" class="col-xs-12 col-md-6 offset-md-3 dagboek">
+                <div class="col-xs-2 dagboek-date">
+                    <h1 class="text-center">{{day}}</h1>
+                    <p class="text-center">{{month}}</p>
+                </div>
+                <div class="col-xs-9 offset-xs-1 dagboek-content">
+                    <h2><a href="/dagboek/{{post.id}}">{{post.title.rendered}}</a></h2>
+                    <div ng-bind-html="post.excerpt.rendered"></div>
+                </div>
             </div>
         </div>
     </div>
